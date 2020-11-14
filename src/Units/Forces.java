@@ -21,16 +21,56 @@ public class Forces extends Unit implements IMove , ITarget, IAttack {
         List<Object> Enemies = CheckRange() ;
         if (Enemies.size()==0)
         {
-            if (Arena.BasePosition.x>position.x&&Arena.BasePosition.y>position.y)
-            {
-                position.x++ ;
-                position.y++ ;
+            if(Arena.BasePosition.x > position.x){
+                if(Arena.BasePosition.y > position.y){
+                    if(Arena.Move(this,new Position(position.x+1,position.y+1))){
+                        position.x++;
+                        position.y++;
+                    }
+                }
+                else if(Arena.BasePosition.y < position.y){
+                    if(Arena.Move(this,new Position(position.x+1,position.y-1))){
+                        position.x++;
+                        position.y--;
+                    }
+                }
+                else{
+                    if(Arena.Move(this,new Position(position.x+1,position.y))){
+                        position.x++;
+                    }
+                }
             }
-            else if (Arena.BasePosition.x>position.x)
-                position.x++ ;
-            else if (Arena.BasePosition.y>position.y)
-                position.y++;
-
+            else if(Arena.BasePosition.x < position.x){
+                if(Arena.BasePosition.y > position.y){
+                    if(Arena.Move(this,new Position(position.x-1,position.y+1))){
+                        position.x--;
+                        position.y++;
+                    }
+                }
+                else if(Arena.BasePosition.y < position.y){
+                    if(Arena.Move(this,new Position(position.x-1,position.y-1))){
+                        position.x--;
+                        position.y--;
+                    }
+                }
+                else{
+                    if(Arena.Move(this,new Position(position.x-1,position.y))){
+                        position.x--;
+                    }
+                }
+            }
+            else{
+                if(Arena.BasePosition.y > position.y){
+                    if(Arena.Move(this,new Position(position.x,position.y+1))){
+                        position.y++;
+                    }
+                }
+                else{
+                    if(Arena.Move(this,new Position(position.x,position.y-1))){
+                        position.y--;
+                    }
+                }
+            }
         }
         else
         {

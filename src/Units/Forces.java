@@ -11,7 +11,8 @@ public class Forces extends Unit implements IMove , ITarget {
         Initialize();
     }
     @Override
-    public void Move(Forces force) {
+    public void Move() {
+        if (Ca)
 
     }
     @Override

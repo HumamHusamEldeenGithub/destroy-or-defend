@@ -10,6 +10,7 @@ public class main {
         Unit soldier = new Forces(UnitType.RifleSoldier) ;
         Arena.Deploy(soldier,new Position(5,5)) ;
         Arena.PrintArena();
+       // Arena.BasePosition
 
     }
 }

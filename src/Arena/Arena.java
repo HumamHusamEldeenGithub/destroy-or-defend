@@ -6,12 +6,16 @@ import Utilities.Position;
 import java.util.HashMap;
 
 public class Arena {
+    public static Position BasePosition ;
     static Unit[][] mainGrid = new Unit[10000][10000];
 
     public static boolean Deploy(Unit unit, Position pos){
+
         if(mainGrid[pos.x][pos.y]!=null)
-            return false;
+            return false ;
         mainGrid[pos.x][pos.y] = unit;
+        if (unit instanceof Base)
+            BasePosition = new Position(pos.x, pos.y) ;
         return true;
     }
 
@@ -96,7 +100,7 @@ public class Arena {
     }
 
     public static Unit CheckPos(Position position){
-        Unit unit;
+        Unit unit = null;
         try{
             unit = mainGrid[position.x][position.y];
         }

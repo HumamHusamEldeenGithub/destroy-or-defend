@@ -27,7 +27,7 @@ public class Arena {
         mainGrid[unit.GetPos().x][unit.GetPos().y] = null;
     }
 
-    public UnitType[][] ZoomIn(Position left_upper_corner){
+    public static UnitType[][] ZoomIn(Position left_upper_corner){
         if(left_upper_corner.x + 1000 >= 10000){
             left_upper_corner.x = 8999;
         }
@@ -37,13 +37,14 @@ public class Arena {
         UnitType[][] zoomedUnits = new UnitType[1000][1000];
         for(int i=left_upper_corner.y,cnt = 0;i < 10000 && i >= 0 && cnt < 1000;i++){
             for(int j = left_upper_corner.x,cnt2 = 0;j < 10000 && j >= 0 && cnt2 < 1000;j++){
+                if (mainGrid[i][j]!=null)
                 zoomedUnits[i][j] = mainGrid[i][j].GetType();
             }
         }
         return zoomedUnits;
     }
 
-    public UnitType[][] ZoomOut(){
+    public static UnitType[][] ZoomOut(){
         UnitType finalUnitType = null;
         int max = 0;
         UnitType[][] zoomOutArena = new UnitType[500][500];
@@ -53,11 +54,12 @@ public class Arena {
             for(int l=0;l<500;l++) {
                 for (int i = 0 + (20*k); i < 20 * (k + 1); i++) {
                     for(int j = 0 + (20 * l); j < 20 * (l + 1);j++){
-                        if(unitNum.containsKey(mainGrid[i][j].GetType())){
-                            unitNum.replace(mainGrid[i][j].GetType(),(int) unitNum.get(mainGrid[i][j]) + 1);
-                        }
-                        else{
-                            unitNum.put(mainGrid[i][j].GetType(),1);
+                        if (mainGrid[i][j]!=null) {
+                            if (unitNum.containsKey(mainGrid[i][j].GetType())) {
+                                unitNum.replace(mainGrid[i][j].GetType(), (int) unitNum.get(mainGrid[i][j]) + 1);
+                            } else {
+                                unitNum.put(mainGrid[i][j].GetType(), 1);
+                            }
                         }
                     }
                 }
@@ -76,5 +78,20 @@ public class Arena {
             }
         }
         return zoomOutArena;
+    }
+    public static void PrintArena ()
+    {
+        UnitType[][] newArena = ZoomIn(new Position(0,0)) ;
+        for (int i =0 ; i<500 ; i++)
+        {
+            System.out.println();
+            for (int j=0 ; j<500 ; j++)
+            {
+                if (mainGrid[i][j]!=null)
+                    System.out.print("s ");
+                else
+                    System.out.print(". ");
+            }
+        }
     }
 }

@@ -94,4 +94,16 @@ public class Arena {
             }
         }
     }
+
+    public static Unit CheckPos(Position position){
+        Unit unit;
+        try{
+            unit = mainGrid[position.x][position.y];
+        }
+        catch (Exception e){
+
+        }
+        return unit;
+    }
+
 }

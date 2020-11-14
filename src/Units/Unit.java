@@ -43,7 +43,7 @@ public class Unit implements IDestroyable , IGetAttributes {
     @Override
     public void Initialize() {
         boolean Initialized = false;
-        CSVReader csvReader = new CSVReader("E:\\Info.txt");
+        CSVReader csvReader = new CSVReader("src/Info.csv");
         String[] info;
         csvReader.ReadLine();
         while (!Initialized){

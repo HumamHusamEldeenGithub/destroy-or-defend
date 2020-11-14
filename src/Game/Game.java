@@ -17,8 +17,10 @@ public class Game {
         public void DestroyUnit(Unit unit){
             Units.remove(unit);
         }
-        class Tactics implements IAttack {
+       /* class Tactics implements IAttack {
+            void Attack(Unit unit) {
 
-        }
+            }
+        }*/
     }
 }

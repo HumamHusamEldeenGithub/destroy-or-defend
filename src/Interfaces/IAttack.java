@@ -1,5 +1,7 @@
 package Interfaces;
 
-public interface IAttack {
+import Units.Unit;
 
+public interface IAttack {
+    void Attack(Unit unit) ;
 }

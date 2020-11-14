@@ -5,8 +5,6 @@ import Units.*;
 import Utilities.Position;
 import java.util.HashMap;
 
-
-//Test 123 123 
 public class Arena {
     static Unit[][] mainGrid = new Unit[10000][10000];
 

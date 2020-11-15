@@ -23,7 +23,10 @@ public class Main extends Application{
 
     public static void main(String[] args){
         Unit soldier = new Forces(UnitType.RifleSoldier) ;
-        Arena.Deploy(soldier,new Position(5,5)) ;
+        Arena.Deploy(soldier,new Position(0,0)) ;
+        Arena.Deploy(soldier,new Position(1,0)) ;
+        Arena.Deploy(soldier,new Position(0,1)) ;
+        Arena.Deploy(soldier,new Position(1,1)) ;
         Arena.PrintArena();
        // Arena.BasePosition
 

@@ -87,10 +87,10 @@ public class Arena {
     public static void PrintArena ()
     {
         UnitType[][] newArena = ZoomOut() ;
-        for (int i =0 ; i< 500 ; i++)
+        for (int i =0 ; i< newArena.length ; i++)
         {
             System.out.println();
-            for (int j=0 ; j< 500 ; j++)
+            for (int j=0 ; j< newArena.length ; j++)
             {
                 if (newArena[i][j]!=null)
                     System.out.print("s ");

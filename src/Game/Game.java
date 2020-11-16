@@ -1,8 +1,6 @@
 package Game;
 
-import Arena.Arena;
 import Enums.TacticsTypes;
-import Interfaces.IAttack;
 import Units.Unit;
 
 import java.util.ArrayList;

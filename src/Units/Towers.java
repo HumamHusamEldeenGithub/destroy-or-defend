@@ -4,7 +4,6 @@ import Arena.Arena;
 import Interfaces.ITarget;
 import Utilities.Position;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,10 +1,12 @@
 package Units;
 
+import Enums.TeamType;
+import Enums.UnitType;
 import Interfaces.IDestroyable;
 import Interfaces.IGetAttributes;
 import Utilities.CSVReader;
 import Utilities.Position;
-import Enums.*;
+
 public class Unit implements IDestroyable , IGetAttributes {
     // Attributes
     UnitType type;

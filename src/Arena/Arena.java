@@ -1,8 +1,10 @@
 package Arena;
-import Enums.Direction;
+
 import Enums.UnitType;
-import Units.*;
+import Units.Base;
+import Units.Unit;
 import Utilities.Position;
+
 import java.util.HashMap;
 
 public class Arena {

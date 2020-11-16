@@ -5,6 +5,7 @@ import Enums.UnitType;
 import Interfaces.IAttack;
 import Interfaces.IMove;
 import Interfaces.ITarget;
+import Tactics.Tactic;
 import Utilities.Position;
 
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class Forces extends Unit implements IMove , ITarget, IAttack {
         Initialize();
     }
     @Override
-    public void Move() {
-        List<Object> Enemies = CheckRange() ;
+    public void Move(Tactic PlayerTactic) {
+        List<Object> Enemies = PlayerTactic.SortByTactic(CheckRange()) ;
         if (Enemies.size()==0)
         {
             if(Arena.BasePosition.x > position.x){

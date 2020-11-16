@@ -4,6 +4,7 @@ import Enums.TeamType;
 import Enums.UnitType;
 import Interfaces.IDestroyable;
 import Interfaces.IGetAttributes;
+import Tactics.Tactic;
 import Utilities.CSVReader;
 import Utilities.Position;
 
@@ -39,6 +40,9 @@ public class Unit implements IDestroyable , IGetAttributes {
 
     @Override
     public void Destroy(){
+
+    }
+    public void Move() {
 
     }
 

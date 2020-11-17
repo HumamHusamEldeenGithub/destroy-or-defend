@@ -1,13 +1,21 @@
 package Units;
 
 import Arena.Arena;
+import Enums.UnitType;
 import Interfaces.ITarget;
+import Tactics.Tactic;
 import Utilities.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Towers extends Unit implements ITarget{
+
+    public Towers(UnitType type , Tactic tactic)
+    {
+        this.type = type ;
+        this.PlayerTactic = tactic ;
+    }
 
     @Override
     public List<Object> CheckRange() {

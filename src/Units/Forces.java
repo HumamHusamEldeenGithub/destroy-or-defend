@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Forces extends Unit implements IMove , ITarget, IAttack {
-
-    public Forces(UnitType tyPe){
+    public Forces(UnitType tyPe,Tactic tactic){
         this.type = tyPe;
+        this.PlayerTactic = tactic ;
         Initialize();
     }
     @Override
-    public void Move(Tactic PlayerTactic) {
+    public void Move() {
         List<Object> Enemies = PlayerTactic.SortByTactic(CheckRange()) ;
         if (Enemies.size()==0)
         {

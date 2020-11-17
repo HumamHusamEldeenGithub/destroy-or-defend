@@ -3,6 +3,7 @@ package FXStuff;
 import Arena.Arena;
 import Enums.UnitType;
 import Game.Game;
+import Tactics.RandomlyTactic;
 import Units.Forces;
 import Units.Unit;
 import Utilities.Position;
@@ -25,7 +26,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
 
-        Unit solder = new Forces(UnitType.RifleSoldier);
+        Unit solder = new Forces(UnitType.RifleSoldier,new RandomlyTactic());
         Arena.Deploy(solder , new Position(0,0));
         Arena.PrintArena();
         launch(args);

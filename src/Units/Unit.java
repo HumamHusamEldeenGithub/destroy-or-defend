@@ -19,6 +19,7 @@ public class Unit implements IDestroyable , IGetAttributes {
     boolean canMove;
     Position position;
     TeamType team;
+    Tactic PlayerTactic ;
     public Position GetPos(){
         return position;
     }

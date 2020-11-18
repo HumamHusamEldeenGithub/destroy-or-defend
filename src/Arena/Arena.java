@@ -21,12 +21,15 @@ public class Arena {
         return true;
     }
 
-    public static boolean Move(Unit unit,Position pos){
-        if(mainGrid[pos.x][pos.y]!=null)
+    public static boolean CanMove(Position pos){
+        if(pos.x < 0 || pos.x > 9999 || pos.y < 0 || pos.y > 9999 || mainGrid[pos.x][pos.y] != null)
             return false;
+        return true;
+    }
+
+    public static boolean Move(Unit unit,Position pos){
         mainGrid[pos.x][pos.y] = unit;
         mainGrid[unit.GetPos().x][unit.GetPos().y] = null;
-        return true;
     }
 
     public static void Remove(Unit unit){

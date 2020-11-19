@@ -1,5 +1,4 @@
 package Game;
-
 import Arena.Arena;
 import Enums.TacticsTypes;
 import Tactics.RandomlyTactic;
@@ -15,16 +14,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class Game {
-    public Team[] teams = new Team[2] ;
-    public Game(){
-        teams[0] = new Team() ;
-        teams[1] = new Team() ;
-    }
     public class Team {
-        TacticsTypes tacticsTypes = TacticsTypes.Randomly ;
         List<Unit> Units = new ArrayList<>();
         public class Player{
-            Tactic PlayerTactic = new RandomlyTactic() ;
+            Tactic PlayerTactic = new RandomlyTactic();
             public synchronized Tactic GetTacticObject(){ return PlayerTactic ; }
             public boolean AddUnit(Unit unit, Position position){
                 if(Arena.Deploy(unit,position)){
@@ -55,5 +48,13 @@ public class Game {
         public List<Player> GetPlayerList(){
             return (Collections.unmodifiableList(players));
         }
+    }
+    List<Team> teams = new ArrayList<>() ;
+    public Game(){
+        teams.add(new Team());
+        teams.add(new Team());
+    }
+    public List<Team> GetTeamList(){
+        return (Collections.unmodifiableList(teams));
     }
 }

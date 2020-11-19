@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class Main extends Application {
 
     @Override
@@ -31,9 +33,10 @@ public class Main extends Application {
         //Arena.Deploy(solder , new Position(0,0));
         Arena.BasePosition = new Position(4,4);
         Game game = new Game();
-        game.teams[0].AddPlayer();
-        game.teams[0].GetPlayerList().get(0).AddUnit(solder,new Position(0,0));
-        game.teams[0].GetPlayerList().get(0).Start();
+        List<Game.Team> teams = game.GetTeamList();
+        teams.get(0).AddPlayer();
+        teams.get(0).GetPlayerList().get(0).AddUnit(solder,new Position(0,0));
+        teams.get(0).GetPlayerList().get(0).Start();
 
         Arena.PrintArena();
         launch(args);

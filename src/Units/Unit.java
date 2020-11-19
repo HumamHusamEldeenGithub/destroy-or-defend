@@ -8,7 +8,7 @@ import Tactics.Tactic;
 import Utilities.CSVReader;
 import Utilities.Position;
 
-public class Unit implements IDestroyable , IGetAttributes {
+public abstract class Unit implements IDestroyable , IGetAttributes {
     // Attributes
     UnitType type;
     int hp;
@@ -36,15 +36,6 @@ public class Unit implements IDestroyable , IGetAttributes {
         hp-=damage;
         if(hp<=0)
             Destroy();
-    }
-
-
-    @Override
-    public void Destroy(){
-
-    }
-    public void Move() {
-
     }
 
     @Override

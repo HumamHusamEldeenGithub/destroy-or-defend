@@ -27,9 +27,10 @@ public class Arena {
         return true;
     }
 
-    public static boolean Move(Unit unit,Position pos){
+    public static void  Move(Unit unit,Position pos){
         mainGrid[pos.x][pos.y] = unit;
         mainGrid[unit.GetPos().x][unit.GetPos().y] = null;
+        unit.SetPos(pos);
     }
 
     public static void Remove(Unit unit){
@@ -37,15 +38,15 @@ public class Arena {
     }
 
     public static UnitType[][] ZoomIn(Position left_upper_corner){
-        if(left_upper_corner.x + 1000 >= 10000){
+        if(left_upper_corner.x + 500 >= 10000){
             left_upper_corner.x = 8999;
         }
-        if(left_upper_corner.y + 1000 >= 10000){
+        if(left_upper_corner.y + 500 >= 10000){
             left_upper_corner.y = 8999;
         }
-        UnitType[][] zoomedUnits = new UnitType[1000][1000];
-        for(int i=left_upper_corner.y,cnt = 0;i < 10000 && i >= 0 && cnt < 1000;i++){
-            for(int j = left_upper_corner.x,cnt2 = 0;j < 10000 && j >= 0 && cnt2 < 1000;j++){
+        UnitType[][] zoomedUnits = new UnitType[500][500];
+        for(int i=left_upper_corner.y,cnt = 0;i < 10000 && i >= 0 && cnt < 500;i++){
+            for(int j = left_upper_corner.x,cnt2 = 0;j < 10000 && j >= 0 && cnt2 < 500;j++){
                 if (mainGrid[i][j]!=null)
                 zoomedUnits[i][j] = mainGrid[i][j].GetType();
             }
@@ -91,7 +92,7 @@ public class Arena {
     }
     public static void PrintArena ()
     {
-        UnitType[][] newArena = ZoomOut() ;
+        UnitType[][] newArena = ZoomIn(new Position(0,0)) ;
         for (int i =0 ; i< newArena.length ; i++)
         {
             System.out.println();

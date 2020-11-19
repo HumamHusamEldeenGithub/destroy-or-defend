@@ -6,71 +6,33 @@ import Interfaces.IAttack;
 import Interfaces.IMove;
 import Interfaces.ITarget;
 import Tactics.Tactic;
+import Utilities.Pathfinder;
 import Utilities.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Forces extends Unit implements IMove , ITarget, IAttack {
+    Pathfinder pathfinder = new Pathfinder();
     public Forces(UnitType tyPe,Tactic tactic){
         this.type = tyPe;
         this.PlayerTactic = tactic ;
         Initialize();
     }
+
+    @Override
+    public void Destroy() {
+
+    }
+
     @Override
     public void Move() {
         List<Object> Enemies = PlayerTactic.SortByTactic(CheckRange()) ;
         if (Enemies.size()==0)
         {
-            if(Arena.BasePosition.x > position.x){
-                if(Arena.BasePosition.y > position.y){
-                    if(Arena.Move(this,new Position(position.x+1,position.y+1))){
-                        position.x++;
-                        position.y++;
-                    }
-                }
-                else if(Arena.BasePosition.y < position.y){
-                    if(Arena.Move(this,new Position(position.x+1,position.y-1))){
-                        position.x++;
-                        position.y--;
-                    }
-                }
-                else{
-                    if(Arena.Move(this,new Position(position.x+1,position.y))){
-                        position.x++;
-                    }
-                }
-            }
-            else if(Arena.BasePosition.x < position.x){
-                if(Arena.BasePosition.y > position.y){
-                    if(Arena.Move(this,new Position(position.x-1,position.y+1))){
-                        position.x--;
-                        position.y++;
-                    }
-                }
-                else if(Arena.BasePosition.y < position.y){
-                    if(Arena.Move(this,new Position(position.x-1,position.y-1))){
-                        position.x--;
-                        position.y--;
-                    }
-                }
-                else{
-                    if(Arena.Move(this,new Position(position.x-1,position.y))){
-                        position.x--;
-                    }
-                }
-            }
-            else{
-                if(Arena.BasePosition.y > position.y){
-                    if(Arena.Move(this,new Position(position.x,position.y+1))){
-                        position.y++;
-                    }
-                }
-                else{
-                    if(Arena.Move(this,new Position(position.x,position.y-1))){
-                        position.y--;
-                    }
-                }
+            Position newPos = pathfinder.GetPos(this.position,Arena.BasePosition,this.range);
+            if(newPos!=null){
+                Arena.Move(this,newPos);
             }
         }
         else

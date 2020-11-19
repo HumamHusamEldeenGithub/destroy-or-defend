@@ -18,6 +18,11 @@ public class Towers extends Unit implements ITarget{
     }
 
     @Override
+    public void Destroy() {
+
+    }
+
+    @Override
     public List<Object> CheckRange() {
         List<Object> Enemies = new ArrayList<>();
         for(int i=this.position.x - this.range ; i<= this.position.x + this.range ; i++){

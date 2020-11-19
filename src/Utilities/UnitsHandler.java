@@ -1,5 +1,6 @@
 package Utilities;
 
+import Units.Forces;
 import Units.Unit;
 
 public class UnitsHandler extends Thread {
@@ -10,7 +11,9 @@ public class UnitsHandler extends Thread {
 
     @Override
     public void run() {
+        System.out.println();
         while (unit!=null)
-            unit.Move();
+            ((Forces)unit).Move();
     }
+
 }

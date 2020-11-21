@@ -11,9 +11,13 @@ public class UnitsHandler extends Thread {
 
     @Override
     public void run() {
-        System.out.println();
-        while (unit!=null)
-            ((Forces)unit).Move();
+        while (unit!=null) {
+            try {
+                ((Forces)unit).Move();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

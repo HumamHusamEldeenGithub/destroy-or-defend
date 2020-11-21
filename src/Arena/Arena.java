@@ -30,7 +30,7 @@ public class Arena {
     public static void  Move(Unit unit,Position pos){
         mainGrid[pos.x][pos.y] = unit;
         mainGrid[unit.GetPos().x][unit.GetPos().y] = null;
-        unit.SetPos(pos);
+        unit.SetPos(pos.x,pos.y);
     }
 
     public static void Remove(Unit unit){

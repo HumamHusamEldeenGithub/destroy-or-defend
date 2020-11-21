@@ -27,8 +27,8 @@ public abstract class Unit implements IDestroyable , IGetAttributes {
     public UnitType GetType(){
         return type;
     }
-    public void SetPos(Position position){
-        this.position = position;
+    public void SetPos(int x , int y ){
+        this.position = new Position(x,y) ;
     }
 
     @Override

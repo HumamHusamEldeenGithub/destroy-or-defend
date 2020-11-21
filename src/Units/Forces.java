@@ -9,8 +9,13 @@ import Tactics.Tactic;
 import Utilities.Pathfinder;
 import Utilities.Position;
 
+import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class Forces extends Unit implements IMove , ITarget, IAttack {
     Pathfinder pathfinder = new Pathfinder();
@@ -26,23 +31,28 @@ public class Forces extends Unit implements IMove , ITarget, IAttack {
     }
 
     @Override
-    public void Move() {
-        List<Object> Enemies = PlayerTactic.SortByTactic(CheckRange()) ;
-        if (Enemies.size()==0)
-        {
-            Position newPos = pathfinder.GetPos(this.position,Arena.BasePosition,this.range);
-            if(newPos!=null){
-                Arena.Move(this,newPos);
+    public void Move() throws InterruptedException {
+        try {
+            Thread.sleep(1);
+            if (this.position.x == Arena.BasePosition.x && this.position.y == Arena.BasePosition.y)
+                return;
+            System.out.print(this.position+" " );
+            System.out.println(LocalTime.now());
+            List<Object> Enemies = PlayerTactic.SortByTactic(CheckRange());
+            if (Enemies.size() == 0) {
+                Position newPos = pathfinder.GetPos(this.position, Arena.BasePosition, this.range);
+                if (newPos != null) {
+                    Arena.Move(this, newPos);
+                }
+            } else {
+                for (Object obj : Enemies)
+                    if (CanTarget((Unit) obj)) {
+                        Attack((Unit) obj);
+                        return;
+                    }
             }
         }
-        else
-        {
-            for (Object obj : Enemies)
-                if (CanTarget((Unit) obj)) {
-                    Attack((Unit) obj);
-                    return;
-                }
-        }
+        catch (InterruptedException ex){}
     }
 
     public void Attack (Unit unit )

@@ -1,5 +1,11 @@
 package unitProperty;
 
-public abstract class UnitProperty {
-    protected double propertyValue ;
+public class UnitProperty {
+    protected double Value;
+    public double GetValue(){
+        return Value;
+    }
+    public double SetValue(){
+        return Value;
+    }
 }

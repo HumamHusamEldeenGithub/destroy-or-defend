@@ -2,6 +2,7 @@ package Strategies;
 
 import movement.DefenderMovement;
 import unit.Unit;
+import unitProperty.DamageUnitProperty;
 
 import java.util.List;
 
@@ -20,7 +21,18 @@ public class HighestDamageAttackStrategy extends AttackStrategy {
     }
     @Override
     public Unit PrioritizeUnitToAttack(List<Unit> units) {
-        return null;
+        Unit unit = null;
+        double damage = 0;
+        for(Unit curUnit : units){
+            DamageUnitProperty curDamage = curUnit.GetDamage();
+            if(curDamage != null){
+                if(damage < curDamage.GetValue()){
+                    damage = curDamage.GetValue();
+                    unit = curUnit;
+                }
+            }
+        }
+        return unit;
     }
 
 }

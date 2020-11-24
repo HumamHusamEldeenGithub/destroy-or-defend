@@ -6,7 +6,7 @@ import unitProperty.UnitProperty;
 public class Unit implements UnitDestroyObserver {
     //Props
     Unit _next ,_prev ;
-    UnitAttack activeUnitAttac ;
+    UnitAttack activeUnitAttack ;
     UnitType[] canAttack  ;
     Movement movement ;
     UnitPosition position ;
@@ -24,8 +24,10 @@ public class Unit implements UnitDestroyObserver {
     public void  AcceptDamage (double damage){
 
     }
-    public void AttackUnit (Unit targetUnit , UnitAttack unitAtack){
-
+    public void AttackUnit (Unit targetUnit , UnitAttack unitAttack){
+        this.targetedUnit = targetUnit ;
+        this.activeUnitAttack =unitAttack ;
+        this.activeUnitAttack.PerformAttack(this.targetedUnit) ;
     }
     public void onDestroy (){
 

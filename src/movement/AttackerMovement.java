@@ -1,10 +1,10 @@
 package movement;
 
-public class AttackerMovement {
-    private static AttackerMovement attackerMovement=null ;
-    private AttackerMovement(){
+import unit.Unit;
 
-    }
+public class AttackerMovement extends Movement {
+    private static AttackerMovement attackerMovement=null ;
+    private AttackerMovement(){}
     public synchronized static AttackerMovement getObj(){
         if (AttackerMovement.attackerMovement==null)
         {
@@ -14,5 +14,9 @@ public class AttackerMovement {
             }
         }
         return AttackerMovement.attackerMovement ;
+    }
+    @Override
+    public void move(Unit unit) {
+
     }
 }

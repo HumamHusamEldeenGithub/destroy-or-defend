@@ -2,8 +2,6 @@ package movement;
 
 import unit.Unit;
 
-public class Movement {
-    public void move(Unit unit){
-
-    }
+public abstract class Movement {
+    public abstract void move(Unit unit);
 }

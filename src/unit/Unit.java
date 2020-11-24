@@ -1,6 +1,8 @@
 package unit;
 
 import movement.Movement;
+import unitProperty.DamageUnitProperty;
+import unitProperty.HealthUnitProperty;
 import unitProperty.UnitProperty;
 
 public class Unit implements UnitDestroyObserver {
@@ -16,7 +18,23 @@ public class Unit implements UnitDestroyObserver {
     UnitType unitType ;
     UnitDestroyObserver destructionObserver ;
 
+    public DamageUnitProperty GetDamage(){
+        for(UnitProperty unitProperty : unitProperties){
+            if(DamageUnitProperty.class.isInstance(unitProperty)){
+                return (DamageUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
 
+    public HealthUnitProperty GetHealth(){
+        for(UnitProperty unitProperty : unitProperties){
+            if(HealthUnitProperty.class.isInstance(unitProperty)){
+                return (HealthUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
     //Methods
     public Unit(){
 

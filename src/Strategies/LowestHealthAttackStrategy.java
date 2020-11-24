@@ -1,6 +1,8 @@
 package Strategies;
 
 import unit.Unit;
+import unitProperty.DamageUnitProperty;
+import unitProperty.HealthUnitProperty;
 
 import java.util.List;
 
@@ -19,6 +21,17 @@ public class LowestHealthAttackStrategy extends AttackStrategy{
     }
     @Override
     public Unit PrioritizeUnitToAttack(List<Unit> units) {
-        return null;
+        Unit unit = null;
+        double health = Double.MAX_VALUE;
+        for(Unit curUnit : units){
+            HealthUnitProperty curHealth = curUnit.GetHealth();
+            if(curHealth != null){
+                if(health > curHealth.GetValue()){
+                    health = curHealth.GetValue();
+                    unit = curUnit;
+                }
+            }
+        }
+        return unit;
     }
 }

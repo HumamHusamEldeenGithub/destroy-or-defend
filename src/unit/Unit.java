@@ -1,5 +1,8 @@
 package unit;
 
+import movement.Movement;
+import unitProperty.UnitProperty;
+
 public class Unit implements UnitDestroyObserver {
     //Props
     Unit _next ,_prev ;
@@ -21,7 +24,7 @@ public class Unit implements UnitDestroyObserver {
     public void  AcceptDamage (double damage){
 
     }
-    public void AttackUnit (Unit targetUnit , UnitAtack unitAtack){
+    public void AttackUnit (Unit targetUnit , UnitAttack unitAtack){
 
     }
     public void onDestroy (){

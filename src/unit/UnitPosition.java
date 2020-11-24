@@ -6,6 +6,6 @@ public class UnitPosition {
     int radius ;
 
     public boolean squareIsOccupied(){
-
+        return false;
     }
 }

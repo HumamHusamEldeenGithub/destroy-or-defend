@@ -5,7 +5,7 @@ import Auxiliary.AttackResult;
 public abstract class UnitAttack {
     UnitAttack unitAttack;
     AttackResult attackResult;
-    public UnitAttack(UnitAttack unitAttack){
+    UnitAttack(UnitAttack unitAttack){
         this.unitAttack = unitAttack;
     }
     UnitAttack(){

@@ -27,20 +27,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
-        Unit solder = new Forces(UnitType.RifleSoldier,new RandomlyTactic());
-        solder.SetPos(0,0);
-        Unit solder2 = new Forces(UnitType.RifleSoldier,new RandomlyTactic());
-        solder2.SetPos(8,8);
-        //Arena.Deploy(solder , new Position(0,0));
-        Arena.BasePosition = new Position(4,4);
-        Game game = new Game();
-        List<Game.Team> teams = game.GetTeamList();
-        teams.get(0).AddPlayer();
-        teams.get(0).GetPlayerList().get(0).AddUnit(solder2,new Position(8,8));
-        teams.get(0).GetPlayerList().get(0).AddUnit(solder,new Position(0,0));
-
-        teams.get(0).GetPlayerList().get(0).Start();
+        
 
         //Arena.PrintArena();
         //launch(args);

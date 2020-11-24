@@ -1,7 +1,0 @@
-package Interfaces;
-
-import Tactics.Tactic;
-
-public interface IMove {
-    public void Move() throws InterruptedException;
-}

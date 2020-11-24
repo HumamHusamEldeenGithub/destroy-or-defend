@@ -1,4 +1,4 @@
 package unitProperty;
 
-public class HealthUnitProperty {
+public class HealthUnitProperty extends UnitProperty{
 }

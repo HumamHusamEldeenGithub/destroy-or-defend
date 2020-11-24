@@ -1,4 +1,5 @@
 package unitProperty;
 
-public class UnitProperty {
+public abstract class UnitProperty {
+    protected double propertyValue ;
 }

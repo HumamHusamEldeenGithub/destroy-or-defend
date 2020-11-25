@@ -7,7 +7,7 @@ import unitProperty.UnitProperty;
 
 public class Unit implements UnitDestroyObserver {
     //Props
-    Unit _next ,_prev ;
+    public Unit _next ,_prev ;
     UnitAttack activeUnitAttack ;
     UnitType[] canAttack  ;
     Movement movement ;
@@ -54,5 +54,9 @@ public class Unit implements UnitDestroyObserver {
 
     }
     public void onUnitDestroy(Unit destroyedUnit) {
+    }
+
+    public UnitPosition getPosition() {
+        return position;
     }
 }

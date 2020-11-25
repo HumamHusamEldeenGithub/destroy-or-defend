@@ -1,6 +1,7 @@
 package movement;
 
 import unit.Unit;
+import unit.UnitPosition;
 
 public class AttackerMovement extends Movement {
     private static AttackerMovement attackerMovement=null ;
@@ -17,6 +18,10 @@ public class AttackerMovement extends Movement {
     }
     @Override
     public void move(Unit unit) {
+        /*UnitPosition unitPosition = Pathfinder.getPath() ;
+        if (Grid.AcceptUnitMovement(unit , unitPosition.getCenterX() , unitPosition.getCenterY))
+        {
 
+        }*/
     }
 }

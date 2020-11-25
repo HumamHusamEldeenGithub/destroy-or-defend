@@ -1,6 +1,8 @@
 package movement;
 
+import gameManager.DoDGameManager;
 import unit.Unit;
+import unit.UnitPosition;
 
 public class DefenderMovement extends Movement {
     private static DefenderMovement defenderMovement =null ;
@@ -18,6 +20,6 @@ public class DefenderMovement extends Movement {
 
     @Override
     public void move(Unit unit) {
-
+        UnitPosition BasePosition = DoDGameManager.getObj().getBasePosition() ;
     }
 }

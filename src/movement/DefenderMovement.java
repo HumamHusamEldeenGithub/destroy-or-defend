@@ -20,6 +20,6 @@ public class DefenderMovement extends Movement {
 
     @Override
     public void move(Unit unit) {
-        Position BasePosition = DoDGameManager.getObj().getBasePosition() ;
+        //Position BasePosition = DoDGameManager.getObj().getBasePosition() ;
     }
 }

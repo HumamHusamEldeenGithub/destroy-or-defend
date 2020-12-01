@@ -52,9 +52,9 @@ public class Unit implements UnitDestroyObserver {
     public void  AcceptDamage (double damage){
 
     }
-    public boolean AttackUnit (Unit targetUnit , AttackType attackType){
+    public boolean AttackUnit (Unit targetUnit ){
         this.targetedUnit = targetUnit ;
-        this.activeAttackType = attackType;
+       // this.activeAttackType = attackType;
         double Damage = 0;
         for(UnitProperty property : unitProperties){
             if(DamageUnitProperty.class.isInstance(property)){
@@ -72,8 +72,15 @@ public class Unit implements UnitDestroyObserver {
     }
     public void onUnitDestroy(Unit destroyedUnit) {
     }
-
+    public void SetPosition (int x , int y )
+    {
+        this.position = new Position(x , y ) ;
+    }
     public Position getPosition() {
         return position;
+    }
+    public Unit CheckRange ()
+    {
+        return null ;
     }
 }

@@ -8,15 +8,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Grid {
-    static Grid grid;
+    static Grid grid =null;
     public static int CellNum;
     public static int CellSize ;
     static HashMap<Position, Cell> Cells ;
 
     Grid(){ }
-    public Grid GetGrid(){
+    public synchronized static Grid GetGrid(){
         if(grid==null){
-            grid = new Grid();
+            synchronized (Grid.class){
+                if(grid==null)
+                    grid = new Grid();
+            }
         }
         return grid;
     }
@@ -31,10 +34,10 @@ public class Grid {
         }
     }
 
-    public static boolean addUnit(Unit unit){
+    public synchronized static boolean addUnit(Unit unit){
         return Cells.get(unit.getPosition()).AddUnit(unit);
     }
-    public static void RemoveUnit(Unit unit){
+    public synchronized static void RemoveUnit(Unit unit){
         Cells.get(unit.getPosition()).RemoveUnit(unit);
     }
 }

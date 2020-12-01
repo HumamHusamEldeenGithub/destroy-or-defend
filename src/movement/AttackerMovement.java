@@ -16,7 +16,7 @@ public class AttackerMovement extends Movement {
         return AttackerMovement.attackerMovement ;
     }
     @Override
-    public void move(Unit unit) {
+    public synchronized void move(Unit unit) {
         /*UnitPosition unitPosition = Pathfinder.getPath() ;
         if (Grid.AcceptUnitMovement(unit , unitPosition.getCenterX() , unitPosition.getCenterY))
         {

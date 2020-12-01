@@ -82,4 +82,9 @@ public class  UnitFactory {
         }
         return null ;
     }
+    public int getPrice (UnitType unit)
+    {
+        String[] info = UnitsInfo.get(unit).split(",") ;
+        return Integer.parseInt(info[info.length-1]) ;
+    }
 }

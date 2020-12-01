@@ -5,6 +5,7 @@ import team.Team;
 import unit.*;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     //Grid grid ;
@@ -40,6 +41,15 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     }
     public synchronized Position getBasePosition(){
         return this.mainBase.getPosition() ;
+    }
+
+
+    public static void main(String[] args) throws FileNotFoundException {
+        DoDGameManager Game = new DoDGameManager() ;
+        Unit unit= Game.unitFactory.CreateUnit(UnitType.TeslaTank) ;
+        unit.SetPosition(0,0);
+        UnitHandler unitHandler = new UnitHandler(unit) ;
+        unitHandler.run();
     }
 
 }

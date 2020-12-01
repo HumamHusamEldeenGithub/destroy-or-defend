@@ -7,19 +7,19 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class  UnitFactory {
-    HashMap<UnitType,String>UnitsInfo = new HashMap<UnitType,String>() ;
+    HashMap<UnitType,String[]>UnitsInfo = new HashMap<UnitType,String[]>() ;
 
     public UnitFactory() throws FileNotFoundException {
         this.LoadData();
     }
 
     public Unit CreateUnit(UnitType unitType) {
-        String Line = UnitsInfo.get(unitType) ;
-        if (Line==null)
+        String[] info = UnitsInfo.get(unitType) ;
+        if (info==null)
             return null ;
-        String[] info = Line.split(",") ;
         int MaxHealth = 0,AttackDamage=0 , AttackRange=0 , Size=0 , Movement=0 , UnitPrice ;
         double Armor = 0, AttackFrequency = 0;
         String[] CanTarget = new String[0];
@@ -63,13 +63,13 @@ public class  UnitFactory {
 
 
     public void LoadData () throws FileNotFoundException {
-        File file = new File("UnitProperties.csv") ;
-        Scanner scanner = new Scanner(file) ;
-        while (scanner.hasNextLine())
+    CSVReader Reader = new CSVReader ("UnitProperties.csv") ;
+    String[] Line = Reader.ReadLine() ;
+    while (Line !=null)
         {
-            String Line = scanner.nextLine() ;
-            UnitType type = getType(Line.split(",")[1]) ;
-            UnitsInfo.put(type ,Line.substring(2) )  ;
+            UnitType type = getType(Line[1]) ;
+            UnitsInfo.put(type ,Arrays.copyOfRange(Line ,2 , Line.length) )  ;
+             Line = Reader.ReadLine() ;
         }
     }
 
@@ -84,7 +84,7 @@ public class  UnitFactory {
     }
     public int getPrice (UnitType unit)
     {
-        String[] info = UnitsInfo.get(unit).split(",") ;
+        String[] info = UnitsInfo.get(unit) ;
         return Integer.parseInt(info[info.length-1]) ;
     }
 }

@@ -4,6 +4,8 @@ import player.Player;
 import team.Team;
 import unit.*;
 
+import java.io.FileNotFoundException;
+
 public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     //Grid grid ;
     Unit mainBase ;
@@ -13,9 +15,12 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     UnitFactory unitFactory ;
 
     private static DoDGameManager doDGameManager=null ;
-    private DoDGameManager(){}
+    private DoDGameManager() throws FileNotFoundException {
+        unitFactory = new UnitFactory() ;
 
-    public synchronized static DoDGameManager getObj(){
+    }
+
+    public synchronized static DoDGameManager getObj() throws FileNotFoundException {
         if (DoDGameManager.doDGameManager==null)
         {
             synchronized (DoDGameManager.class){

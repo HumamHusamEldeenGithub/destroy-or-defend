@@ -1,5 +1,18 @@
 package unit;
 
 public enum UnitType {
-    TeslaTank,Sniper
+    TeslaTank,
+    Sniper,
+    MirageTank,
+    Infantry,
+    GrizzlyTank,
+    NavySEAL,
+    TankDestroyer,
+    PrismTank,
+    Pillbox,
+    PrismTower,
+    GrandCannon,
+    MainBase,
+    BlackEagle,
+    PatriotMissile,
 }

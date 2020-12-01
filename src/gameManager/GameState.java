@@ -1,2 +1,8 @@
-package gameManager;public enum GameState {
+package gameManager;
+
+public enum GameState {
+    Running,
+    AttackerWon,
+    DefenderWon ,
+    Paused
 }

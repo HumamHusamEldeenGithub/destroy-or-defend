@@ -63,13 +63,19 @@ public class  UnitFactory {
 
 
     public void LoadData () throws FileNotFoundException {
-    CSVReader Reader = new CSVReader ("UnitProperties.csv") ;
+    CSVReader Reader = new CSVReader ("UnitProperties.txt") ;
     String[] Line = Reader.ReadLine() ;
     while (Line !=null)
         {
+            for (String s: Line) {
+                System.out.println(s);
+
+            }
+            //System.out.println(Line);
             UnitType type = getType(Line[1]) ;
             UnitsInfo.put(type ,Arrays.copyOfRange(Line ,2 , Line.length) )  ;
-             Line = Reader.ReadLine() ;
+
+
         }
     }
 

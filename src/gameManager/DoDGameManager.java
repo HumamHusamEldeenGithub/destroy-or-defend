@@ -49,7 +49,7 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
         Unit unit= Game.unitFactory.CreateUnit(UnitType.TeslaTank) ;
         unit.SetPosition(0,0);
         UnitHandler unitHandler = new UnitHandler(unit) ;
-        unitHandler.run();
+       // unitHandler.run();
     }
 
 }

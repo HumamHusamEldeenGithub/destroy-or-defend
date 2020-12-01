@@ -1,9 +1,9 @@
 package team;
 
 import player.Player;
-import unit.UnitPosition;
+import unit.Position;
 
 public abstract class Team {
     Player[] players;
-    UnitPosition[] teamUnitsIntializationPosition;
+    Position[] teamUnitsIntializationPosition;
 }

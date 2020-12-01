@@ -3,15 +3,16 @@ package unit;
 import movement.Movement;
 import unitProperty.DamageUnitProperty;
 import unitProperty.HealthUnitProperty;
+import unitProperty.SizeUnitProperty;
 import unitProperty.UnitProperty;
 
 public class Unit implements UnitDestroyObserver {
     //Props
     public Unit _next ,_prev ;
-    UnitAttack activeUnitAttack ;
+    AttackType activeAttackType;
     UnitType[] canAttack  ;
     Movement movement ;
-    UnitPosition position ;
+    Position position ;
     Unit targetedUnit ;
     UnitDestroyObserver[] unitDestroyObservers ;
     UnitProperty[] unitProperties ;
@@ -35,17 +36,33 @@ public class Unit implements UnitDestroyObserver {
         }
         return null;
     }
-    //Methods
+
+    public SizeUnitProperty GetSize(){
+        for(UnitProperty unitProperty : unitProperties){
+            if(SizeUnitProperty.class.isInstance(unitProperty)){
+                return (SizeUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
+
     public Unit(){
 
     }
     public void  AcceptDamage (double damage){
 
     }
-    public void AttackUnit (Unit targetUnit , UnitAttack unitAttack){
+    public boolean AttackUnit (Unit targetUnit , AttackType attackType){
         this.targetedUnit = targetUnit ;
-        this.activeUnitAttack =unitAttack ;
-        this.activeUnitAttack.PerformAttack(this.targetedUnit) ;
+        this.activeAttackType = attackType;
+        double Damage = 0;
+        for(UnitProperty property : unitProperties){
+            if(DamageUnitProperty.class.isInstance(property)){
+                Damage = property.GetValue();
+                break;
+            }
+        }
+        return this.activeAttackType.PerformAttack(this.targetedUnit,Damage);
     }
     public void onDestroy (){
 
@@ -56,7 +73,7 @@ public class Unit implements UnitDestroyObserver {
     public void onUnitDestroy(Unit destroyedUnit) {
     }
 
-    public UnitPosition getPosition() {
+    public Position getPosition() {
         return position;
     }
 }

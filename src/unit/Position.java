@@ -1,13 +1,11 @@
 package unit;
 
-public class UnitPosition {
+public class Position {
     int centerX ;
     int centerY ;
-    int radius ;
-    public UnitPosition(int x , int y ,int radius) {
+    public Position(int x , int y) {
         this.centerX = x ;
         this.centerY =y ;
-        this.radius = radius;
     }
     public boolean squareIsOccupied(){
         return false;
@@ -21,7 +19,4 @@ public class UnitPosition {
         return centerY;
     }
 
-    public int getRadius() {
-        return radius;
-    }
 }

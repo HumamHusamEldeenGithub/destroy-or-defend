@@ -33,7 +33,7 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     public void BuyUnit(Player player , int x , int y , UnitType unitType){
 
     }
-    public synchronized UnitPosition getBasePosition(){
+    public synchronized Position getBasePosition(){
         return this.mainBase.getPosition() ;
     }
 

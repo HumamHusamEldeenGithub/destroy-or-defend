@@ -1,7 +1,6 @@
 package movement;
 
 import unit.Unit;
-import unit.UnitPosition;
 
 public class AttackerMovement extends Movement {
     private static AttackerMovement attackerMovement=null ;

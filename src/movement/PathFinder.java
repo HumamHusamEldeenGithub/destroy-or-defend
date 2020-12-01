@@ -1,12 +1,5 @@
 package movement;
 
-import unit.Unit;
-import unit.UnitPosition;
-
-import java.util.Comparator;
-import java.util.SortedSet;
-import java.util.TreeSet;
-
 class Pathfinder {
    /* class GridNode{
         public int weight;

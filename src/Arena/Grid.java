@@ -11,16 +11,16 @@ public class Grid {
     static Grid grid;
     public static int CellNum;
     public static int CellSize ;
-    HashMap<Position, Cell> Cells ;
-    Unit[][] units ;
+    static HashMap<Position, Cell> Cells ;
+
+    Grid(){ }
     public Grid GetGrid(){
         if(grid==null){
             grid = new Grid();
         }
         return grid;
     }
-    Grid(){ }
-    public void Initialize(int NumOfCells,int Cellsize){
+    public static void Initialize(int NumOfCells,int Cellsize){
         CellSize = Cellsize;
         CellNum = NumOfCells;
         Cells = new HashMap<Position,Cell>();
@@ -30,16 +30,11 @@ public class Grid {
             }
         }
     }
-  /*  public void addUnit(Unit unit){
-        int cellX = (int)(unit.getPosition().getCenterX()/CELL_SIZE) ;
-        int cellY = (int)(unit.getPosition().getCenterY()/CELL_SIZE) ;
-        unit._prev= null ;
-        unit._next = units[cellX][cellY] ;
-        units[cellX][cellY] = unit ;
-        if (unit._next!=null)
-            unit._next._prev = unit ;
-    }*/
-    public void addUnit(Unit unit){
 
+    public static boolean addUnit(Unit unit){
+        return Cells.get(unit.getPosition()).AddUnit(unit);
+    }
+    public static void RemoveUnit(Unit unit){
+        Cells.get(unit.getPosition()).RemoveUnit(unit);
     }
 }

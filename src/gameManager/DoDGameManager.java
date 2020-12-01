@@ -1,11 +1,11 @@
 package gameManager;
 
+import Utilities.Position;
 import player.Player;
 import team.Team;
 import unit.*;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     //Grid grid ;

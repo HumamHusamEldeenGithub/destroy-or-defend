@@ -1,10 +1,8 @@
 package Arena;
 
-import javafx.geometry.Pos;
 import unit.Unit;
-import unit.Position;
+import Utilities.Position;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Grid {
@@ -33,7 +31,15 @@ public class Grid {
             }
         }
     }
-
+    public TerrainType GetTerrain(Position position){
+        return Cells.get(position).GetTerrain();
+    }
+    public boolean HasSpace(Position position,int Size){
+        if(Cells.get(position).GetSize() >= Size){
+            return true;
+        }
+        return false;
+    }
     public synchronized static boolean addUnit(Unit unit){
         return Cells.get(unit.getPosition()).AddUnit(unit);
     }

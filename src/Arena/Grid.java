@@ -31,10 +31,10 @@ public class Grid {
             }
         }
     }
-    public TerrainType GetTerrain(Position position){
+    public static TerrainType GetTerrain(Position position){
         return Cells.get(position).GetTerrain();
     }
-    public boolean HasSpace(Position position,int Size){
+    public static boolean HasSpace(Position position,int Size){
         if(Cells.get(position).GetSize() >= Size){
             return true;
         }

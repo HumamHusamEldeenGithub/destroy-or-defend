@@ -1,7 +1,13 @@
 package Utilitiy;
 
+import Arena.Grid;
+import Arena.TerrainType;
+
+import java.util.Comparator;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
 class Pathfinder {
-    /*
     class GridNode{
         public int weight;
         public Position pos;
@@ -22,14 +28,16 @@ class Pathfinder {
         }
     };
     SortedSet<GridNode> GridSet = new TreeSet<>(cmp);
-    public Position GetPos(Position currentPos,Position Destination,int Range){
+    public Position GetPos(Position currentPos,Position Destination,int Range,int Size){
         // Fill nodes
         for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
             for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
-                    if (GridSet.GetGrid().addUnit(new Position(i, j)) || !visited[j][j]) {
+                    if (Grid.HasSpace(new Position(i, j),Size) && Grid.GetTerrain(new Position(i, j))!=TerrainType.Valley && !visited[j][j]) {
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);
+                        if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
+                            node.weight+=2;
                         node.pos.Set_X(j);
                         node.pos.Set_Y(i);
                         GridSet.add(node);
@@ -42,61 +50,61 @@ class Pathfinder {
             Position newCur = node.pos;
             //DFS
             for(int i = 0;i < 50;i++){
-                newCur = Think(newCur,Destination,Range);
+                newCur = Think(newCur,Destination,Range,Size);
                 if(newCur==null){
                     break;
                 }
             }
             if(newCur!=null) {
-                visited[node.pos.getCenterX()][node.pos.getCenterY()] = true;
+                visited[node.pos.Get_X()][node.pos.Get_Y()] = true;
                 return node.pos;
             }
             if(node.equals(GridSet.last())){
-                visited[node.pos.getCenterX()][node.pos.getCenterY()] = true;
+                visited[node.pos.Get_X()][node.pos.Get_Y()] = true;
                 return node.pos;
             }
         }
         return null;
     }
 
-    Position Think(Position currentPos,Position Destination,int Range){
-        if(Math.abs(currentPos.getCenterX() - Destination.getCenterX()) <=Range && Math.abs(currentPos.getCenterY() - Destination.getCenterY()) <= Range){
+    Position Think(Position currentPos,Position Destination,int Range,int Size){
+        if(Math.abs(currentPos.Get_X() - Destination.Get_X()) <=Range && Math.abs(currentPos.Get_Y() - Destination.Get_Y()) <= Range){
             return currentPos;
         }
-        if(Destination.getCenterX() < currentPos.getCenterX()){
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() - 1,currentPos.getCenterY())) )
-                return new Position(currentPos.getCenterX() - 1,currentPos.getCenterY());
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX()-1 , currentPos.getCenterY()+1)))
-                return new Position(currentPos.getCenterX()-1 , currentPos.getCenterY()+1);
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX()-1 , currentPos.getCenterY()-1)))
-                return new Position(currentPos.getCenterX()-1 , currentPos.getCenterY()-1);
+        SortedSet<GridNode> Nodes = new TreeSet<>(cmp);
+        for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
+            for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
+                if(i>=0 && i<10000 && j>=0 && j<10000 ) {
+                    if (Grid.HasSpace(new Position(i, j),Size) && Grid.GetTerrain(new Position(i, j))!=TerrainType.Valley && !visited[j][j]) {
+                        GridNode node = new GridNode();
+                        node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);
+                        if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
+                            node.weight+=2;
+                        node.pos.Set_X(j);
+                        node.pos.Set_Y(i);
+                        Nodes.add(node);
+                    }
+                }
+            }
         }
-        else if(Destination.getCenterX() > currentPos.getCenterX()){
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() + 1,currentPos.getCenterY())) )
-                return new Position(currentPos.getCenterX() + 1,currentPos.getCenterY());
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() + 1 , currentPos.getCenterY()+1)))
-                return new Position(currentPos.getCenterX() + 1 , currentPos.getCenterY()+1);
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX()  + 1 , currentPos.getCenterY()-1)))
-                return new Position(currentPos.getCenterX()  + 1 , currentPos.getCenterY()-1);
+        for(GridNode node : Nodes){
+            if(Destination.Get_X()<currentPos.Get_X()){
+                if(node.pos.Get_X()<currentPos.Get_X())
+                    return currentPos;
+            }
+            else if(Destination.Get_X()>currentPos.Get_X()){
+                if(node.pos.Get_X()>currentPos.Get_X())
+                    return currentPos;
+            }
+            else if(Destination.Get_Y()<currentPos.Get_Y()){
+                if(node.pos.Get_Y()<currentPos.Get_Y())
+                    return currentPos;
+            }
+            else if(Destination.Get_Y()>currentPos.Get_Y()){
+                if(node.pos.Get_Y()>currentPos.Get_Y())
+                    return currentPos;
+            }
         }
-        if(Destination.getCenterY() < currentPos.getCenterY()){
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX(),currentPos.getCenterY() - 1)))
-                return new Position(currentPos.getCenterX(),currentPos.getCenterY() - 1);
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() + 1 , currentPos.getCenterY() - 1)))
-                return new Position(currentPos.getCenterX() + 1 , currentPos.getCenterY() - 1);
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() - 1 , currentPos.getCenterY() - 1)))
-                return new Position(currentPos.getCenterX() - 1 , currentPos.getCenterY() - 1);
-        }
-        else if(Destination.getCenterY() > currentPos.getCenterY()){
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX(),currentPos.getCenterY() + 1)))
-                return new Position(currentPos.getCenterX(),currentPos.getCenterY() + 1);
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() + 1 , currentPos.getCenterY() + 1)))
-                return new Position(currentPos.getCenterX() + 1 , currentPos.getCenterY() + 1);
-            if(Grid.GetGrid().addUnit(new Position(currentPos.getCenterX() - 1 , currentPos.getCenterY() + 1)))
-                return new Position(currentPos.getCenterX() - 1 , currentPos.getCenterY() + 1);
-        }
-        return currentPos;
+        return null;
     }
-
-     */
 }

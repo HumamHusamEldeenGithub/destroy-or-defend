@@ -1,6 +1,6 @@
 package gameManager;
 
-import Utilities.Position;
+import Utilitiy.Position;
 import player.Player;
 import team.Team;
 import unit.*;

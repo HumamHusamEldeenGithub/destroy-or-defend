@@ -1,10 +1,7 @@
-package Utilities;
-
-import java.util.Comparator;
-import java.util.SortedSet;
-import java.util.TreeSet;
+package Utilitiy;
 
 class Pathfinder {
+    /*
     class GridNode{
         public int weight;
         public Position pos;
@@ -100,4 +97,6 @@ class Pathfinder {
         }
         return currentPos;
     }
+
+     */
 }

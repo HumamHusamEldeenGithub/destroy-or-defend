@@ -1,6 +1,6 @@
 package unit;
 
-import Utilities.Position;
+import Utilitiy.Position;
 import movement.Movement;
 import unitProperty.DamageUnitProperty;
 import unitProperty.HealthUnitProperty;

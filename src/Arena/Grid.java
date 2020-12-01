@@ -1,7 +1,7 @@
 package Arena;
 
 import unit.Unit;
-import Utilities.Position;
+import Utilitiy.Position;
 
 import java.util.HashMap;
 

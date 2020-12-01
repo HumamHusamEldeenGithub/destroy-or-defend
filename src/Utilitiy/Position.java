@@ -1,4 +1,4 @@
-package Utilities;
+package Utilitiy;
 
 public class Position {
     int centerX ;

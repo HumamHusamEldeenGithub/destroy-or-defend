@@ -1,7 +1,7 @@
 package Arena;
 
 import javafx.collections.ObservableList;
-import Utilities.Position;
+import Utilitiy.Position;
 import unit.Unit;
 
 import java.util.ArrayList;

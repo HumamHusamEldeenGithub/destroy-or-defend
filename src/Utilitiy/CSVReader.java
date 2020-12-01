@@ -1,4 +1,4 @@
-package Utilities;
+package Utilitiy;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -23,7 +23,7 @@ public class CSVReader {
             info = reader.readLine().split(",");
         }
         catch (Exception e){
-            System.err.println("Error reading a line");
+
         }
         finally {
             return info;

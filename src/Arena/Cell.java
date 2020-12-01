@@ -18,6 +18,9 @@ public class Cell {
         terrainType = TerrainType.Flat;
         units = new ArrayList<Unit>();
     }
+    public ObservableList<Unit> GetUnits(){
+        return (ObservableList) units;
+    }
     public void UpdateTerrain(TerrainType terrainType){
         this.terrainType = terrainType;
     }
@@ -28,9 +31,6 @@ public class Cell {
         this.size-=unit.GetSize().GetValue();
         units.add(unit);
         return true;
-    }
-    public ObservableList<Unit> GetUnits(){
-        return (ObservableList) units;
     }
     public void RemoveUnit(Unit unit){
         try{

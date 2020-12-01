@@ -1,7 +1,7 @@
 package team;
 
 import player.Player;
-import unit.Position;
+import Utilities.Position;
 
 public abstract class Team {
     Player[] players;

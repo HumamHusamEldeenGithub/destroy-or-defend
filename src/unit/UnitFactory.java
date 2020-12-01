@@ -1,12 +1,9 @@
 package unit;
 
-import gameManager.DoDGameManager;
+import Utilities.CSVReader;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Arrays;
 
 public class  UnitFactory {
@@ -63,13 +60,14 @@ public class  UnitFactory {
 
 
     public void LoadData () throws FileNotFoundException {
-    CSVReader Reader = new CSVReader ("UnitProperties.csv") ;
-    String[] Line = Reader.ReadLine() ;
-    while (Line !=null)
+        CSVReader Reader = new CSVReader ("UnitProperties.csv") ;
+        String[] Line = Reader.ReadLine() ; // First Unusable Line
+        Line = Reader.ReadLine();
+        while (Line !=null)
         {
             UnitType type = getType(Line[1]) ;
             UnitsInfo.put(type ,Arrays.copyOfRange(Line ,2 , Line.length) )  ;
-             Line = Reader.ReadLine() ;
+            Line = Reader.ReadLine() ;
         }
     }
 

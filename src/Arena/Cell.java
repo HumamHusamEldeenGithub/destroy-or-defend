@@ -1,7 +1,7 @@
 package Arena;
 
 import javafx.collections.ObservableList;
-import unit.Position;
+import Utilities.Position;
 import unit.Unit;
 
 import java.util.ArrayList;
@@ -40,5 +40,12 @@ public class Cell {
         catch (Exception e){
             System.err.println("Error removing unit");
         }
+    }
+    public int GetSize(){
+        return size;
+    }
+
+    public TerrainType GetTerrain(){
+        return terrainType;
     }
 }

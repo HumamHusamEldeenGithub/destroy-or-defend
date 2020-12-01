@@ -1,4 +1,4 @@
-package unit;
+package Utilities;
 
 public class Position {
     int centerX ;
@@ -7,16 +7,18 @@ public class Position {
         this.centerX = x ;
         this.centerY =y ;
     }
-    public boolean squareIsOccupied(){
-        return false;
-    }
-
-    public int getCenterX() {
+    public int Get_X() {
         return centerX;
     }
 
-    public int getCenterY() {
+    public int Get_Y() {
         return centerY;
     }
 
+    public void Set_X(int X){
+        centerX = X;
+    }
+    public void Set_Y(int Y){
+        centerX = Y;
+    }
 }

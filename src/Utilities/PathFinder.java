@@ -1,14 +1,11 @@
-package movement;
-
-import Arena.Grid;
-import unit.Position;
+package Utilities;
 
 import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
 class Pathfinder {
-    /*class GridNode{
+    class GridNode{
         public int weight;
         public Position pos;
         public GridNode(){
@@ -30,14 +27,14 @@ class Pathfinder {
     SortedSet<GridNode> GridSet = new TreeSet<>(cmp);
     public Position GetPos(Position currentPos,Position Destination,int Range){
         // Fill nodes
-        for(int i = currentPos.getCenterX() - 1; i <= currentPos.getCenterX() + 1;i++){
-            for(int j = currentPos.getCenterY() - 1;j<= currentPos.getCenterY()+1;j++){
+        for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
+            for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
-                    if (Grid.GetGrid().addUnit(new Position(i, j)) || !visited[j][j]) {
+                    if (GridSet.GetGrid().addUnit(new Position(i, j)) || !visited[j][j]) {
                         GridNode node = new GridNode();
-                        node.weight = Math.abs(Destination.getCenterX() - j + Destination.getCenterY() - i);
-                        node.pos.setCenterX() = j;
-                        node.pos = i;
+                        node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);
+                        node.pos.Set_X(j);
+                        node.pos.Set_Y(i);
                         GridSet.add(node);
                     }
                 }
@@ -102,5 +99,5 @@ class Pathfinder {
                 return new Position(currentPos.getCenterX() - 1 , currentPos.getCenterY() + 1);
         }
         return currentPos;
-    }*/
+    }
 }

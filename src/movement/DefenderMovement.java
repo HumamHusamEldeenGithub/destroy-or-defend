@@ -1,8 +1,6 @@
 package movement;
 
-import gameManager.DoDGameManager;
 import unit.Unit;
-import unit.Position;
 
 public class DefenderMovement extends Movement {
     private static DefenderMovement defenderMovement =null ;

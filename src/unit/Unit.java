@@ -1,24 +1,32 @@
 package unit;
 
 import Utilitiy.Position;
+import movement.AttackerMovement;
 import movement.Movement;
-import unitProperty.DamageUnitProperty;
-import unitProperty.HealthUnitProperty;
-import unitProperty.SizeUnitProperty;
-import unitProperty.UnitProperty;
+import unitProperty.*;
+
+import java.util.ArrayList;
 
 public class Unit implements UnitDestroyObserver {
     //Props
     public Unit _next ,_prev ;
     AttackType activeAttackType;
-    UnitType[] canAttack  ;
+    ArrayList<UnitType> canAttack  ;
     Movement movement ;
     Position position ;
     Unit targetedUnit ;
     UnitDestroyObserver[] unitDestroyObservers ;
-    UnitProperty[] unitProperties ;
+    ArrayList<UnitProperty> unitProperties ;
     UnitType unitType ;
     UnitDestroyObserver destructionObserver ;
+    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , ArrayList<UnitType> canTarget)
+    {
+        this.unitType = type ;
+        unitProperties = list ;
+        movement = movementType ;
+        canAttack = canTarget ;
+    }
+
 
     public DamageUnitProperty GetDamage(){
         for(UnitProperty unitProperty : unitProperties){
@@ -42,6 +50,15 @@ public class Unit implements UnitDestroyObserver {
         for(UnitProperty unitProperty : unitProperties){
             if(SizeUnitProperty.class.isInstance(unitProperty)){
                 return (SizeUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
+    public RangeUnitProperty GetRange()
+    {
+        for(UnitProperty unitProperty : unitProperties){
+            if(RangeUnitProperty.class.isInstance(unitProperty)){
+                return (RangeUnitProperty) unitProperty;
             }
         }
         return null;
@@ -73,9 +90,9 @@ public class Unit implements UnitDestroyObserver {
     }
     public void onUnitDestroy(Unit destroyedUnit) {
     }
-    public void SetPosition (int x , int y )
+    public void SetPosition (Position position )
     {
-        this.position = new Position(x , y ) ;
+        this.position = position ;
     }
     public Position getPosition() {
         return position;

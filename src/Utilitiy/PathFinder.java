@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-class Pathfinder {
+public class PathFinder {
     class GridNode{
         public int weight;
         public Position pos;
@@ -27,13 +27,28 @@ class Pathfinder {
                 return -1;
         }
     };
+    static PathFinder pathFinder = null ;
+    PathFinder(){}
+
+    public synchronized static PathFinder GetObj (){
+        if (PathFinder.pathFinder==null)
+        {
+            synchronized (PathFinder.class)
+            {
+                if (PathFinder.pathFinder==null)
+                    pathFinder = new PathFinder() ;
+            }
+        }
+        return PathFinder.pathFinder ;
+    }
+
     SortedSet<GridNode> GridSet = new TreeSet<>(cmp);
-    public Position GetPos(Position currentPos,Position Destination,int Range,int Size){
+    public Position GetPos(Position currentPos,Position Destination,double Range,double Size){
         // Fill nodes
         for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
             for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
-                    if (Grid.HasSpace(new Position(i, j),Size) && Grid.GetTerrain(new Position(i, j))!=TerrainType.Valley && !visited[j][j]) {
+                    if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!= TerrainType.Valley && !visited[j][j]) {
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);
                         if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
@@ -67,7 +82,7 @@ class Pathfinder {
         return null;
     }
 
-    Position Think(Position currentPos,Position Destination,int Range,int Size){
+    Position Think(Position currentPos,Position Destination,double Range,double Size){
         if(Math.abs(currentPos.Get_X() - Destination.Get_X()) <=Range && Math.abs(currentPos.Get_Y() - Destination.Get_Y()) <= Range){
             return currentPos;
         }
@@ -75,7 +90,7 @@ class Pathfinder {
         for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
             for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
-                    if (Grid.HasSpace(new Position(i, j),Size) && Grid.GetTerrain(new Position(i, j))!=TerrainType.Valley && !visited[j][j]) {
+                    if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!=TerrainType.Valley && !visited[j][j]) {
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);
                         if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)

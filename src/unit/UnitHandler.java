@@ -14,6 +14,6 @@ public class UnitHandler implements Runnable {
         if (temp!=null)
             unit.AttackUnit(temp);
         else
-            unit.movement.getObj().move(unit);
+            unit.movement.move(unit);
     }
 }

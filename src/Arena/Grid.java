@@ -21,7 +21,7 @@ public class Grid {
         }
         return grid;
     }
-    public static void Initialize(int NumOfCells,int Cellsize){
+    public  void Initialize(int NumOfCells,int Cellsize){
         CellSize = Cellsize;
         CellNum = NumOfCells;
         Cells = new HashMap<Position,Cell>();
@@ -46,4 +46,5 @@ public class Grid {
     public synchronized static void RemoveUnit(Unit unit){
         Cells.get(unit.getPosition()).RemoveUnit(unit);
     }
+
 }

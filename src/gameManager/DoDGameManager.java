@@ -1,15 +1,18 @@
 package gameManager;
 
+import Arena.Grid;
 import Utilitiy.Position;
 import player.Player;
+import player.PlayerType;
 import team.Team;
 import unit.*;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class DoDGameManager extends GameManager implements UnitDestroyObserver {
-    //Grid grid ;
-    Unit mainBase ;
+    Grid grid ;
+    public static Unit mainBase ;
     int remainingAttackerUnits ;
     double remainingTime ;
     Team[] teams ;
@@ -18,6 +21,8 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     private static DoDGameManager doDGameManager=null ;
     private DoDGameManager() throws FileNotFoundException {
         unitFactory = new UnitFactory() ;
+        grid = Grid.GetGrid() ;
+        grid.Initialize(10000,5);
 
     }
 
@@ -40,16 +45,18 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
 
     }
     public synchronized Position getBasePosition(){
-        return this.mainBase.getPosition() ;
+        return mainBase.getPosition() ;
     }
 
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void  main(String[] args) throws FileNotFoundException {
         DoDGameManager Game = new DoDGameManager() ;
-        Unit unit= Game.unitFactory.CreateUnit(UnitType.TeslaTank) ;
-        unit.SetPosition(0,0);
+        Unit unit= Game.unitFactory.CreateUnit(UnitType.TeslaTank, PlayerType.Attacker) ;
+        mainBase = Game.unitFactory.CreateUnit(UnitType.MainBase, PlayerType.Defender) ;
+        mainBase.SetPosition(new Position(100,100));
+        unit.SetPosition(new Position(0,0));
         UnitHandler unitHandler = new UnitHandler(unit) ;
-       // unitHandler.run();
+        unitHandler.run();
     }
 
 }

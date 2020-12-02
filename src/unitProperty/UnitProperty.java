@@ -5,7 +5,5 @@ public class UnitProperty {
     public double GetValue(){
         return Value;
     }
-    public double SetValue(){
-        return Value;
-    }
+    public void SetValue(double value){ this.Value=value  ; }
 }

@@ -1,8 +1,14 @@
 package unit;
 
 import Utilitiy.CSVReader;
+import movement.AttackerMovement;
+import movement.DefenderMovement;
+import movement.Movement;
+import player.PlayerType;
+import unitProperty.*;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Arrays;
 
@@ -12,49 +18,59 @@ public class  UnitFactory {
     public UnitFactory() throws FileNotFoundException {
         this.LoadData();
     }
-    public Unit CreateUnit(UnitType unitType) {
+    public Unit CreateUnit(UnitType unitType , PlayerType playerType) {
         String[] info = UnitsInfo.get(unitType) ;
         if (info==null)
             return null ;
-        int MaxHealth = 0,AttackDamage=0 , AttackRange=0 , Size=0 , Movement=0 , UnitPrice ;
+        double MaxHealth = 0,AttackDamage=0 , AttackRange=0 , Size=0 , Movement=0 , UnitPrice ;
         double Armor = 0, AttackFrequency = 0;
         String[] CanTarget = new String[0];
         for (int i =0 ; i<info.length ; i++) {
             switch (i) {
                 case 0:
-                    MaxHealth = Integer.parseInt(info[i]);
+                    MaxHealth = Double.parseDouble(info[i]);
                     break;
                 case 1:
                     Armor = Double.parseDouble(info[i]);
                     break;
                 case 2:
-                    AttackDamage = Integer.parseInt(info[i]);
+                    AttackDamage = Double.parseDouble(info[i]);
                     break;
                 case 3:
-                    AttackRange = Integer.parseInt(info[i]);
+                    AttackRange = Double.parseDouble(info[i]);
                     break;
                 case 4:
                     AttackFrequency = Double.parseDouble(info[i]);
                     break;
                 case 5:
-                    Size = Integer.parseInt(info[i]);
+                    Size = Double.parseDouble(info[i]);
                     break;
                 case 6:
-                    Movement = Integer.parseInt(info[i]);
+                    Movement = Double.parseDouble(info[i]);
                     break;
                 case 7:
                     CanTarget = info[i].split("-");
                     break;
                 case 8:
-                    UnitPrice = Integer.parseInt(info[i]);
+                    UnitPrice = Double.parseDouble(info[i]);
                     break;
                 default:
                     break;
 
             }
         }
-        //return new Unit(MaxHealth,Armor,AttackRange,AttackFrequency,Size,Movement,CanTarget) ;
-        return new Unit() ;
+        ArrayList<UnitProperty> properties = new ArrayList<>() ;
+        HealthUnitProperty healthUnitProperty = new HealthUnitProperty() ; healthUnitProperty.SetValue(MaxHealth) ;
+        ArmorUnitProperty armorUnitProperty = new ArmorUnitProperty() ; armorUnitProperty.SetValue(Armor);
+        RangeUnitProperty rangeUnitProperty = new RangeUnitProperty() ; rangeUnitProperty.SetValue(AttackRange);
+        AttackSpeedUnitProperty attackSpeedUnitProperty = new AttackSpeedUnitProperty() ; attackSpeedUnitProperty.SetValue(AttackFrequency);
+        SizeUnitProperty sizeUnitProperty = new SizeUnitProperty() ; sizeUnitProperty.SetValue(Size);
+        properties.add(healthUnitProperty) ;
+        properties.add(armorUnitProperty) ;
+        properties.add(rangeUnitProperty) ;
+        properties.add(attackSpeedUnitProperty) ;
+        properties.add(sizeUnitProperty) ;
+        return new Unit(unitType,properties, (playerType.toString().contains("Attacker")? AttackerMovement.getObj(): DefenderMovement.getObj()) , getTypes(CanTarget));
     }
 
 
@@ -85,9 +101,16 @@ public class  UnitFactory {
         }
         return null ;
     }
-    public int getPrice (UnitType unit)
+    public double getPrice (UnitType unit)
     {
         String[] info = UnitsInfo.get(unit) ;
-        return Integer.parseInt(info[info.length-1]) ;
+        return Double.parseDouble(info[info.length-1]) ;
+    }
+    ArrayList<UnitType> getTypes (String[] CanTarget)
+    {
+        ArrayList<UnitType> list = new ArrayList<>();
+        for (String s : CanTarget)
+            list.add(getType(s)) ;
+        return list ;
     }
 }

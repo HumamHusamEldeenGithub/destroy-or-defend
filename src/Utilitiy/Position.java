@@ -21,4 +21,8 @@ public class Position {
     public void Set_Y(int Y){
         centerX = Y;
     }
+    public String toString()
+    {
+        return  "X = " + this.centerX + "  Y = " + this.centerY;
+    }
 }

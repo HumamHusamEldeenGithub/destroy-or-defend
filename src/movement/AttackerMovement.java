@@ -1,11 +1,15 @@
 package movement;
 
+import Arena.Grid;
+import Utilitiy.* ;
+import Utilitiy.Position;
+import gameManager.DoDGameManager;
 import unit.Unit;
 
 public class AttackerMovement extends Movement {
     private static AttackerMovement attackerMovement=null ;
     private AttackerMovement(){}
-    public synchronized static AttackerMovement getObj(){
+    public synchronized static Movement getObj(){
         if (AttackerMovement.attackerMovement==null)
         {
             synchronized (AttackerMovement.class){
@@ -15,12 +19,14 @@ public class AttackerMovement extends Movement {
         }
         return AttackerMovement.attackerMovement ;
     }
-    @Override
-    public synchronized void move(Unit unit) {
-        /*UnitPosition unitPosition = Pathfinder.getPath() ;
-        if (Grid.AcceptUnitMovement(unit , unitPosition.getCenterX() , unitPosition.getCenterY))
-        {
 
-        }*/
+    public synchronized void move(Unit unit) {
+        Position unitPosition = PathFinder.GetObj().GetPos(unit.getPosition(), DoDGameManager.mainBase.getPosition(),unit.GetRange().GetValue(), unit.GetSize().GetValue() ) ;
+        if (unitPosition!=null)
+        {
+            System.out.println(unitPosition);
+            unit.SetPosition(unitPosition);
+            Grid.addUnit(unit) ;
+        }
     }
 }

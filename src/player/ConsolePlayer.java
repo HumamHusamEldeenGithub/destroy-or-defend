@@ -1,10 +1,7 @@
 package player;
 
 public class ConsolePlayer extends Player{
-    public void NewGame(){
-
-    }
-    public void LoadGame(){
-
+    public ConsolePlayer(PlayerType playerType,int teamId){
+        super(playerType,teamId);
     }
 }

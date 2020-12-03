@@ -1,5 +1,6 @@
 package unit;
 
+import Arena.Grid;
 import Utilitiy.Position;
 import movement.AttackerMovement;
 import movement.Movement;
@@ -7,7 +8,7 @@ import unitProperty.*;
 
 import java.util.ArrayList;
 
-public class Unit implements UnitDestroyObserver {
+public class Unit {
     //Props
     public Unit _next ,_prev ;
     AttackType activeAttackType;
@@ -15,10 +16,8 @@ public class Unit implements UnitDestroyObserver {
     public Movement movement ;
     Position position ;
     Unit targetedUnit ;
-    UnitDestroyObserver[] unitDestroyObservers ;
     ArrayList<UnitProperty> unitProperties ;
-    UnitType unitType ;
-    UnitDestroyObserver destructionObserver ;
+    UnitType unitType;
     public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , ArrayList<UnitType> canTarget)
     {
         this.unitType = type ;
@@ -46,6 +45,15 @@ public class Unit implements UnitDestroyObserver {
         return null;
     }
 
+    public PriceUnitProperty GetPrice(){
+        for(UnitProperty unitProperty : unitProperties){
+            if(PriceUnitProperty.class.isInstance(unitProperty)){
+                return (PriceUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
+
     public SizeUnitProperty GetSize(){
         for(UnitProperty unitProperty : unitProperties){
             if(SizeUnitProperty.class.isInstance(unitProperty)){
@@ -67,8 +75,22 @@ public class Unit implements UnitDestroyObserver {
     public Unit(){
 
     }
-    public void  AcceptDamage (double damage){
-
+    public void AcceptDamage (double damage){
+        double armor = 0;
+        for(UnitProperty property : unitProperties){
+            if(ArmorUnitProperty.class.isInstance(property)){
+                armor = property.GetValue();
+            }
+        }
+        double FinalDamage = damage - damage*armor;
+        for(UnitProperty property : unitProperties){
+            if(HealthUnitProperty.class.isInstance(property)){
+                property.SetValue(property.GetValue() - FinalDamage);
+                if(property.GetValue() <= 0){
+                    this.Destroy();
+                }
+            }
+        }
     }
     public boolean AttackUnit (Unit targetUnit ){
         this.targetedUnit = targetUnit ;
@@ -86,23 +108,18 @@ public class Unit implements UnitDestroyObserver {
     {
        movement.move(this);
     }
-    public void onDestroy (){
-
-    }
-    public void addUnitObserver(UnitDestroyObserver unitDestroyObserver){
-
-    }
-    public void onUnitDestroy(Unit destroyedUnit) {
+    public void Destroy (){
+        Grid.RemoveUnit(this);
     }
     public void SetPosition (Position position )
     {
         this.position = position ;
+        Grid.addUnit(this);
     }
     public Position getPosition() {
         return position;
     }
-    public Unit CheckRange ()
-    {
-        return null ;
+    public Unit CheckRange (){
+        return null;
     }
 }

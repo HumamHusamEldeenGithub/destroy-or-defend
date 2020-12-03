@@ -14,5 +14,5 @@ public enum UnitType {
     GrandCannon,
     MainBase,
     BlackEagle,
-    PatriotMissile,
+    PatriotMissileSystem,
 }

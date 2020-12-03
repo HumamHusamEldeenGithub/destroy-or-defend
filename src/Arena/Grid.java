@@ -37,7 +37,7 @@ public class Grid {
     public static TerrainType GetTerrain(Position position){
         return Cells.get(position).GetTerrain();
     }
-    public static boolean HasSpace(Position position,int Size){
+    public synchronized static boolean HasSpace(Position position,int Size){
         //System.out.println(position);
         if(Cells.get(position).GetSize()>Size){
             return true;

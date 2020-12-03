@@ -3,30 +3,33 @@ package gameManager;
 import Arena.Grid;
 import Utilitiy.Position;
 import player.Player;
+import player.PlayerHandler;
 import player.PlayerType;
 import team.Team;
+import team.TeamHandler;
 import unit.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class DoDGameManager extends GameManager implements UnitDestroyObserver {
-    Grid grid ;
+public class DoDGameManager extends GameManager {
+    static Grid grid ;
     public static Unit mainBase ;
-    int remainingAttackerUnits ;
-    double remainingTime ;
-    Team[] teams ;
-    UnitFactory unitFactory ;
-
+    static double remainingTime ;
+    static TeamHandler Attackers;
+    static TeamHandler Defenders;
+    static GameState state;
+    static UnitFactory unitFactory ;
     private static DoDGameManager doDGameManager=null ;
-    private DoDGameManager() throws FileNotFoundException {
-        unitFactory = new UnitFactory() ;
+    private static long StartTime=0;
+    private static long OldElapsedTime=0;
+    private DoDGameManager() {
+        unitFactory = UnitFactory.GetObj() ;
         grid = Grid.GetGrid() ;
         grid.Initialize(100,5);
-
     }
 
-    public synchronized static DoDGameManager getObj() throws FileNotFoundException {
+    public synchronized static DoDGameManager getObj() {
         if (DoDGameManager.doDGameManager==null)
         {
             synchronized (DoDGameManager.class){
@@ -38,24 +41,40 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     }
 
     //Methods
-    public void onUnitDestroy(Unit destroyedUnit){
-
-    }
-    public void BuyUnit(Player player , int x , int y , UnitType unitType){
-
-    }
-    public synchronized Position getBasePosition(){
+    public static synchronized Position getBasePosition(){
         return mainBase.getPosition() ;
     }
 
+    public static void Initialize(ArrayList<Player> Players){
+        StartTime = System.nanoTime();
+        List<PlayerHandler> Attackers = new ArrayList<PlayerHandler>();
+        List<PlayerHandler> Defenders = new ArrayList<PlayerHandler>();
+        DoDGameManager.Attackers = new TeamHandler(Attackers);
+        DoDGameManager.Defenders = new TeamHandler(Defenders);
+        for(Player player : Players){
+            if(player.GetType()==PlayerType.Attacker){
+                Attackers.add(new PlayerHandler(player));
+            }
+            else
+                Defenders.add(new PlayerHandler(player));
+        }
+    }
 
-    public static void  main(String[] args) throws FileNotFoundException, InterruptedException {
-        DoDGameManager Game = new DoDGameManager() ;
-        Unit unit= Game.unitFactory.CreateUnit(UnitType.TeslaTank, PlayerType.Attacker) ;
-        mainBase = Game.unitFactory.CreateUnit(UnitType.MainBase, PlayerType.Defender) ;
-        mainBase.SetPosition(new Position(100,100));
-        unit.SetPosition(new Position(0,0));
-        UnitHandler.CreateThread(unit);
+    public static void Pause_Unpause(){
+        if(DoDGameManager.state == GameState.Running){
+            OldElapsedTime += System.nanoTime() - StartTime;
+            DoDGameManager.state = GameState.Paused;
+        }
+        else{
+            StartTime = System.nanoTime();
+            DoDGameManager.state = GameState.Running;
+        }
+    }
+    public static void  main(String[] args) {
+        DoDGameManager Game = DoDGameManager.getObj() ;
+        Unit unit= unitFactory.CreateUnit(UnitType.TeslaTank, PlayerType.Attacker) ;
+        mainBase = unitFactory.CreateUnit(UnitType.MainBase, PlayerType.Defender) ;
+        TeamHandler teamHandler = new TeamHandler(new ArrayList<PlayerHandler>());
     }
 
 }

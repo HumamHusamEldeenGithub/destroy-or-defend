@@ -1,10 +1,7 @@
 package player;
 
 public class GUIPlayer extends Player {
-    public void NewGame(){
-
-    }
-    public void LoadGame(){
-
+    public GUIPlayer(PlayerType playerType,int teamId){
+        super(playerType,teamId);
     }
 }

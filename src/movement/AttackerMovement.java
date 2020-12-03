@@ -25,8 +25,9 @@ public class AttackerMovement extends Movement {
         if (unitPosition!=null)
         {
             System.out.println(unitPosition);
+            Grid.RemoveUnit(unit);
             unit.SetPosition(unitPosition);
-            Grid.addUnit(unit) ;
+
         }
         else
             System.out.println("Error");

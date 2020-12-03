@@ -22,7 +22,7 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     private DoDGameManager() throws FileNotFoundException {
         unitFactory = new UnitFactory() ;
         grid = Grid.GetGrid() ;
-        grid.Initialize(10000,5);
+        grid.Initialize(100,5);
 
     }
 
@@ -49,14 +49,13 @@ public class DoDGameManager extends GameManager implements UnitDestroyObserver {
     }
 
 
-    public static void  main(String[] args) throws FileNotFoundException {
+    public static void  main(String[] args) throws FileNotFoundException, InterruptedException {
         DoDGameManager Game = new DoDGameManager() ;
         Unit unit= Game.unitFactory.CreateUnit(UnitType.TeslaTank, PlayerType.Attacker) ;
         mainBase = Game.unitFactory.CreateUnit(UnitType.MainBase, PlayerType.Defender) ;
         mainBase.SetPosition(new Position(100,100));
         unit.SetPosition(new Position(0,0));
-        UnitHandler unitHandler = new UnitHandler(unit) ;
-        unitHandler.run();
+        UnitHandler.CreateThread(unit);
     }
 
 }

@@ -12,7 +12,7 @@ public class Unit implements UnitDestroyObserver {
     public Unit _next ,_prev ;
     AttackType activeAttackType;
     ArrayList<UnitType> canAttack  ;
-    Movement movement ;
+    public Movement movement ;
     Position position ;
     Unit targetedUnit ;
     UnitDestroyObserver[] unitDestroyObservers ;
@@ -22,9 +22,9 @@ public class Unit implements UnitDestroyObserver {
     public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , ArrayList<UnitType> canTarget)
     {
         this.unitType = type ;
-        unitProperties = list ;
+        unitProperties = (ArrayList<UnitProperty>) list.clone();
         movement = movementType ;
-        canAttack = canTarget ;
+        canAttack = (ArrayList<UnitType>) canTarget.clone();
     }
 
 
@@ -81,6 +81,10 @@ public class Unit implements UnitDestroyObserver {
             }
         }
         return this.activeAttackType.PerformAttack(this.targetedUnit,Damage);
+    }
+    public void Move()
+    {
+       movement.move(this);
     }
     public void onDestroy (){
 

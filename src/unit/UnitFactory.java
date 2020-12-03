@@ -18,7 +18,7 @@ public class  UnitFactory {
     public UnitFactory() throws FileNotFoundException {
         this.LoadData();
     }
-    public Unit CreateUnit(UnitType unitType , PlayerType playerType) {
+    public synchronized Unit CreateUnit(UnitType unitType , PlayerType playerType) throws InterruptedException {
         String[] info = UnitsInfo.get(unitType) ;
         if (info==null)
             return null ;
@@ -70,6 +70,7 @@ public class  UnitFactory {
         properties.add(rangeUnitProperty) ;
         properties.add(attackSpeedUnitProperty) ;
         properties.add(sizeUnitProperty) ;
+        Thread.sleep(100);
         return new Unit(unitType,properties, (playerType.toString().contains("Attacker")? AttackerMovement.getObj(): DefenderMovement.getObj()) , getTypes(CanTarget));
     }
 
@@ -81,9 +82,6 @@ public class  UnitFactory {
         {
             try {
                 Line = Reader.ReadLine();
-                for (String s : Line) {
-                    System.out.println(s);
-                }
                 UnitType type = getType(Line[1]);
                 UnitsInfo.put(type, Arrays.copyOfRange(Line, 2, Line.length));
             } catch (Exception e){

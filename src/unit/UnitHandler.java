@@ -1,6 +1,6 @@
 package unit;
 
-public class UnitHandler implements Runnable {
+public class UnitHandler extends Thread {
     private Unit unit  ;
     private UnitHandler() {
     }
@@ -9,11 +9,25 @@ public class UnitHandler implements Runnable {
         this.unit = unit ;
     }
 
+    @Override
     public void run() {
         Unit temp = unit.CheckRange() ;
         if (temp!=null)
             unit.AttackUnit(temp);
-        else
-            unit.movement.move(unit);
+        else {
+            unit.Move();
+        }
     }
+    public static void CreateThread(Unit unit)
+    {
+        UnitHandler unitHandler = new UnitHandler(new Unit()) ;
+        unitHandler.start();
+    }
+    public static void main(String[] args) {
+    }
+
+//    public void run() {
+
+//    }
+
 }

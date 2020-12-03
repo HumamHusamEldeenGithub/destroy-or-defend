@@ -28,5 +28,7 @@ public class AttackerMovement extends Movement {
             unit.SetPosition(unitPosition);
             Grid.addUnit(unit) ;
         }
+        else
+            System.out.println("Error");
     }
 }

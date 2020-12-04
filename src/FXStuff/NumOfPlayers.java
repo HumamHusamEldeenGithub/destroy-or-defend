@@ -84,7 +84,7 @@ public class NumOfPlayers implements EventHandler {
             {
                 //Players.add(new Player(PlayerType.Attacker,i));
             }
-            for(int i=0;i<=DefendTeamPlayers;i++)
+            for(int i=1;i<=DefendTeamPlayers;i++)
             {
                 //Players.add( new Player(PlayerType.Defender,i+AttackTeamPlayers));
 

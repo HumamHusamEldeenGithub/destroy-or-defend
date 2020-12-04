@@ -2,7 +2,7 @@ package player;
 
 import unit.Unit;
 
-public class PlayerHandler extends Thread {
+public class PlayerHandler{
     private Player player;
     private PlayerHandler() {
     }
@@ -11,8 +11,7 @@ public class PlayerHandler extends Thread {
         this.player = player;
     }
 
-    @Override
-    public void run() {
+    public void start() {
         player.MakeMove();
     }
 }

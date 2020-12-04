@@ -15,7 +15,7 @@ public class StopWatch {
     }
     public void Update(){
         if(DoDGameManager.GetState()== GameState.Paused && !IsPaused){
-            elapsedTime +=
+
         }
     }
 }

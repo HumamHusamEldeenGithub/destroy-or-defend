@@ -26,7 +26,7 @@ public class  UnitFactory {
         return unitFactory;
     }
     UnitFactory() {
-        this.LoadData();
+        LoadData();
     }
     public static synchronized Unit CreateUnit(UnitType unitType , PlayerType playerType , AttackStrategy strategy) {
         String[] info = UnitsInfo.get(unitType) ;

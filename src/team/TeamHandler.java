@@ -24,11 +24,6 @@ public class TeamHandler extends Thread {
                 }
                 PlayerHandler handler = new PlayerHandler(player);
                 handler.start();
-                try {
-                    handler.join();
-                } catch (Exception e) {
-                    System.err.println("Error joining player thread");
-                }
             }
             DoDGameManager.UpdateGame();
         }

@@ -33,6 +33,7 @@ public class Main extends Application {
     public static void main(String[] args) {
         //Arena.PrintArena();
         Grid grid = Grid.GetGrid();
+        grid.Initialize(100,200);
         UnitFactory factory = UnitFactory.GetObj();
         UnitFactory.LoadData();
         List<Player> players = new ArrayList<Player>();

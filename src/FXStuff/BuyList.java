@@ -4,12 +4,9 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import jdk.jshell.spi.ExecutionControl;
-import unit.Unit;
+import player.Player;
 import unit.*;
 
 import java.util.HashMap;
@@ -17,7 +14,7 @@ import java.util.HashMap;
 
 public class BuyList implements EventHandler {
 
-
+//////////////////
     Pane pane =new Pane();
     Menu menu =new Menu("UNITS");
     Button BuyButton=new Button("Buy");
@@ -25,17 +22,19 @@ public class BuyList implements EventHandler {
     Label unitType=new Label("");
     Button InfoButton=new Button("Info");
     Button nextButton=new Button("Next");
-
-    int Points;//GetFromPLayer
-    Label Pointslabel=new Label("Points:"+Points);
+    int Coins;//GetFromPLayer
+    Label Coinslabel=new Label();
     Label numOfPlayer= new Label();
     Stage prevStage;
     HashMap<UnitType,String[]> AllUnits=new HashMap<>();
+    int ID;
+    ///////////////////////
 
-    Stage BuildBuyList(int num,String TypeofTeam)
+    Stage BuildBuyList( int id)
     {
         //ImageView imageView=new ImageView("\\Images\\Black.jpg");
         AllUnits=UnitFactory.GetUnitsInfo();
+        Coins=NumOfPlayers.Players.get(id).GetCoins();
         /*for(UnitType unitType:AllUnits.keySet())
         {
             MenuItem menuItem=new MenuItem(unitType.toString());
@@ -44,10 +43,13 @@ public class BuyList implements EventHandler {
 
 
         }*/
-        if(TypeofTeam=="Attacker")
-        numOfPlayer.setText("Attacker:"+num);
-        else
-            numOfPlayer.setText("Defender:"+num);
+        String playerType=NumOfPlayers.Players.get(id).GetType().toString();
+       String playerId=String.valueOf(id);
+        String temp=playerType+playerId;
+
+
+
+        numOfPlayer.setText(temp);
 
 
         numOfPlayer.setLayoutX(200);
@@ -56,10 +58,12 @@ public class BuyList implements EventHandler {
         //imageView.setFitHeight(300);
         //imageView.setFitWidth(300);
 
+        Coinslabel=new Label("Points:"+Coins);
 
 
-        Pointslabel.setLayoutX(150);
-        Pointslabel.setLayoutY(200);
+
+        Coinslabel.setLayoutX(150);
+        Coinslabel.setLayoutY(200);
 
 
         InfoButton.setLayoutX(240);
@@ -77,21 +81,29 @@ public class BuyList implements EventHandler {
         BuyButton.setOnAction(this::handle);
         nextButton.setOnAction(this::handle);
         InfoButton.setOnAction(this::handle);
+
         MenuBar menuBar=new MenuBar();
         menuBar.getMenus().add(menu);
-        pane.getChildren().addAll(unitType,menuBar, BuyButton,Pointslabel,InfoButton,nextButton,numOfPlayer);
-
+        pane.getChildren().addAll(unitType,menuBar, BuyButton,Coinslabel,InfoButton,nextButton,numOfPlayer);
 
         Scene scene=new Scene(pane,300,300);
         Stage stage=new Stage();
         stage.setScene(scene);
         prevStage=stage;
-
-
+        ID=id;
 
         return stage;
 
     }
+
+
+    int getPrice(String unitType)
+    {
+        UnitType unitType1=UnitType.valueOf(unitType);
+        String[] price=AllUnits.get(unitType1);
+        return Integer.parseInt(price[8]);
+    }
+
 
 
 
@@ -101,7 +113,7 @@ public class BuyList implements EventHandler {
     @Override
     public void handle(Event event) {
 
-   /* if(event.getSource()==menu.getItems().get(0))
+    if(event.getSource()==menu.getItems().get(0))
     {
         unitType.setText("TeslaTank");
 
@@ -163,15 +175,54 @@ public class BuyList implements EventHandler {
         if(event.getSource()==menu.getItems().get(13))
         {
         unitType.setText("PatriotMissileSystem")    ;
-        }*/
+        }
 
 
         if(event.getSource()==BuyButton)
         {
+            if(unitType.getText()=="")
+            {
+                ErrorMessage errorMessage=new ErrorMessage();
+                errorMessage.PrintError();
+            }
+            else
+            {
+                if(getPrice(unitType.getText())>Coins)
+                {
+                    CoinsMessage coinsMessage=new CoinsMessage();
+                    coinsMessage.print();
+                }
+                else
+                {
+                    Coins-=getPrice(unitType.getText());
+                    NumOfPlayers.Players.get(ID).BuyUnit(UnitType.valueOf(unitType.getText()));
 
+
+
+                }
+            }
+
+
+
+
+
+
+
+            Coins--;
+            Coinslabel.setText("Coins="+Coins);
         }
         if(event.getSource()==InfoButton)
         {
+            if(unitType.getText()=="")
+            {
+                ErrorMessage errorMessage=new ErrorMessage();
+                errorMessage.PrintError();
+            }
+            else
+            {
+
+            }
+            //make an object of units Info
 
         }
 

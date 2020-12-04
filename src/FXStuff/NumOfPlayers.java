@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import player.Player;
 import player.PlayerType;
 
@@ -29,7 +30,7 @@ public class NumOfPlayers implements EventHandler {
     Button NextButton=new Button("Next");
     Stage prevStage;
 
-    ArrayList<Player>Players=new ArrayList<Player>();
+    static ArrayList<Player>Players=new ArrayList<Player>();
      Stage Build()
     {
 
@@ -82,11 +83,14 @@ public class NumOfPlayers implements EventHandler {
 
             for(int i=1;i<=AttackTeamPlayers;i++)
             {
-                //Players.add(new Player(PlayerType.Attacker,i));
+                Players.add(new Player(PlayerType.Attacker,i,null) {
+                });
             }
             for(int i=1;i<=DefendTeamPlayers;i++)
             {
-                //Players.add( new Player(PlayerType.Defender,i+AttackTeamPlayers));
+                Players.add( new Player(PlayerType.Defender,i+AttackTeamPlayers,null)
+
+                );
 
             }
 

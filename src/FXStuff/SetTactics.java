@@ -1,5 +1,8 @@
 package FXStuff;
 
+import Strategies.AttackStrategy;
+import Strategies.HighestDamageAttackStrategy;
+import Strategies.LowestHealthAttackStrategy;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -7,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Random;
 
 
 public class SetTactics implements EventHandler {
@@ -21,9 +26,11 @@ public class SetTactics implements EventHandler {
     Button nextButton=new Button("Next");
     Label numOfPlayer=new Label();
     Stage prevStage;
+    int ID;
 
-    Stage Build(int num,String TypeOfTeam)
+    Stage Build(int id)
     {
+        ID=id;
         r1.setToggleGroup(toggleGroup);
         r2.setToggleGroup(toggleGroup);
         r3.setToggleGroup(toggleGroup);
@@ -41,10 +48,10 @@ public class SetTactics implements EventHandler {
         nextButton.setLayoutX(10);
         nextButton.setLayoutY(100);
         //
-        if(TypeOfTeam=="Attacker")
-        numOfPlayer.setText("Attacker:"+num);
-        else
-        numOfPlayer.setText("Defender:"+num);
+        String playerType=NumOfPlayers.Players.get(id).GetType().toString();
+        String playerId=String.valueOf(id);
+        String temp=playerType+playerId;
+
 
 
         numOfPlayer.setLayoutX(300);
@@ -61,8 +68,6 @@ public class SetTactics implements EventHandler {
 
         return  stage;
 
-
-
     }
 
     @Override
@@ -71,19 +76,17 @@ public class SetTactics implements EventHandler {
         {
             String Tactics=new String();
 
-            if(r1.isSelected())
-            {Tactics="Random";
-                prevStage.close();}
-            else if(r2.isSelected())
-            {Tactics="HighestDamage";
+           /* if(r1.isSelected())
+            {NumOfPlayers.Players.get(ID).SetStrategy(RandomStrategy.getObj());
+                prevStage.close();}*/
+             if(r2.isSelected())
+            {NumOfPlayers.Players.get(ID).SetStrategy(HighestDamageAttackStrategy.getObj());
                 prevStage.close();}
 
             else if(r3.isSelected())
-            { Tactics="LowestHealth";
+            { NumOfPlayers.Players.get(ID).SetStrategy(LowestHealthAttackStrategy.getObj());
                 prevStage.close();
             }
-
-
 
 
             else

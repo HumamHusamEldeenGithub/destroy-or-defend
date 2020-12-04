@@ -10,37 +10,35 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import unit.Unit;
+import unit.UnitType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SetUnits {
 
     //DataMembers
-    Button zoomIn=new Button("ZoomIn");
-    Button zoomOut=new Button("ZoomOut");
-    Button Up=new Button("UP");
-    Button Down=new Button("Down");
-    Button Left=new Button("Left");
-    Button Right=new Button("Right");
-    int n=20; //GetFromNumof cells in the grid class
+
+    int numOfCells;//get from DORD manager
     ImageView imageView = new ImageView("\\Images\\Black.jpg");
     Pane root =new Pane();
     Label playerUnitsLabel=new Label("---------------------------Your Units----------------------------");
+    //ArrayList<Button>playerUnits=new ArrayList<Button>();//the units of the current player as a buttons
+    int m;
+    Button[]playerUnits;
 
-    int m =5;//num of units of the current player
-    Button playerUnits[];//the units of the current player as a buttons
     HBox playerUnitsHbox=new HBox();
+    int ID;
+    Label numOfPlayer=new Label("");
 
-
-
-
-
-
-    Button arena [][]=new Button[n][n];
+    Button arena [][]=new Button[numOfCells][numOfCells];
     GridPane arenaPane=new GridPane();
 
     int Index=-1;
     void printArena() {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
+        for (int i = 0; i < numOfCells; i++) {
+            for (int j = 0; j < numOfCells; j++) {
 
                 arena[i][j] = new Button();
                 //arena_btn[i][j].setPrefSize(60, 60);
@@ -63,22 +61,33 @@ public class SetUnits {
         }
     }
 
-    Stage BuildSetUnits()
-    {   imageView.setFitHeight(800);
-    imageView.setFitWidth(800);
+    Stage BuildSetUnits(int id)
+    {
+        m=NumOfPlayers.Players.get(id).GetUnits().size();
+        playerUnits=new Button[m];
 
-
-        HBox hBox=new HBox();
-        hBox.getChildren().addAll(zoomIn,zoomOut,Up,Down,Left,Right);
-        hBox.setLayoutX(0);
-        hBox.setLayoutX(0);
+        ////
+        imageView.setFitHeight(800);
+        imageView.setFitWidth(800);
+        //////
         arenaPane.setLayoutY(30);
+        //////
         playerUnitsLabel.setLayoutY(600);
+        //////
         playerUnitsHbox.setLayoutY(650);
-
-        root.getChildren().addAll(imageView,hBox,arenaPane,playerUnitsLabel,playerUnitsHbox);
+        //////
+        root.getChildren().addAll(imageView,arenaPane,playerUnitsLabel,playerUnitsHbox);
+        //////
         printArena();
         printBench();
+        //////
+        String playerType=NumOfPlayers.Players.get(id).GetType().toString();
+        String playerId=String.valueOf(id);
+        String temp=playerType+playerId;
+        numOfPlayer.setText(temp);
+        numOfPlayer.setLayoutY(700);
+        numOfPlayer.setLayoutX(700);
+        //////
         Scene scene=new Scene(root,800,800);
         Stage stage=new Stage();
         stage.setScene(scene);
@@ -87,12 +96,16 @@ public class SetUnits {
 
 
     }
+    void fillplayerUnits()
+    {
+
+    }
 
 
 
     public void printBench() {
         if (playerUnits != null) {
-            for (int i = 0; i < playerUnits.length; i++) {
+            for (int i = 0; i <m; i++) {
                 playerUnits[i].setVisible(false);
             }
         }
@@ -106,7 +119,7 @@ public class SetUnits {
                 public void handle(ActionEvent actionEvent) {
                     Index = finalI;
                     playerUnits[Index].setVisible(false);
-                    System.out.println(finalI);
+
                 }
             });
         }

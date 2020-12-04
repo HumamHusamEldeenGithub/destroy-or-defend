@@ -9,8 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import player.Player;
 
-
+import java.util.ArrayList;
 
 
 public class ShopScreen implements EventHandler {
@@ -24,6 +25,8 @@ public class ShopScreen implements EventHandler {
     Pane root =new Pane();
 
     Stage prevStage;
+
+
 
 
     Stage Build()
@@ -59,12 +62,13 @@ public class ShopScreen implements EventHandler {
     }
 
 
+
     @Override
     public void handle(Event event) {
         if(event.getSource()==nextButton)
         {
             prevStage.close();
-            for(int i=1;i<= NumOfPlayers.AttackTeamPlayers;i++)
+            for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
             {
 
 
@@ -73,7 +77,7 @@ public class ShopScreen implements EventHandler {
 
 
                 BuyList buyList =new BuyList();
-                MyNewStage= buyList.BuildBuyList(i,"Attacker");
+                MyNewStage= buyList.BuildBuyList(i);
 
                 MyNewStage.showAndWait();
 
@@ -84,18 +88,18 @@ public class ShopScreen implements EventHandler {
             {
                 SetTactics setTactics=new SetTactics();
                 Stage MyNewStage;
-                MyNewStage=setTactics.Build(i,"Attacker");
+                MyNewStage=setTactics.Build(i);
                 MyNewStage.showAndWait();
             }
 
-            for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
+          /*  for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
             {
 
                 Stage MyNewStage;
 
 
                 BuyList buyList =new BuyList();
-                MyNewStage= buyList.BuildBuyList(i,"Defender");
+                MyNewStage= buyList.BuildBuyList(i+NumOfPlayers.AttackTeamPlayers);
 
                 MyNewStage.showAndWait();
             }
@@ -103,13 +107,23 @@ public class ShopScreen implements EventHandler {
             {
                 SetTactics setTactics=new SetTactics();
                 Stage MyNewStage;
-                MyNewStage=setTactics.Build(i,"Defender");
+                MyNewStage=setTactics.Build(i+NumOfPlayers.AttackTeamPlayers);
                 MyNewStage.showAndWait();
-            }
-            Stage MyNewStage;
+            }*/
+            /*Stage MyNewStage;
             Arena arena=new Arena();
             MyNewStage=arena.Build();
+            MyNewStage.showAndWait();*/
+        }
+        for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
+        {
+            SetUnits setUnits=new SetUnits();
+            Stage MyNewStage=new Stage();
+            MyNewStage=setUnits.BuildSetUnits(i);
             MyNewStage.showAndWait();
+
+
+
         }
     }
 }

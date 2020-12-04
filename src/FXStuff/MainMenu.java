@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import unit.UnitFactory;
 
 public class MainMenu implements EventHandler {
     //DATAMEMBERS
@@ -55,23 +56,13 @@ public class MainMenu implements EventHandler {
 
         if(event.getSource()==Play_btn)
         {
+            UnitFactory.LoadData();
+            ///////////
             Stage MyNewStage=new Stage();
-
-
-
-            // Buylist for attackers and defenders
-            //set the units for attackers and defenders
-            //make the grid "Battlefield" with {play button,zoom in ,zoom out}
-
-
            NumOfPlayers numOfPlayers=new NumOfPlayers();
             MyNewStage=numOfPlayers.Build();
             PrevStage.hide();
             MyNewStage.show();
-
-
-
-
 
         }
         else if(event.getSource()==About_btn)

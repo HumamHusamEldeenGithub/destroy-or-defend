@@ -1,22 +1,17 @@
 package FXStuff;
 
 
-import Strategies.HighestDamageAttackStrategy;
 import Strategies.LowestHealthAttackStrategy;
-import Strategies.RandomAttackStrategy;
 import Utilitiy.Position;
-import Utilitiy.StopWatch;
 import gameManager.DoDGameManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import Arena.*;
 import player.Player;
 import player.PlayerType;
 import unit.Unit;
-import unit.UnitFactory;
 import unit.UnitType;
 
 import java.util.ArrayList;
@@ -30,10 +25,12 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();*/
+
         MainMenu mainMenu=new MainMenu();
         primaryStage=mainMenu.BuildMainMenu();
         primaryStage.show();
     }
+
 
     public static void main(String[] args) {
         //Arena.PrintArena();

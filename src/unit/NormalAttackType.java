@@ -1,8 +1,8 @@
 package unit;
 
 public class NormalAttackType extends AttackType {
-    public NormalAttackType(AttackType type){
-        super(type);
+    public NormalAttackType(){
+
     }
     @Override
     public boolean PerformAttack(Unit unit,double Damage) {

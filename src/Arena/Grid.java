@@ -13,7 +13,7 @@ public class Grid {
     public static int CellNum;
     public static int CellSize ;
     static HashMap<Position, Cell> Cells ;
-    static HashMap<Position, Pair<Double,ArrayList<Object>>> map ;
+    static Unit mainBase ;
     Grid(){ }
     public synchronized static Grid GetGrid(){
         if(grid==null){
@@ -45,30 +45,21 @@ public class Grid {
         return false;
     }
     public synchronized static boolean addUnit(Unit unit){
-        return Cells.get(unit.getPosition()).AddUnit(unit);
+        return Cells.get(unit.GetPosition()).AddUnit(unit);
     }
-    /*public synchronized static boolean addUnit(Unit unit ,Position position)
-    {
-        if (map.get(position)==null)
-        {
-            ArrayList<Object> list = new ArrayList<>() ;
-            list.add(unit) ;
-            map.put(position,new Pair<>(unit.GetSize().GetValue(),list)) ;
-            return true ;
-        }
-        if (map.get(position).getKey()>=unit.GetSize().GetValue())
-        {
-            Double size = map.get(position).getKey() - unit.GetSize().GetValue() ;
-            ArrayList<Object> list = map.get(position).getValue() ;
-            list.add(unit) ;
-            map.put(position,new Pair<>(size,list)) ;
-            return true ;
-        }
-        else
-            return false ;
-    }*/
+
     public synchronized static void RemoveUnit(Unit unit){
-        Cells.get(unit.getPosition()).RemoveUnit(unit);
+        Cells.get(unit.GetPosition()).RemoveUnit(unit);
+    }
+
+    public static synchronized Position getBasePosition(){
+        return mainBase.GetPosition() ;
+    }
+
+    public static synchronized Cell CheckCell(Position pos){
+        if(Cells.containsKey(pos))
+            return Cells.get(pos);
+        return null;
     }
 
 }

@@ -6,12 +6,13 @@ import Utilitiy.Position;
 import gameManager.DoDGameManager;
 import unit.Unit;
 
+import java.util.List;
+
 public class AttackerMovement extends Movement {
     private static AttackerMovement attackerMovement=null ;
     private AttackerMovement(){}
     public synchronized static Movement getObj(){
-        if (AttackerMovement.attackerMovement==null)
-        {
+        if (AttackerMovement.attackerMovement==null) {
             synchronized (AttackerMovement.class){
                 if (AttackerMovement.attackerMovement==null)
                     AttackerMovement.attackerMovement = new AttackerMovement() ;
@@ -21,15 +22,23 @@ public class AttackerMovement extends Movement {
     }
 
     public synchronized void move(Unit unit) {
-        Position unitPosition = PathFinder.GetObj().GetPos(unit.getPosition(), DoDGameManager.mainBase.getPosition(),unit.GetRange().GetValue(), unit.GetSize().GetValue() ) ;
-        if (unitPosition!=null)
-        {
-            System.out.println(unitPosition);
-            Grid.RemoveUnit(unit);
-            unit.SetPosition(unitPosition);
-
+        Unit nextAttackUnit = null;
+        if(!unit.ReAttack()){
+            List<Unit> ToAttack = unit.CheckRange();
+            nextAttackUnit = unit.GetPrioritizedUnit(ToAttack);
         }
-        else
-            System.out.println("Error");
+        if(nextAttackUnit!=null){
+            unit.AttackUnit(nextAttackUnit);
+        }
+        else {
+            Position nextPos = PathFinder.GetObj().GetPos(unit.GetPosition(), Grid.getBasePosition(), unit.GetRange().GetValue(), unit.GetSize().GetValue());
+            if (nextPos != null) {
+                System.out.println(nextPos);
+                Grid.RemoveUnit(unit);
+                unit.SetPosition(nextPos);
+                Grid.addUnit(unit);
+            } else
+                System.err.println("Error in finding path");
+        }
     }
 }

@@ -2,8 +2,8 @@ package unit;
 
 public class AreaOfDestructionAttackType extends AttackType {
 
-    public AreaOfDestructionAttackType(AttackType type){
-        super(type);
+    public AreaOfDestructionAttackType(){
+
     }
 
     @Override

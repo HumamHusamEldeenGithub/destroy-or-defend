@@ -2,6 +2,8 @@ package movement;
 
 import unit.Unit;
 
+import java.util.List;
+
 public class DefenderMovement extends Movement {
     private static DefenderMovement defenderMovement =null ;
     private DefenderMovement(){}
@@ -17,7 +19,13 @@ public class DefenderMovement extends Movement {
     }
 
     @Override
-    public void move(Unit unit) {
-        //Position BasePosition = DoDGameManager.getObj().getBasePosition() ;
+    public void move(Unit unit) {Unit nextAttackUnit = null;
+        if(!unit.ReAttack()){
+            List<Unit> ToAttack = unit.CheckRange();
+            nextAttackUnit = unit.GetPrioritizedUnit(ToAttack);
+        }
+        if(nextAttackUnit!=null){
+            unit.AttackUnit(nextAttackUnit);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package unit;
 
+import Strategies.AttackStrategy;
 import Utilitiy.CSVReader;
 import Utilitiy.PathFinder;
 import movement.AttackerMovement;
@@ -27,7 +28,7 @@ public class  UnitFactory {
     UnitFactory() {
         this.LoadData();
     }
-    public static synchronized Unit CreateUnit(UnitType unitType , PlayerType playerType) {
+    public static synchronized Unit CreateUnit(UnitType unitType , PlayerType playerType , AttackStrategy strategy) {
         String[] info = UnitsInfo.get(unitType) ;
         if (info==null)
             return null ;
@@ -83,7 +84,7 @@ public class  UnitFactory {
         }catch (Exception e){
 
         }
-        return new Unit(unitType,properties, (playerType.toString().contains("Attacker")? AttackerMovement.getObj(): DefenderMovement.getObj()) , getTypes(CanTarget));
+        return new Unit(unitType,properties, (playerType.toString().contains("Attacker")? AttackerMovement.getObj(): DefenderMovement.getObj()) , getTypes(CanTarget) , strategy);
     }
 
 

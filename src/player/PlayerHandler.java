@@ -15,10 +15,4 @@ public class PlayerHandler extends Thread {
     public void run() {
         player.MakeMove();
     }
-    public void CreateThread(Unit unit)
-    {
-        PlayerHandler playerHandler = new PlayerHandler(this.player) ;
-        playerHandler.start();
-    }
-
 }

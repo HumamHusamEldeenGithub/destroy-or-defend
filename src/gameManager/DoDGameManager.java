@@ -5,7 +5,6 @@ import Utilitiy.Position;
 import player.Player;
 import player.PlayerHandler;
 import player.PlayerType;
-import team.Team;
 import team.TeamHandler;
 import unit.*;
 
@@ -13,8 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoDGameManager extends GameManager {
-    static Grid grid ;
-    public static Unit mainBase ;
+    static Grid grid;
     static double remainingTime ;
     static TeamHandler Attackers;
     static TeamHandler Defenders;
@@ -28,7 +26,6 @@ public class DoDGameManager extends GameManager {
         grid = Grid.GetGrid() ;
         grid.Initialize(100,5);
     }
-
     public synchronized static DoDGameManager getObj() {
         if (DoDGameManager.doDGameManager==null)
         {
@@ -40,23 +37,31 @@ public class DoDGameManager extends GameManager {
         return DoDGameManager.doDGameManager ;
     }
 
-    //Methods
-    public static synchronized Position getBasePosition(){
-        return mainBase.getPosition() ;
+    public synchronized static GameState GetState(){
+        return state;
     }
 
-    public static void Initialize(ArrayList<Player> Players){
+    //Methods
+
+    public static void StartGame(){
+        state = GameState.Running;
+        Attackers.start();
+        Defenders.start();
+    }
+
+    public static void Initialize(List<Player> Players){
         StartTime = System.nanoTime();
-        List<PlayerHandler> Attackers = new ArrayList<PlayerHandler>();
-        List<PlayerHandler> Defenders = new ArrayList<PlayerHandler>();
+        List<Player> Attackers = new ArrayList<Player>();
+        List<Player> Defenders = new ArrayList<Player>();
         DoDGameManager.Attackers = new TeamHandler(Attackers);
         DoDGameManager.Defenders = new TeamHandler(Defenders);
         for(Player player : Players){
             if(player.GetType()==PlayerType.Attacker){
-                Attackers.add(new PlayerHandler(player));
+                Attackers.add(player);
             }
             else
-                Defenders.add(new PlayerHandler(player));
+                Defenders.add(player);
+            player.PutOnArena();
         }
     }
 
@@ -70,11 +75,14 @@ public class DoDGameManager extends GameManager {
             DoDGameManager.state = GameState.Running;
         }
     }
-    public static void  main(String[] args) {
-        DoDGameManager Game = DoDGameManager.getObj() ;
-        Unit unit= unitFactory.CreateUnit(UnitType.TeslaTank, PlayerType.Attacker) ;
-        mainBase = unitFactory.CreateUnit(UnitType.MainBase, PlayerType.Defender) ;
-        TeamHandler teamHandler = new TeamHandler(new ArrayList<PlayerHandler>());
+
+    public static void UpdateGame(){
+        if(!Attackers.isAlive()){
+            state = GameState.DefenderWon;
+        }
+        else{
+            state = GameState.AttackerWon;
+        }
     }
 
 }

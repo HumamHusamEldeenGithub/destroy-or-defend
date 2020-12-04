@@ -1,32 +1,38 @@
 package unit;
 
+import Arena.Cell;
 import Arena.Grid;
+import Strategies.AttackStrategy;
 import Utilitiy.Position;
 import movement.AttackerMovement;
 import movement.Movement;
 import unitProperty.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Unit {
     //Props
     public Unit _next ,_prev ;
-    AttackType activeAttackType;
-    ArrayList<UnitType> canAttack  ;
+    AttackType activeAttackType = new NormalAttackType() ;
+    ArrayList<UnitType> canAttack;
     public Movement movement ;
     Position position ;
     Unit targetedUnit ;
     ArrayList<UnitProperty> unitProperties ;
     UnitType unitType;
-    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , ArrayList<UnitType> canTarget)
+    AttackStrategy strategy;
+    Unit(){
+
+    }
+    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , ArrayList<UnitType> canTarget, AttackStrategy strategy)
     {
         this.unitType = type ;
+        this.strategy = strategy;
         unitProperties = (ArrayList<UnitProperty>) list.clone();
         movement = movementType ;
         canAttack = (ArrayList<UnitType>) canTarget.clone();
     }
-
-
     public DamageUnitProperty GetDamage(){
         for(UnitProperty unitProperty : unitProperties){
             if(DamageUnitProperty.class.isInstance(unitProperty)){
@@ -62,8 +68,8 @@ public class Unit {
         }
         return null;
     }
-    public RangeUnitProperty GetRange()
-    {
+
+    public RangeUnitProperty GetRange() {
         for(UnitProperty unitProperty : unitProperties){
             if(RangeUnitProperty.class.isInstance(unitProperty)){
                 return (RangeUnitProperty) unitProperty;
@@ -72,9 +78,18 @@ public class Unit {
         return null;
     }
 
-    public Unit(){
-
+    public UnitType GetType() {
+        return unitType;
     }
+
+    public Position GetPosition() {
+        return position;
+    }
+
+    public Unit GetPrioritizedUnit(List<Unit> Units){
+        return  strategy.PrioritizeUnitToAttack(Units);
+    }
+
     public void AcceptDamage (double damage){
         double armor = 0;
         for(UnitProperty property : unitProperties){
@@ -92,9 +107,9 @@ public class Unit {
             }
         }
     }
-    public boolean AttackUnit (Unit targetUnit ){
+
+    public boolean AttackUnit (Unit targetUnit){
         this.targetedUnit = targetUnit ;
-       // this.activeAttackType = attackType;
         double Damage = 0;
         for(UnitProperty property : unitProperties){
             if(DamageUnitProperty.class.isInstance(property)){
@@ -104,22 +119,38 @@ public class Unit {
         }
         return this.activeAttackType.PerformAttack(this.targetedUnit,Damage);
     }
+
     public void Move()
     {
        movement.move(this);
     }
+
     public void Destroy (){
         Grid.RemoveUnit(this);
     }
-    public void SetPosition (Position position )
-    {
-        this.position = position ;
-        Grid.addUnit(this);
+
+    public void SetPosition (Position position ) { this.position = position ; }
+
+    public boolean ReAttack(){
+        return AttackUnit(targetedUnit);
     }
-    public Position getPosition() {
-        return position;
-    }
-    public Unit CheckRange (){
-        return null;
+
+    public List<Unit> CheckRange (){
+        List<Unit> ToAttack = new ArrayList<Unit>();
+        for(int i=position.Get_X() - (int)GetRange().GetValue();i<=position.Get_X()+ (int)GetRange().GetValue();i++){
+            for(int j = position.Get_Y() - (int)GetRange().GetValue() ;j<=position.Get_Y() + (int)GetRange().GetValue();j++){
+                Cell curCell = Grid.CheckCell(new Position(i,j));
+                if(curCell!=null){
+                    for(Unit target : curCell.GetUnits()){
+                        for(UnitType type : this.canAttack){
+                            if(type == target.GetType()){
+                                ToAttack.add(target);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ToAttack;
     }
 }

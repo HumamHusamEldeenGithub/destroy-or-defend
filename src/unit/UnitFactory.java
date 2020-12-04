@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Arrays;
+import java.util.List;
 
 public class  UnitFactory {
     static HashMap<UnitType,String[]>UnitsInfo = new HashMap<UnitType,String[]>() ;
@@ -80,6 +81,7 @@ public class  UnitFactory {
         properties.add(new AttackSpeedUnitProperty(AttackFrequency)) ;
         properties.add(new SizeUnitProperty(Size)) ;
         properties.add(new PriceUnitProperty(UnitPrice));
+        properties.add(new DamageUnitProperty(AttackDamage));
         try {
             Thread.sleep(100);
         }catch (Exception e){
@@ -120,9 +122,9 @@ public class  UnitFactory {
         return Double.parseDouble(info[info.length-1]) ;
     }
 
-    static ArrayList<UnitType> getTypes (String[] CanTarget)
+    static List<UnitType> getTypes (String[] CanTarget)
     {
-        ArrayList<UnitType> list = new ArrayList<>();
+        List<UnitType> list = new ArrayList<UnitType>();
         for (String s : CanTarget)
             list.add(getType(s)) ;
         return list ;

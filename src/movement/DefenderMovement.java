@@ -19,7 +19,9 @@ public class DefenderMovement extends Movement {
     }
 
     @Override
-    public void move(Unit unit) {Unit nextAttackUnit = null;
+    public void move(Unit unit) {
+        /*
+        Unit nextAttackUnit = null;
         if(!unit.ReAttack()){
             List<Unit> ToAttack = unit.CheckRange();
             nextAttackUnit = unit.GetPrioritizedUnit(ToAttack);
@@ -27,5 +29,7 @@ public class DefenderMovement extends Movement {
         if(nextAttackUnit!=null){
             unit.AttackUnit(nextAttackUnit);
         }
+
+         */
     }
 }

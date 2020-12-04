@@ -3,6 +3,7 @@ package FXStuff;
 
 import Strategies.HighestDamageAttackStrategy;
 import Strategies.LowestHealthAttackStrategy;
+import Strategies.RandomAttackStrategy;
 import Utilitiy.Position;
 import Utilitiy.StopWatch;
 import gameManager.DoDGameManager;
@@ -38,7 +39,7 @@ public class Main extends Application {
         //Arena.PrintArena();
         DoDGameManager.Initialize();
         List<Player> players = new ArrayList<Player>();
-        Player player1 = new Player(PlayerType.Attacker,1, HighestDamageAttackStrategy.getObj());
+        Player player1 = new Player(PlayerType.Attacker,1, LowestHealthAttackStrategy.getObj());
         Player player2 = new Player(PlayerType.Defender,2,LowestHealthAttackStrategy.getObj());
         player1.BuyUnit(UnitType.BlackEagle);
         player2.BuyUnit(UnitType.MainBase);
@@ -54,7 +55,7 @@ public class Main extends Application {
         DoDGameManager.StartGame();
         bl = unit1;
         //System.out.println(bl.GetPosition());
-        launch(args);
+        //launch(args);
 
     }
 }

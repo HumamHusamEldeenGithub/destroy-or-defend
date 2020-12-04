@@ -15,23 +15,23 @@ public class Unit {
     //Props
     public Unit _next ,_prev ;
     AttackType activeAttackType = new NormalAttackType() ;
-    ArrayList<UnitType> canAttack;
+    List<UnitType> canAttack;
     public Movement movement ;
     Position position ;
     Unit targetedUnit ;
-    ArrayList<UnitProperty> unitProperties ;
+    List<UnitProperty> unitProperties ;
     UnitType unitType;
     AttackStrategy strategy;
     Unit(){
 
     }
-    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , ArrayList<UnitType> canTarget, AttackStrategy strategy)
+    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , List<UnitType> canTarget, AttackStrategy strategy)
     {
         this.unitType = type ;
         this.strategy = strategy;
-        unitProperties = (ArrayList<UnitProperty>) list.clone();
+        unitProperties = list;
         movement = movementType ;
-        canAttack = (ArrayList<UnitType>) canTarget.clone();
+        canAttack =  canTarget;
     }
     public DamageUnitProperty GetDamage(){
         for(UnitProperty unitProperty : unitProperties){
@@ -142,6 +142,8 @@ public class Unit {
                 Cell curCell = Grid.CheckCell(new Position(i,j));
                 if(curCell!=null){
                     for(Unit target : curCell.GetUnits()){
+                        if(this.getClass().equals(target))
+                            continue;
                         for(UnitType type : this.canAttack){
                             if(type == target.GetType()){
                                 ToAttack.add(target);

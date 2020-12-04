@@ -64,7 +64,7 @@ public class PathFinder {
         for(GridNode node : GridSet){
 
             Position newCur = node.pos;
-            if(Math.abs(newCur.Get_X() - Destination.Get_X()) <=Range && Math.abs(newCur.Get_Y() - Destination.Get_Y()) <= Range){
+            if(Math.abs(newCur.Get_X() - Destination.Get_X()) < Range && Math.abs(newCur.Get_Y() - Destination.Get_Y()) < Range){
                 if(node == GridSet.last())
                     return currentPos;
                 continue;

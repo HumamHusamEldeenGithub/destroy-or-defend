@@ -87,6 +87,7 @@ public class DoDGameManager extends GameManager {
         }
         else if(!Defenders.isAlive()){
             state = GameState.AttackerWon;
+            System.out.println("Win");
         }
     }
 

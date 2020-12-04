@@ -58,7 +58,9 @@ public class Player {
         }
         return false;
     }
-
+    public void SetStrategy(AttackStrategy strategy){
+        this.strategy = strategy;
+    }
     public int GetId(){
         return teamId;
     }

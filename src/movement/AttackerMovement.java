@@ -33,10 +33,11 @@ public class AttackerMovement extends Movement {
         else {
             Position nextPos = PathFinder.GetObj().GetPos(unit.GetPosition(), Grid.getBasePosition(), unit.GetRange().GetValue(), unit.GetSize().GetValue());
             if (nextPos != null) {
-                System.out.println(nextPos);
+               // System.out.println(nextPos);
                 Grid.RemoveUnit(unit);
                 unit.SetPosition(nextPos);
                 Grid.addUnit(unit);
+               // System.out.println("has moved");
             } else
                 System.err.println("Error in finding path");
         }

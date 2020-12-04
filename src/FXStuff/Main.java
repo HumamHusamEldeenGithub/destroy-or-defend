@@ -3,6 +3,9 @@ package FXStuff;
 
 import Strategies.HighestDamageAttackStrategy;
 import Strategies.LowestHealthAttackStrategy;
+import Utilitiy.Position;
+import Utilitiy.StopWatch;
+import gameManager.DoDGameManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +14,7 @@ import javafx.stage.Stage;
 import Arena.*;
 import player.Player;
 import player.PlayerType;
+import unit.Unit;
 import unit.UnitFactory;
 import unit.UnitType;
 
@@ -32,14 +36,25 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         //Arena.PrintArena();
-        Grid grid = Grid.GetGrid();
-        grid.Initialize(100,200);
-        UnitFactory factory = UnitFactory.GetObj();
-        UnitFactory.LoadData();
+        DoDGameManager.Initialize();
         List<Player> players = new ArrayList<Player>();
         Player player1 = new Player(PlayerType.Attacker,1, HighestDamageAttackStrategy.getObj());
         Player player2 = new Player(PlayerType.Defender,2,LowestHealthAttackStrategy.getObj());
         player1.BuyUnit(UnitType.BlackEagle);
+        player2.BuyUnit(UnitType.MainBase);
+        //System.out.println(player1.GetUnits().size());
+        Unit unit1 = player1.GetUnits().get(0);
+        unit1.SetPosition(new Position(0,0));
+        Unit bl = null;
+        Unit unit2 = player2.GetUnits().get(0);
+        unit2.SetPosition(new Position(20,20));
+        players.add(player1);
+        players.add(player2);
+        DoDGameManager.InitializePlayers(players);
+        DoDGameManager.StartGame();
+        bl = unit1;
+        //System.out.println(bl.GetPosition());
         launch(args);
+
     }
 }

@@ -18,8 +18,8 @@ public class Cell {
         terrainType = TerrainType.Flat;
         units = new ArrayList<Unit>();
     }
-    public ObservableList<Unit> GetUnits(){
-        return (ObservableList) units;
+    public List<Unit> GetUnits(){
+        return  units;
     }
     public void UpdateTerrain(TerrainType terrainType){
         this.terrainType = terrainType;

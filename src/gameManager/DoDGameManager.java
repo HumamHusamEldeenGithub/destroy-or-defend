@@ -21,10 +21,8 @@ public class DoDGameManager extends GameManager {
     private static DoDGameManager doDGameManager=null ;
     private static long StartTime=0;
     private static long OldElapsedTime=0;
+    private static UnitFactory factory;
     private DoDGameManager() {
-        unitFactory = UnitFactory.GetObj() ;
-        grid = Grid.GetGrid() ;
-        grid.Initialize(100,5);
     }
     public synchronized static DoDGameManager getObj() {
         if (DoDGameManager.doDGameManager==null)
@@ -49,7 +47,14 @@ public class DoDGameManager extends GameManager {
         Defenders.start();
     }
 
-    public static void Initialize(List<Player> Players){
+    public static void Initialize(){
+        grid = Grid.GetGrid();
+        grid.Initialize(1000,200);
+        factory = UnitFactory.GetObj();
+        UnitFactory.LoadData();
+    }
+
+    public static void InitializePlayers(List<Player> Players){
         StartTime = System.nanoTime();
         List<Player> Attackers = new ArrayList<Player>();
         List<Player> Defenders = new ArrayList<Player>();
@@ -80,7 +85,7 @@ public class DoDGameManager extends GameManager {
         if(!Attackers.isAlive()){
             state = GameState.DefenderWon;
         }
-        else{
+        else if(!Defenders.isAlive()){
             state = GameState.AttackerWon;
         }
     }

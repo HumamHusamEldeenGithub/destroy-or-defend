@@ -51,6 +51,7 @@ public class  UnitFactory {
                         AttackRange = Double.parseDouble(info[i]);
                         break;
                     case 4:
+                        System.out.println(info[i]);
                         AttackFrequency = Double.parseDouble(info[i]);
                         break;
                     case 5:

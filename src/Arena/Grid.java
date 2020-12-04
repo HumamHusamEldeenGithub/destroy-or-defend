@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.util.Pair;
 import unit.Unit;
 import Utilitiy.Position;
+import unit.UnitType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,9 @@ public class Grid {
         return false;
     }
     public synchronized static boolean addUnit(Unit unit){
+        if(unit.GetType() == UnitType.MainBase){
+            Grid.mainBase = unit;
+        }
         return Cells.get(unit.GetPosition()).AddUnit(unit);
     }
 

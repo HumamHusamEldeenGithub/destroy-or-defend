@@ -22,7 +22,7 @@ public class Position {
     }
 
     public void Set_Y(int Y) {
-        centerX = Y;
+        centerY = Y;
     }
 
     public String toString() {
@@ -33,5 +33,12 @@ public class Position {
     public boolean equals(Object o) {
         return this.centerX == ((Position) o).Get_X() && this.centerY == ((Position) o).Get_Y();
 
+    }
+    @Override
+    public int hashCode() {
+        final int prime = 402653189;
+        int result = 1;
+        result = prime * result + Get_X()*Get_Y() + Get_Y();
+        return result;
     }
 }

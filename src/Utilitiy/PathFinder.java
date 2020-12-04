@@ -48,7 +48,7 @@ public class PathFinder {
         for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
             for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
-                    if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!= TerrainType.Valley && !visited[j][j]) {
+                    if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!= TerrainType.Valley && !visited[j][j] ) {
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);
                         if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
@@ -62,9 +62,15 @@ public class PathFinder {
         }
         // Check best solution
         for(GridNode node : GridSet){
+
             Position newCur = node.pos;
+            if(Math.abs(newCur.Get_X() - Destination.Get_X()) <=Range && Math.abs(newCur.Get_Y() - Destination.Get_Y()) <= Range){
+                if(node == GridSet.last())
+                    return currentPos;
+                continue;
+            }
             //DFS
-            for(int i = 0;i < 50;i++){
+            for(int i = 0;i < 1;i++){
                 newCur = Think(newCur,Destination,Range,Size);
                 if(newCur==null){
                     break;
@@ -89,7 +95,7 @@ public class PathFinder {
         SortedSet<GridNode> Nodes = new TreeSet<>(cmp);
         for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
             for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y()+1;j++){
-                if(i>=0 && i<10000 && j>=0 && j<10000 ) {
+                if(i>=0 && i<Grid.CellNum && j>=0 && j<Grid.CellNum ) {
                     if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!=TerrainType.Valley && !visited[j][j]) {
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - j + Destination.Get_Y() - i);

@@ -52,7 +52,7 @@ public class Main extends Application {
         DoDGameManager.StartGame();
         bl = unit1;
         //System.out.println(bl.GetPosition());
-        //launch(args);
+        launch(args);
 
     }
 }

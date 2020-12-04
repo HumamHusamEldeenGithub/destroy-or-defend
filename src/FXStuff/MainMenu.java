@@ -1,5 +1,6 @@
 package FXStuff;
 
+import gameManager.DoDGameManager;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -56,10 +57,10 @@ public class MainMenu implements EventHandler {
 
         if(event.getSource()==Play_btn)
         {
-            UnitFactory.LoadData();
+            DoDGameManager.Initialize();
             ///////////
             Stage MyNewStage=new Stage();
-           NumOfPlayers numOfPlayers=new NumOfPlayers();
+            NumOfPlayers numOfPlayers=new NumOfPlayers();
             MyNewStage=numOfPlayers.Build();
             PrevStage.hide();
             MyNewStage.show();

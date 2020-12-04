@@ -33,6 +33,7 @@ public class BuyList implements EventHandler {
     Stage BuildBuyList( int id)
     {
         //ImageView imageView=new ImageView("\\Images\\Black.jpg");
+
         AllUnits=UnitFactory.GetUnitsInfo();
         Coins=NumOfPlayers.Players.get(id).GetCoins();
         /*for(UnitType unitType:AllUnits.keySet())
@@ -44,7 +45,7 @@ public class BuyList implements EventHandler {
 
         }*/
         String playerType=NumOfPlayers.Players.get(id).GetType().toString();
-       String playerId=String.valueOf(id);
+        String playerId=String.valueOf(id);
         String temp=playerType+playerId;
 
 

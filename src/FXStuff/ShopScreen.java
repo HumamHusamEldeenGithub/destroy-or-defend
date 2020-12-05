@@ -58,7 +58,7 @@ public class ShopScreen implements EventHandler {
         if(event.getSource()==nextButton)
         {
             prevStage.close();
-            /*for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
+            for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
             {
                 SetTactics setTactics=new SetTactics();
                 Stage MyNewStage;
@@ -114,10 +114,10 @@ public class ShopScreen implements EventHandler {
                  MyNewStage=new Stage();
                 MyNewStage=setUnits.BuildSetUnits(i+NumOfPlayers.AttackTeamPlayers);
                 MyNewStage.showAndWait();
-            }*/
+            }
 
             Arena arena=new Arena();
-            Stage MyNewStage=new Stage();
+            MyNewStage=new Stage();
             MyNewStage=arena.Build();
             MyNewStage.showAndWait();
             DoDGameManager.InitializePlayers(NumOfPlayers.Players);

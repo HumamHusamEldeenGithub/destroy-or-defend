@@ -134,12 +134,8 @@ public class BuyList implements EventHandler {
                 }
                 else
                 {
-                    if(NumOfPlayers.Players.get(ID-1).GetType()==PlayerType.Defender&&ID==NumOfPlayers.AttackTeamPlayers+NumOfPlayers.DefendTeamPlayers&&NumOfPlayers.hasMainBase==false)
-                    {
-                        ErrorMessage errorMessage=new ErrorMessage();
-                        errorMessage.PrintError("You have to buy main base");
-                    }
-                    else if(UnitType.valueOf(unitType.getText())==UnitType.MainBase)
+
+                     if(UnitType.valueOf(unitType.getText())==UnitType.MainBase)
                     {
                         if(NumOfPlayers.hasMainBase==true)
                         {
@@ -185,7 +181,12 @@ public class BuyList implements EventHandler {
         }
         if(event.getSource()==nextButton)
         {
-            if(hasUnit==true)
+            if(NumOfPlayers.Players.get(ID-1).GetType()==PlayerType.Defender&&ID==NumOfPlayers.AttackTeamPlayers+NumOfPlayers.DefendTeamPlayers&&NumOfPlayers.hasMainBase==false)
+            {
+                ErrorMessage errorMessage=new ErrorMessage();
+                errorMessage.PrintError("You have to buy main base");
+            }
+            else if(hasUnit==true)
            prevStage.close();
             else
             {

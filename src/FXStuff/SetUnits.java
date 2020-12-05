@@ -59,7 +59,8 @@ public class SetUnits implements EventHandler{
                     public void handle(ActionEvent actionEvent) {
                         if (unitIndex != -1) {
                             arena[finalI][finalJ].setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY)));
-                            if(Grid.CheckCell(new Position(finalI,finalJ),Units.get(unitIndex)))
+                            System.out.println(new Position(finalI,finalJ));
+                            if(Grid.GetGrid().CheckCell(new Position(finalI,finalJ),Units.get(unitIndex)))
                             {Units.get(unitIndex).SetPosition(new Position(finalI,finalJ));
                             unitIndex = -1;}
                             else

@@ -78,12 +78,22 @@ public class  UnitFactory {
         properties.add(new PriceUnitProperty(UnitPrice));
         properties.add(new DamageUnitProperty(AttackDamage));
         properties.add(new MovementSpeedUnitProperty(Movement));
+        Logic logic ;
+        if (playerType==PlayerType.Attacker)
+        {
+            if (unitType==UnitType.BlackEagle)
+                logic = new AirForceLogic() ;
+            else
+                logic = new AttackerLogic ();
+        }
+        else
+            logic = new DefenderLogic() ;
         try {
             Thread.sleep(1);
         }catch (Exception e){
 
         }
-        return new Unit(unitType,properties, (playerType.toString().contains("Attacker")? AttackerMovement.getObj(): DefenderMovement.getObj()) , getTypes(CanTarget) , strategy);
+        return new Unit(unitType,properties, logic, getTypes(CanTarget) , strategy);
     }
 
 

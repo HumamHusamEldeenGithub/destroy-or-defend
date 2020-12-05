@@ -61,11 +61,8 @@ public class BuyList implements EventHandler {
 
         Coinslabel=new Label("Points:"+Coins);
 
-
-
         Coinslabel.setLayoutX(150);
         Coinslabel.setLayoutY(200);
-
 
         InfoButton.setLayoutX(240);
         InfoButton.setLayoutY(30);

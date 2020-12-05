@@ -142,7 +142,7 @@ public class Unit {
                 Cell curCell = Grid.CheckCell(new Position(i,j));
                 if(curCell!=null){
                     for(Unit target : curCell.GetUnits()){
-                        if(this.getClass().equals(target))
+                        if(this == target)
                             continue;
                         for(UnitType type : this.canAttack){
                             if(type == target.GetType()){

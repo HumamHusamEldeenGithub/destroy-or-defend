@@ -1,6 +1,6 @@
 package unit;
 
-import Arena.Cell;
+import Arena.GridCell;
 import Arena.Grid;
 import Strategies.AttackStrategy;
 import Utilitiy.Position;
@@ -155,9 +155,9 @@ public class Unit {
         List<Unit> ToAttack = new ArrayList<Unit>();
         for(int i=position.Get_X() - (int)GetRange().GetValue();i<=position.Get_X()+ (int)GetRange().GetValue();i++){
             for(int j = position.Get_Y() - (int)GetRange().GetValue() ;j<=position.Get_Y() + (int)GetRange().GetValue();j++){
-                Cell curCell = Grid.CheckCell(new Position(i,j));
-                if(curCell!=null){
-                    for(Unit target : curCell.GetUnits()){
+                GridCell curGridCell = Grid.GetCell(new Position(i,j));
+                if(curGridCell !=null){
+                    for(Unit target : curGridCell.GetUnits()){
                         if(this == target)
                             continue;
                         for(UnitType type : this.canAttack){

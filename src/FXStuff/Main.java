@@ -39,7 +39,7 @@ public class Main extends Application {
 
         manager = DoDGameManager.getObj();
         DoDGameManager.Initialize();
-        /*
+/*
         List<Player> players = new ArrayList<Player>();
         Player player1 = new Player(PlayerType.Attacker,1, LowestHealthAttackStrategy.getObj());
         Player player2 = new Player(PlayerType.Defender,2,LowestHealthAttackStrategy.getObj());
@@ -50,7 +50,7 @@ public class Main extends Application {
         unit1.SetPosition(new Position(0,0));
         Unit bl = null;
         Unit unit2 = player2.GetUnits().get(0);
-        unit2.SetPosition(new Position(999,999));
+        unit2.SetPosition(new Position(50,50));
         players.add(player1);
         players.add(player2);
         DoDGameManager.InitializePlayers(players);
@@ -59,8 +59,8 @@ public class Main extends Application {
         while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon)
             DoDGameManager.UpdateGame();
         System.out.println("wa2el");
+        */
 
-         */
         launch(args);
     }
 }

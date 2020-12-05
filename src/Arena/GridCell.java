@@ -7,12 +7,12 @@ import unit.Unit;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell {
+public class GridCell {
     Position position;
     int size;
     List<Unit> units;
     TerrainType terrainType;
-    public Cell(int size,Position position) {
+    public GridCell(int size, Position position) {
         this.size = size;
         this.position = position;
         terrainType = TerrainType.Flat;

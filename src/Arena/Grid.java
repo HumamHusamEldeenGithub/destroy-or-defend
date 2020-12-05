@@ -1,24 +1,16 @@
 package Arena;
 
-import Strategies.LowestHealthAttackStrategy;
-import gameManager.DoDGameManager;
-import javafx.geometry.Pos;
-import javafx.util.Pair;
-import player.Player;
-import player.PlayerType;
 import unit.Unit;
 import Utilitiy.Position;
 import unit.UnitType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Grid {
     static Grid grid =null;
     public static int CellNum;
     public static int CellSize ;
-    static HashMap<Position, Cell> Cells ;
+    static HashMap<Position, GridCell> Cells ;
     static Unit mainBase ;
     Grid(){ }
     public synchronized static Grid GetGrid(){
@@ -33,10 +25,10 @@ public class Grid {
     public  void Initialize(int NumOfCells,int Cellsize){
         CellSize = Cellsize;
         CellNum = NumOfCells;
-        Cells = new HashMap<Position, Cell>();
+        Cells = new HashMap<Position, GridCell>();
         for(int i=0;i<NumOfCells;i++){
             for(int j=0;j<NumOfCells;j++){
-                Cells.put(new Position(i,j),new Cell(Cellsize,new Position(i,j)));
+                Cells.put(new Position(i,j),new GridCell(Cellsize,new Position(i,j)));
             }
         }
     }
@@ -61,7 +53,7 @@ public class Grid {
     }
 
     public synchronized static boolean CheckCell(Position pos,Unit unit){
-        return Cells.get(unit.GetPosition()).CheckAvailability(pos,unit);
+        return Cells.get(pos).CheckAvailability(pos,unit);
     }
 
     public synchronized static void RemoveUnit(Unit unit){
@@ -72,12 +64,12 @@ public class Grid {
         return mainBase.GetPosition() ;
     }
 
-    public static synchronized Cell CheckCell(Position pos){
+    public static synchronized GridCell GetCell(Position pos){
         if(Cells.containsKey(pos))
             return Cells.get(pos);
         return null;
     }
-    public static Cell[][] GetCut(Position position){
+    public static GridCell[][] GetCut(Position position){
         if(position.Get_X()<0){
             position.Set_X(0);
         }
@@ -90,12 +82,12 @@ public class Grid {
         if(position.Get_Y()>= CellNum){
             position.Set_Y(CellNum - 10);
         }
-        Cell[][] cells = new Cell[10][10];
+        GridCell[][] gridCells = new GridCell[10][10];
         for(int i=position.Get_X();i<position.Get_X()+10;i++){
             for(int j=position.Get_Y();j<position.Get_Y()+10;j++){
-                cells[i][j] = Cells.get(new Position(i,j));
+                gridCells[i][j] = Cells.get(new Position(i,j));
             }
         }
-        return cells;
+        return gridCells;
     }
 }

@@ -52,6 +52,7 @@ public class SetTactics implements EventHandler {
         String playerType=NumOfPlayers.Players.get(id-1).GetType().toString();
         String playerId=String.valueOf(id);
         String temp=playerType+playerId;
+        numOfPlayer.setText(temp);
 
         numOfPlayer.setLayoutX(300);
         numOfPlayer.setLayoutY(10);

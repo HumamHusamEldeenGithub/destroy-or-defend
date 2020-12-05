@@ -29,8 +29,9 @@ public class SetUnits implements EventHandler{
     Pane root =new Pane();
     Label playerUnitsLabel=new Label("---------------------------Your Units----------------------------");
     //ArrayList<Button>playerUnits=new ArrayList<Button>();//the units of the current player as a buttons
-    int m=5;
+    int m;
     Button[]playerUnits;
+    boolean isSet[];
     ScrollPane scrollPane=new ScrollPane();
     HBox playerUnitsHbox=new HBox();
     int ID;
@@ -58,8 +59,15 @@ public class SetUnits implements EventHandler{
                     public void handle(ActionEvent actionEvent) {
                         if (unitIndex != -1) {
                             arena[finalI][finalJ].setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY)));
-                            Units.get(unitIndex).SetPosition(new Position(finalI,finalJ));
-                            unitIndex = -1;
+                            if(Grid.CheckCell(new Position(finalI,finalJ),Units.get(unitIndex)))
+                            {Units.get(unitIndex).SetPosition(new Position(finalI,finalJ));
+                            unitIndex = -1;}
+                            else
+                            {
+                                ErrorMessage errorMessage=new ErrorMessage();
+                                errorMessage.PrintError("You cant place here ");
+
+                            }
                         }
                     }
                 });
@@ -86,6 +94,7 @@ public class SetUnits implements EventHandler{
 
         m=NumOfPlayers.Players.get(id-1).GetUnits().size();
         playerUnits=new Button[m];
+        isSet=new boolean[m];
 
         ////
         imageView.setFitHeight(800);
@@ -148,8 +157,19 @@ public class SetUnits implements EventHandler{
     @Override
     public void handle(Event event) {
         if(event.getSource()==DoneButton)
-        {
+        {   boolean ok=true;
+            for(int i=0;i<m;i++)
+            {
+                if(isSet[i]==true)
+                    ok=false;
+            }
+            if(ok==true)
             prevStage.close();
+            else
+            {
+                ErrorMessage errorMessage=new ErrorMessage();
+                errorMessage.PrintError("You have to set all of your units ");
+            }
         }
     }
 }

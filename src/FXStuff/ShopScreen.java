@@ -58,7 +58,7 @@ public class ShopScreen implements EventHandler {
         if(event.getSource()==nextButton)
         {
             prevStage.close();
-            for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
+            /*for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
             {
                 SetTactics setTactics=new SetTactics();
                 Stage MyNewStage;
@@ -97,25 +97,33 @@ public class ShopScreen implements EventHandler {
             Stage MyNewStage=new Stage();
             MyNewStage=setUnitsScreen.Build();
             MyNewStage.showAndWait();
-        }
-        for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
-        {
-            SetUnits setUnits=new SetUnits();
+
+
+
+            for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
+            {
+                SetUnits setUnits=new SetUnits();
+                 MyNewStage=new Stage();
+                MyNewStage=setUnits.BuildSetUnits(i);
+                MyNewStage.showAndWait();
+            }
+
+            for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
+            {
+                SetUnits setUnits=new SetUnits();
+                 MyNewStage=new Stage();
+                MyNewStage=setUnits.BuildSetUnits(i+NumOfPlayers.AttackTeamPlayers);
+                MyNewStage.showAndWait();
+            }*/
+
+            Arena arena=new Arena();
             Stage MyNewStage=new Stage();
-            MyNewStage=setUnits.BuildSetUnits(i);
+            MyNewStage=arena.Build();
             MyNewStage.showAndWait();
+            DoDGameManager.InitializePlayers(NumOfPlayers.Players);
+            GameRunner runner = GameRunner.GetObj();
+            GameRunner.StartGame();
         }
 
-        for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
-        {
-            SetUnits setUnits=new SetUnits();
-            Stage MyNewStage=new Stage();
-            MyNewStage=setUnits.BuildSetUnits(i+NumOfPlayers.AttackTeamPlayers);
-            MyNewStage.showAndWait();
-        }
-
-        DoDGameManager.InitializePlayers(NumOfPlayers.Players);
-        GameRunner runner = GameRunner.GetObj();
-        GameRunner.StartGame();
     }
 }

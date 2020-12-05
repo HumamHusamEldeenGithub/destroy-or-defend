@@ -29,6 +29,7 @@ public class NumOfPlayers implements EventHandler {
     static int DefendTeamPlayers;
     Button NextButton=new Button("Next");
     Stage prevStage;
+   static boolean hasMainBase=false;
 
     static ArrayList<Player>Players=new ArrayList<Player>();
      Stage Build()

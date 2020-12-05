@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import player.Player;
+import player.PlayerType;
 import unit.*;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class BuyList implements EventHandler {
     int Coins;//GetFromPLayer
     Label Coinslabel=new Label();
     Label numOfPlayer= new Label();
+    boolean hasUnit=false;
     Stage prevStage;
     HashMap<UnitType,String[]> AllUnits=new HashMap<>();
     int ID;
@@ -35,18 +37,29 @@ public class BuyList implements EventHandler {
         //ImageView imageView=new ImageView("\\Images\\Black.jpg");
         AllUnits=UnitFactory.GetUnitsInfo();
         Coins=NumOfPlayers.Players.get(id-1).GetCoins();
-
+///////////////////
+        String playerType=NumOfPlayers.Players.get(id-1).GetType().toString();
+        String playerId=String.valueOf(id);
+        String temp=playerType+":"+playerId;
+        ////////
         for(UnitType unitType:AllUnits.keySet())
         {
+            if(NumOfPlayers.Players.get(id-1).GetType()== PlayerType.Attacker){
+
+                if(unitType==UnitType.MainBase)
+                    continue;
+            }
+            else if(NumOfPlayers.hasMainBase==true&&unitType==UnitType.MainBase)
+                continue;
             MenuItem menuItem=new MenuItem(unitType.toString());
             menu.getItems().add(menuItem);
             menuItem.setOnAction(this::handle);
 
+
+
         }
 
-        String playerType=NumOfPlayers.Players.get(id-1).GetType().toString();
-       String playerId=String.valueOf(id);
-        String temp=playerType+":"+playerId;
+
 
         numOfPlayer.setText(temp);
 
@@ -121,9 +134,35 @@ public class BuyList implements EventHandler {
                 }
                 else
                 {
-                    Coins-=getPrice(unitType.getText());
-                    Coinslabel.setText("Coins="+Coins);
-                    NumOfPlayers.Players.get(ID-1).BuyUnit(UnitType.valueOf(unitType.getText()));
+                    if(NumOfPlayers.Players.get(ID-1).GetType()==PlayerType.Defender&&ID==NumOfPlayers.AttackTeamPlayers+NumOfPlayers.DefendTeamPlayers&&NumOfPlayers.hasMainBase==false)
+                    {
+                        ErrorMessage errorMessage=new ErrorMessage();
+                        errorMessage.PrintError("You have to buy main base");
+                    }
+                    else if(UnitType.valueOf(unitType.getText())==UnitType.MainBase)
+                    {
+                        if(NumOfPlayers.hasMainBase==true)
+                        {
+                            ErrorMessage errorMessage=new ErrorMessage();
+                            errorMessage.PrintError("You cant buy more the one main base");
+                        }
+                        else {
+                            NumOfPlayers.hasMainBase = true;
+                            Coins -= getPrice(unitType.getText());
+                            Coinslabel.setText("Coins=" + Coins);
+                            NumOfPlayers.Players.get(ID - 1).BuyUnit(UnitType.valueOf(unitType.getText()));
+                            hasUnit = true;
+                        }
+                    }
+                    else
+                    {
+                        Coins-=getPrice(unitType.getText());
+                        Coinslabel.setText("Coins="+Coins);
+                        NumOfPlayers.Players.get(ID-1).BuyUnit(UnitType.valueOf(unitType.getText()));
+                        hasUnit=true;
+                    }
+
+
                 }
             }
 
@@ -146,7 +185,13 @@ public class BuyList implements EventHandler {
         }
         if(event.getSource()==nextButton)
         {
+            if(hasUnit==true)
            prevStage.close();
+            else
+            {
+                ErrorMessage errorMessage=new ErrorMessage();
+                errorMessage.PrintError("You have to buy on unit at least");
+            }
         }
     }
 }

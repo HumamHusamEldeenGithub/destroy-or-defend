@@ -16,7 +16,7 @@ import java.util.List;
 public class DoDGameManager extends GameManager {
     static Grid grid;
     static StopWatchPool stopWatchPool;
-    static double remainingTime ;
+    static double remainingTime = 90 ;
     static TeamHandler Attackers;
     static TeamHandler Defenders;
     static GameState state;
@@ -25,6 +25,7 @@ public class DoDGameManager extends GameManager {
     private static long StartTime=0;
     private static long OldElapsedTime=0;
     private static UnitFactory factory;
+    private static StopWatch GameStopWatch;
     private DoDGameManager() {
     }
     public synchronized static DoDGameManager getObj() {
@@ -48,6 +49,7 @@ public class DoDGameManager extends GameManager {
         state = GameState.Running;
         Attackers.start();
         Defenders.start();
+        GameStopWatch.Start();
     }
 
     public synchronized static void AddStopWatch(StopWatch stopWatch){
@@ -60,6 +62,8 @@ public class DoDGameManager extends GameManager {
         factory = UnitFactory.GetObj();
         UnitFactory.LoadData();
         stopWatchPool = StopWatchPool.GetObj();
+        GameStopWatch = new StopWatch();
+        stopWatchPool.AddObj(GameStopWatch);
     }
 
     public static void InitializePlayers(List<Player> Players){
@@ -94,9 +98,14 @@ public class DoDGameManager extends GameManager {
         if(state==GameState.Running) {
             if (!Attackers.isAlive()) {
                 state = GameState.DefenderWon;
+                System.out.println("Defenders Won");
             } else if (!Defenders.isAlive()) {
                 state = GameState.AttackerWon;
-                System.out.println("Win");
+                System.out.println("Attackers Won");
+            }
+            else if(GameStopWatch.GetElapsedSeconds() >= remainingTime){
+                state = GameState.DefenderWon;
+                System.out.println("Defenders Won");
             }
         }
     }

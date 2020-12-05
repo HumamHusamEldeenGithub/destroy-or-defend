@@ -70,6 +70,26 @@ public class Grid {
             return Cells.get(pos);
         return null;
     }
+    public static Cell[][] GetCut(Position position){
+        if(position.Get_X()<0){
+            position.Set_X(0);
+        }
+        if(position.Get_Y()<0){
+            position.Set_Y(0);
+        }
+        if(position.Get_X()>= CellNum){
+            position.Set_X(CellNum - 10);
+        }
 
-
+        if(position.Get_Y()>= CellNum){
+            position.Set_Y(CellNum - 10);
+        }
+        Cell[][] cells = new Cell[10][10];
+        for(int i=position.Get_X();i<position.Get_X()+10;i++){
+            for(int j=position.Get_Y();j<position.Get_Y()+10;j++){
+                cells[i][j] = Cells.get(new Position(i,j));
+            }
+        }
+        return cells;
+    }
 }

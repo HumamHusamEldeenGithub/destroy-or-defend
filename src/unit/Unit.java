@@ -164,7 +164,7 @@ public class Unit {
         if(nextAttackUnit!=null){
             this.AttackUnit(nextAttackUnit);
         }
-        else if(!hasReattacked){
+        else if(!hasReattacked && AttackerMovement.class.isInstance(movement)){
             if (MoveStopWatch.GetElapsedSeconds() >= 1 / GetMovementSpeed().GetValue()) {
                 movement.move(this);
                 MoveStopWatch.Reset();

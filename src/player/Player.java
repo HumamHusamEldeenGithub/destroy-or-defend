@@ -37,7 +37,7 @@ public class Player {
 
     public void MakeMove(){
         if(MyUnits.get(CurrentUnit).GetHealth().GetValue()>0)
-            MyUnits.get(CurrentUnit).Move();
+            MyUnits.get(CurrentUnit).Execute();
         else{
             MyUnits.remove(CurrentUnit);
         }

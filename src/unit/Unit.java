@@ -6,7 +6,6 @@ import Strategies.AttackStrategy;
 import Utilitiy.Position;
 import Utilitiy.StopWatch;
 import Utilitiy.StopWatchPool;
-import movement.AttackerMovement;
 import movement.Movement;
 import unitProperty.*;
 
@@ -18,7 +17,7 @@ public class Unit {
     public Unit _next ,_prev ;
     AttackType activeAttackType = new NormalAttackType() ;
     List<UnitType> canAttack;
-    public Movement movement ;
+    Logic logic;
     Position position ;
     Unit targetedUnit ;
     List<UnitProperty> unitProperties ;
@@ -30,12 +29,12 @@ public class Unit {
 
     }
 
-    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , List<UnitType> canTarget, AttackStrategy strategy)
+    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , List<UnitType> canTarget, AttackStrategy strategy, Logic logic)
     {
+        this.logic = logic;
         this.unitType = type ;
         this.strategy = strategy;
         unitProperties = list;
-        movement = movementType ;
         canAttack =  canTarget;
         AttackStopWatch = new StopWatch();
         MoveStopWatch = new StopWatch();
@@ -152,7 +151,8 @@ public class Unit {
         return (targetUnit!=null && targetUnit.GetHealth().GetValue()>0);
     }
 
-    public void Move() {
+    public void Execute() {
+        /*
         Unit nextAttackUnit = null;
         boolean hasReattacked = false;
         hasReattacked = this.ReAttack();
@@ -170,6 +170,8 @@ public class Unit {
             }
             MoveStopWatch.Start();
         }
+         */
+        logic.Execute(this);
     }
 
     public void Destroy (){

@@ -2,14 +2,9 @@ package unit;
 
 import Strategies.AttackStrategy;
 import Utilitiy.CSVReader;
-import Utilitiy.PathFinder;
-import movement.AttackerMovement;
-import movement.DefenderMovement;
-import movement.Movement;
 import player.PlayerType;
 import unitProperty.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Arrays;

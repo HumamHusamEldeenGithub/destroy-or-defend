@@ -1,6 +1,5 @@
 package Strategies;
 
-import movement.DefenderMovement;
 import unit.Unit;
 import unitProperty.DamageUnitProperty;
 

@@ -3,6 +3,7 @@ package FXStuff;
 
 import Strategies.LowestHealthAttackStrategy;
 import Utilitiy.Position;
+import Utilitiy.StopWatch;
 import gameManager.DoDGameManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -51,6 +52,23 @@ public class Main extends Application {
         DoDGameManager.InitializePlayers(players);
         DoDGameManager.StartGame();
         bl = unit1;
+        StopWatch watch = new StopWatch();
+        watch.Start();
+        DoDGameManager.AddStopWatch(watch);
+        try{
+            Thread.sleep(1000);
+        }
+        catch (Exception e){
+
+        }
+        DoDGameManager.Pause_Unpause();
+        DoDGameManager.UpdateGame();
+        try{
+
+        }
+        catch (Exception e){
+            
+        }
         //System.out.println(bl.GetPosition());
         launch(args);
 

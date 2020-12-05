@@ -4,6 +4,9 @@ import java.util.List;
 
 public abstract class Pool {
     static List<Object> Objects;
-    static Pool pool;
+    protected static Pool pool;
     public abstract void UpdateObjs();
+    public void AddObj(Object obj){
+        Objects.add(obj);
+    }
 }

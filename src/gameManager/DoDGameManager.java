@@ -2,6 +2,8 @@ package gameManager;
 
 import Arena.Grid;
 import Utilitiy.Position;
+import Utilitiy.StopWatch;
+import Utilitiy.StopWatchPool;
 import player.Player;
 import player.PlayerHandler;
 import player.PlayerType;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public class DoDGameManager extends GameManager {
     static Grid grid;
+    static StopWatchPool stopWatchPool;
     static double remainingTime ;
     static TeamHandler Attackers;
     static TeamHandler Defenders;
@@ -47,11 +50,16 @@ public class DoDGameManager extends GameManager {
         Defenders.start();
     }
 
+    public static void AddStopWatch(StopWatch stopWatch){
+        stopWatchPool.AddObj(stopWatch);
+    }
+
     public static void Initialize(){
         grid = Grid.GetGrid();
         grid.Initialize(1000,200);
         factory = UnitFactory.GetObj();
         UnitFactory.LoadData();
+        stopWatchPool = StopWatchPool.GetObj();
     }
 
     public static void InitializePlayers(List<Player> Players){
@@ -89,6 +97,7 @@ public class DoDGameManager extends GameManager {
             state = GameState.AttackerWon;
             System.out.println("Win");
         }
+        stopWatchPool.UpdateObjs();
     }
 
 }

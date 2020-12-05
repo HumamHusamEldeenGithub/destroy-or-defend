@@ -15,7 +15,8 @@ public class Unit {
     AttackType activeAttackType = new NormalAttackType() ;
     List<UnitType> canAttack;
     Logic logic;
-    Position position ;
+    Position position =null  ;
+    Position initializePosition;
     Unit targetedUnit ;
     List<UnitProperty> unitProperties ;
     UnitType unitType;
@@ -141,7 +142,13 @@ public class Unit {
         Grid.RemoveUnit(this);
     }
 
-    public void SetPosition (Position position ) { this.position = position ; }
+    public void SetPosition (Position position ) {
+        if (this.position==null)
+        {
+            this.initializePosition = position ;
+        }
+        this.position = position ;
+    }
 
     public List<Unit> CheckRange (){
         List<Unit> ToAttack = new ArrayList<Unit>();

@@ -70,7 +70,7 @@ public class PathFinder {
                 continue;
             }
             //DFS
-            for(int i = 0;i < 1;i++){
+            for(int i = 0;i < Grid.CellNum / 40;i++){
                 newCur = Think(newCur,Destination,Range,Size);
                 if(newCur==null){
                     break;

@@ -40,8 +40,11 @@ public class Grid {
             }
         }
     }
-    public static TerrainType GetTerrain(Position position){
+    public synchronized static TerrainType GetTerrain(Position position){
         return Cells.get(position).GetTerrain();
+    }
+    public synchronized static void SetTerrain(Position position,TerrainType terrainType){
+        Cells.get(position).SetTerrain(terrainType);
     }
     public synchronized static boolean HasSpace(Position position,int Size){
         //System.out.println(position);

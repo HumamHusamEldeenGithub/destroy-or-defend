@@ -50,4 +50,8 @@ public class Cell {
     public TerrainType GetTerrain(){
         return terrainType;
     }
+
+    public void SetTerrain(TerrainType terrainType){
+        this.terrainType = terrainType;
+    }
 }

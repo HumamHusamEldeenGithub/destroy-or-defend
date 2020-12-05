@@ -50,7 +50,7 @@ public class Main extends Application {
         unit1.SetPosition(new Position(0,0));
         Unit bl = null;
         Unit unit2 = player2.GetUnits().get(0);
-        unit2.SetPosition(new Position(20,20));
+        unit2.SetPosition(new Position(999,999));
         players.add(player1);
         players.add(player2);
         DoDGameManager.InitializePlayers(players);
@@ -59,6 +59,6 @@ public class Main extends Application {
         while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon)
             DoDGameManager.UpdateGame();
         System.out.println("wa2el");
-        //launch(args);
+        launch(args);
     }
 }

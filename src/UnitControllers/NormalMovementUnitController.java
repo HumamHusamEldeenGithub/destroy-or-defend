@@ -18,6 +18,7 @@ public class NormalMovementUnitController extends MovementUnitController{
             if (nextPos != null) {
                 // System.out.println(nextPos);
                 Grid.RemoveUnit(unit);
+                System.out.println(nextPos);
                 unit.SetPosition(nextPos);
                 Grid.addUnit(unit);
                 // System.out.println("has moved");

@@ -11,7 +11,10 @@ public class AttackUnitController {
         StopWatchPool.GetObj().AddObj(stopWatch);
     }
     public void Execute(Unit unit,Unit target){
-        if(stopWatch.GetElapsedSeconds() >= 1/unit.GetAttackSpeed().GetValue())
+        if(stopWatch.GetElapsedSeconds() >= 1/unit.GetAttackSpeed().GetValue()) {
             unit.AttackUnit(target);
+            stopWatch.Reset();
+        }
+        stopWatch.Start();
     }
 }

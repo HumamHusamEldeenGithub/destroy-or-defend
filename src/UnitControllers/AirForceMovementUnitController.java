@@ -19,9 +19,8 @@ public class AirForceMovementUnitController extends MovementUnitController {
                 // System.out.println(nextPos);
                 Grid.RemoveUnit(unit);
                 unit.SetPosition(nextPos);
-                System.out.println(nextPos);
                 Grid.addUnit(unit);
-                // System.out.println("has moved");
+               // System.out.println(nextPos);
             } else {
                 System.err.println("Error in finding path");
             }

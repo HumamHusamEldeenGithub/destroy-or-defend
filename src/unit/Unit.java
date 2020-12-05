@@ -120,6 +120,7 @@ public class Unit {
         for(UnitProperty property : unitProperties){
             if(HealthUnitProperty.class.isInstance(property)){
                 property.SetValue(property.GetValue() - FinalDamage);
+                System.out.println("Damaged");
                 if(property.GetValue() <= 0){
                     this.Destroy();
                 }

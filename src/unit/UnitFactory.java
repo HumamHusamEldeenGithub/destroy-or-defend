@@ -98,7 +98,7 @@ public class  UnitFactory {
 
 
     public static void LoadData () {
-    CSVReader Reader = new CSVReader("UnitProperties.txt") ;
+    CSVReader Reader = new CSVReader("UnitProperties.csv") ;
     String[] Line = Reader.ReadLine() ;
     UnitPropertiesNames = Line ;
     while (Line !=null)

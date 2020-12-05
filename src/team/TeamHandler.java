@@ -25,7 +25,7 @@ public class TeamHandler extends Thread {
                 PlayerHandler handler = new PlayerHandler(player);
                 handler.start();
             }
-            DoDGameManager.UpdateGame();
         }
+        System.out.println("5lsttt");
     }
 }

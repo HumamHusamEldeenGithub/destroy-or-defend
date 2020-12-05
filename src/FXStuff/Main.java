@@ -5,6 +5,7 @@ import Strategies.LowestHealthAttackStrategy;
 import Utilitiy.Position;
 import Utilitiy.StopWatch;
 import gameManager.DoDGameManager;
+import gameManager.GameState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,10 +33,11 @@ public class Main extends Application {
         primaryStage=mainMenu.BuildMainMenu();
         primaryStage.show();
     }
-
-
+    static DoDGameManager manager;
     public static void main(String[] args) {
         //Arena.PrintArena();
+
+        manager = DoDGameManager.getObj();
         DoDGameManager.Initialize();
         List<Player> players = new ArrayList<Player>();
         Player player1 = new Player(PlayerType.Attacker,1, LowestHealthAttackStrategy.getObj());
@@ -53,25 +55,9 @@ public class Main extends Application {
         DoDGameManager.InitializePlayers(players);
         DoDGameManager.StartGame();
         bl = unit1;
-        StopWatch watch = new StopWatch();
-        watch.Start();
-        DoDGameManager.AddStopWatch(watch);
-        try{
-            Thread.sleep(1000);
-        }
-        catch (Exception e){
-
-        }
-        DoDGameManager.Pause_Unpause();
-        DoDGameManager.UpdateGame();
-        try{
-
-        }
-        catch (Exception e){
-            
-        }
-        //System.out.println(bl.GetPosition());
+        while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon)
+            DoDGameManager.UpdateGame();
+        System.out.println("wa2el");
         launch(args);
-
     }
 }

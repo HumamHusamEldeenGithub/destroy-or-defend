@@ -50,7 +50,7 @@ public class DoDGameManager extends GameManager {
         Defenders.start();
     }
 
-    public static void AddStopWatch(StopWatch stopWatch){
+    public synchronized static void AddStopWatch(StopWatch stopWatch){
         stopWatchPool.AddObj(stopWatch);
     }
 
@@ -78,7 +78,7 @@ public class DoDGameManager extends GameManager {
         }
     }
 
-    public static void Pause_Unpause(){
+    public synchronized static void Pause_Unpause(){
         if(DoDGameManager.state == GameState.Running){
             OldElapsedTime += System.nanoTime() - StartTime;
             DoDGameManager.state = GameState.Paused;
@@ -89,15 +89,16 @@ public class DoDGameManager extends GameManager {
         }
     }
 
-    public static void UpdateGame(){
-        if(!Attackers.isAlive()){
-            state = GameState.DefenderWon;
-        }
-        else if(!Defenders.isAlive()){
-            state = GameState.AttackerWon;
-            System.out.println("Win");
-        }
+    public synchronized static void UpdateGame(){
         stopWatchPool.UpdateObjs();
+        if(state==GameState.Running) {
+            if (!Attackers.isAlive()) {
+                state = GameState.DefenderWon;
+            } else if (!Defenders.isAlive()) {
+                state = GameState.AttackerWon;
+                System.out.println("Win");
+            }
+        }
     }
 
 }

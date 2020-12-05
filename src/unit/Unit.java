@@ -4,6 +4,8 @@ import Arena.Cell;
 import Arena.Grid;
 import Strategies.AttackStrategy;
 import Utilitiy.Position;
+import Utilitiy.StopWatch;
+import Utilitiy.StopWatchPool;
 import movement.AttackerMovement;
 import movement.Movement;
 import unitProperty.*;
@@ -22,9 +24,12 @@ public class Unit {
     List<UnitProperty> unitProperties ;
     UnitType unitType;
     AttackStrategy strategy;
+    StopWatch AttackStopWatch;
+    StopWatch MoveStopWatch;
     Unit(){
 
     }
+
     public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , List<UnitType> canTarget, AttackStrategy strategy)
     {
         this.unitType = type ;
@@ -32,6 +37,11 @@ public class Unit {
         unitProperties = list;
         movement = movementType ;
         canAttack =  canTarget;
+        AttackStopWatch = new StopWatch();
+        MoveStopWatch = new StopWatch();
+        StopWatchPool pool = StopWatchPool.GetObj();
+        pool.AddObj(AttackStopWatch);
+        pool.AddObj(MoveStopWatch);
     }
     public DamageUnitProperty GetDamage(){
         for(UnitProperty unitProperty : unitProperties){
@@ -78,6 +88,24 @@ public class Unit {
         return null;
     }
 
+    public AttackSpeedUnitProperty GetAttackSpeed() {
+        for(UnitProperty unitProperty : unitProperties){
+            if(AttackSpeedUnitProperty.class.isInstance(unitProperty)){
+                return (AttackSpeedUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
+
+    public MovementSpeedUnitProperty GetMovementSpeed() {
+        for(UnitProperty unitProperty : unitProperties){
+            if(MovementSpeedUnitProperty.class.isInstance(unitProperty)){
+                return (MovementSpeedUnitProperty) unitProperty;
+            }
+        }
+        return null;
+    }
+
     public UnitType GetType() {
         return unitType;
     }
@@ -109,20 +137,41 @@ public class Unit {
     }
 
     public boolean AttackUnit (Unit targetUnit){
-        this.targetedUnit = targetUnit ;
-        double Damage = 0;
-        for(UnitProperty property : unitProperties){
-            if(DamageUnitProperty.class.isInstance(property)){
-                Damage = property.GetValue();
-                break;
+        if(AttackStopWatch.GetElapsedSeconds() >= 1/GetAttackSpeed().GetValue()) {
+            this.targetedUnit = targetUnit;
+            double Damage = GetDamage().GetValue();
+            boolean success = this.activeAttackType.PerformAttack(this.targetedUnit, Damage);
+            if(success) {
+                System.out.println(AttackStopWatch.GetElapsedSeconds());
+                AttackStopWatch.Reset();
             }
+            AttackStopWatch.Start();
+            return success;
         }
-        return this.activeAttackType.PerformAttack(this.targetedUnit,Damage);
+        else
+            AttackStopWatch.Start();
+        return (targetUnit!=null && targetUnit.GetHealth().GetValue()>0);
     }
 
-    public void Move()
-    {
-       movement.move(this);
+    public void Move() {
+        Unit nextAttackUnit = null;
+        boolean hasReattacked = false;
+        hasReattacked = this.ReAttack();
+        if(!hasReattacked){
+            List<Unit> ToAttack = this.CheckRange();
+            nextAttackUnit = this.GetPrioritizedUnit(ToAttack);
+        }
+        if(nextAttackUnit!=null){
+            this.AttackUnit(nextAttackUnit);
+        }
+        else if(!hasReattacked){
+            if (MoveStopWatch.GetElapsedSeconds() >= 1 / GetMovementSpeed().GetValue()) {
+                movement.move(this);
+                MoveStopWatch.Reset();
+                System.out.println(position);
+            }
+            MoveStopWatch.Start();
+        }
     }
 
     public void Destroy (){

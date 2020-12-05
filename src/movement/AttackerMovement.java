@@ -22,15 +22,7 @@ public class AttackerMovement extends Movement {
     }
 
     public synchronized void move(Unit unit) {
-        Unit nextAttackUnit = null;
-        if(!unit.ReAttack()){
-            List<Unit> ToAttack = unit.CheckRange();
-            nextAttackUnit = unit.GetPrioritizedUnit(ToAttack);
-        }
-        if(nextAttackUnit!=null){
-            unit.AttackUnit(nextAttackUnit);
-        }
-        else {
+
             Position nextPos = PathFinder.GetObj().GetPos(unit.GetPosition(), Grid.getBasePosition(), unit.GetRange().GetValue(), unit.GetSize().GetValue());
             if (nextPos != null) {
                // System.out.println(nextPos);
@@ -40,6 +32,5 @@ public class AttackerMovement extends Movement {
                // System.out.println("has moved");
             } else
                 System.err.println("Error in finding path");
-        }
     }
 }

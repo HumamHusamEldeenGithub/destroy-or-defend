@@ -83,6 +83,7 @@ public class  UnitFactory {
         properties.add(new SizeUnitProperty(Size)) ;
         properties.add(new PriceUnitProperty(UnitPrice));
         properties.add(new DamageUnitProperty(AttackDamage));
+        properties.add(new MovementSpeedUnitProperty(Movement));
         try {
             Thread.sleep(100);
         }catch (Exception e){

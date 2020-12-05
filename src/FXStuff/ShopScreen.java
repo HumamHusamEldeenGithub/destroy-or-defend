@@ -115,12 +115,12 @@ public class ShopScreen implements EventHandler {
                 MyNewStage=setUnits.BuildSetUnits(i+NumOfPlayers.AttackTeamPlayers);
                 MyNewStage.showAndWait();
             }
-
+            DoDGameManager.InitializePlayers(NumOfPlayers.Players);
             Arena arena=new Arena();
             MyNewStage=new Stage();
             MyNewStage=arena.Build();
             MyNewStage.showAndWait();
-            DoDGameManager.InitializePlayers(NumOfPlayers.Players);
+
             GameRunner runner = GameRunner.GetObj();
             GameRunner.StartGame();
         }

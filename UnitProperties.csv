@@ -11,7 +11,7 @@ Structure,Pillbox,4000,0.70,100,10,0.70,8,0,Sniper-Infantry-GrizzlyTank-NavySEAL
 Structure,PrismTower,6000,0.70,100,10,0.50,8,0,Sniper-Infantry-GrizzlyTank-NavySEAL-TeslaTank-MirageTank-TankDestroyer-PrismTank,150,
 Structure,GrandCannon,6000,0.70,150,8,0.90,8,0,Sniper-Infantry-GrizzlyTank-NavySEAL-TeslaTank-MirageTank-TankDestroyer-PrismTank,200,
 Structure,MainBase,10000,0.00,0,0,0.00,10,0,Infantry,11,
-Airplane,BlackEagle,450,0.00,5000,6,0.5,0,500,MainBase,75,
+Airplane,BlackEagle,450,0.00,5000,6,0.5,0,1,MainBase,75,
 
 
 sol = Sniper-Infantry-GrizzlyTank-NavySEAL

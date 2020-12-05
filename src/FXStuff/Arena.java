@@ -74,7 +74,7 @@ public class Arena implements EventHandler {
     }
     Stage Build()
     {
-
+        PrintArena();
         cells=Grid.GetCut(left_upper_corrner);
         ColorCell();
 
@@ -119,7 +119,7 @@ public class Arena implements EventHandler {
 
 
         pane.getChildren().addAll(arenaPane,UpButton,DownButton,LeftButton,RightButton,XLabel,YField,YLabel,XField,GoToButton);
-        PrintArena();
+
         Scene scene=new Scene(pane,800,600);
         Stage stage=new Stage();
 

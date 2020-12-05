@@ -4,8 +4,7 @@ import Arena.Grid;
 
 import java.util.List;
 
-public class AttackerLogic extends Logic{
-    @Override
+public class DefenderLogic extends Logic{
     public void Execute(Unit unit) {
         if(unit.targetedUnit!=null && unit.targetedUnit.GetHealth().GetValue()>0){
             attackUnitController.Execute(unit,unit.targetedUnit);

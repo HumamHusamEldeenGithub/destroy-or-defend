@@ -1,14 +1,14 @@
 package unit;
 
-import movement.Attack;
-import movement.Movement;
+import UnitControllers.AttackUnitController;
+import UnitControllers.MovementUnitController;
 
 public abstract class Logic {
-    Movement movement;
-    Attack attack;
+    MovementUnitController movementUnitController;
+    AttackUnitController attackUnitController;
     public Logic(){
-        movement = new Movement();
-        attack = new Attack();
+        movementUnitController = new MovementUnitController();
+        attackUnitController = new AttackUnitController();
     }
     public abstract void Execute(Unit unit);
 }

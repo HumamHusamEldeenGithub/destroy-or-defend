@@ -1,16 +1,15 @@
-package movement;
+package UnitControllers;
 
 import Utilitiy.StopWatch;
 import unit.Unit;
 
-public class Attack {
+public class AttackUnitController {
     StopWatch stopWatch = new StopWatch() ;
-    public Attack(){
+    public AttackUnitController(){
         stopWatch = new StopWatch();
     }
     public void Execute(Unit unit,Unit target){
-        if(stopWatch.GetElapsedSeconds() >= 1/unit.GetAttackSpeed())
+        if(stopWatch.GetElapsedSeconds() >= 1/unit.GetAttackSpeed().GetValue())
             unit.AttackUnit(target);
-
     }
 }

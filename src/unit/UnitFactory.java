@@ -18,6 +18,7 @@ import java.util.List;
 public class  UnitFactory {
     static HashMap<UnitType,String[]>UnitsInfo = new HashMap<UnitType,String[]>() ;
     static UnitFactory unitFactory;
+    static String[] UnitPropertiesNames  ;
     public static UnitFactory GetObj(){
         synchronized (UnitFactory.class)
         {
@@ -94,6 +95,7 @@ public class  UnitFactory {
     public static void LoadData () {
     CSVReader Reader = new CSVReader("UnitProperties.txt") ;
     String[] Line = Reader.ReadLine() ;
+    UnitPropertiesNames = Line ;
     while (Line !=null)
         {
             try {
@@ -133,4 +135,5 @@ public class  UnitFactory {
     public static HashMap<UnitType,String[]> GetUnitsInfo(){
         return UnitsInfo;
     }
+    public static String[] getUnitPropertiesNames(){return Arrays.copyOfRange(UnitPropertiesNames, 1 ,UnitPropertiesNames.length) ; }
 }

@@ -6,9 +6,7 @@ import UnitControllers.MovementUnitController;
 public abstract class Logic {
     MovementUnitController movementUnitController;
     AttackUnitController attackUnitController;
-    public Logic(){
-        movementUnitController = new MovementUnitController();
-        attackUnitController = new AttackUnitController();
+    Logic(){
     }
     public abstract void Execute(Unit unit);
 }

@@ -5,5 +5,5 @@ import java.util.List;
 public abstract class Pool {
     static List<Object> Objects;
     static Pool pool;
-
+    public abstract void UpdateObjs();
 }

@@ -7,7 +7,6 @@ import Utilitiy.StopWatch;
 import unit.Unit;
 
 public abstract class MovementUnitController {
-    StopWatch stopWatch = new StopWatch() ;
+    StopWatch stopWatch;
     public abstract void Execute(Unit unit,Position position);
-
 }

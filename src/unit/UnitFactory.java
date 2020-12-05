@@ -53,7 +53,6 @@ public class  UnitFactory {
                         AttackRange = Double.parseDouble(info[i]);
                         break;
                     case 4:
-                        System.out.println(info[i]);
                         AttackFrequency = Double.parseDouble(info[i]);
                         break;
                     case 5:
@@ -85,7 +84,7 @@ public class  UnitFactory {
         properties.add(new DamageUnitProperty(AttackDamage));
         properties.add(new MovementSpeedUnitProperty(Movement));
         try {
-            Thread.sleep(100);
+            Thread.sleep(1);
         }catch (Exception e){
 
         }

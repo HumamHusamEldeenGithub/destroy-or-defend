@@ -25,15 +25,14 @@ public class NumOfPlayers implements EventHandler {
     Spinner Defenders=new Spinner(1,5,1);
 
     Pane root =new Pane();
-   static   int AttackTeamPlayers;
-     static int DefendTeamPlayers;
+    static   int AttackTeamPlayers;
+    static int DefendTeamPlayers;
     Button NextButton=new Button("Next");
     Stage prevStage;
 
     static ArrayList<Player>Players=new ArrayList<Player>();
      Stage Build()
     {
-
         ImageView imageView=new ImageView("\\Images\\r6s.jpg");
         label1.setFont(new Font("Arial",20));
         label2.setFont(new Font("Arial",20));
@@ -59,56 +58,34 @@ public class NumOfPlayers implements EventHandler {
         Stage stage=new Stage();
         stage.setScene(scene);
         prevStage=stage;
-
         return stage;
-
-
-
     }
-
 
     public  ArrayList<Player> GetPLayers()
     {
         return Players;
-
     }
-
 
     @Override
     public void handle(Event event) {
         if(event.getSource()==NextButton)
         {
-            AttackTeamPlayers= (int) Attackers.getValue();
-            DefendTeamPlayers= (int) Defenders.getValue();
-
+            AttackTeamPlayers = (int) Attackers.getValue();
+            DefendTeamPlayers = (int) Defenders.getValue();
             for(int i=1;i<=AttackTeamPlayers;i++)
             {
-                Players.add(new Player(PlayerType.Attacker,i,null) {
-                });
+                Players.add(new Player(PlayerType.Attacker,i,null) );
             }
             for(int i=1;i<=DefendTeamPlayers;i++)
             {
-                Players.add( new Player(PlayerType.Defender,i+AttackTeamPlayers,null)
-
-                );
-
+                Players.add( new Player(PlayerType.Defender,i+AttackTeamPlayers,null));
             }
-
-
             /////////////
             prevStage.hide();
-
             ShopScreen shopScreen =new ShopScreen();
             Stage stage=new Stage();
             stage= shopScreen.Build();
             stage.show();
-
-
-
-
-
-
-
         }
     }
 }

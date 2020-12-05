@@ -21,11 +21,8 @@ public class MainMenu implements EventHandler {
     Pane root=new Pane();
     Stage PrevStage;
 
-
     Stage BuildMainMenu()
     {
-
-
         ImageView imageView=new ImageView("\\Images\\planet_light.jpg");
         hBox.getChildren().add(Play_btn);
         hBox.getChildren().add(About_btn);
@@ -48,8 +45,6 @@ public class MainMenu implements EventHandler {
         stage.show();
         PrevStage=stage;
         return stage;
-
-
     }
 
     @Override
@@ -57,8 +52,6 @@ public class MainMenu implements EventHandler {
 
         if(event.getSource()==Play_btn)
         {
-            DoDGameManager.Initialize();
-            ///////////
             Stage MyNewStage=new Stage();
             NumOfPlayers numOfPlayers=new NumOfPlayers();
             MyNewStage=numOfPlayers.Build();

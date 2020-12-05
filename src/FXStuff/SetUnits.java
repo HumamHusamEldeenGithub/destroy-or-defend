@@ -1,22 +1,26 @@
 package FXStuff;
 
+import Utilitiy.Position;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import unit.Unit;
 import unit.UnitType;
+import Arena.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetUnits {
+public class SetUnits implements EventHandler{
 
     //DataMembers
 
@@ -25,15 +29,18 @@ public class SetUnits {
     Pane root =new Pane();
     Label playerUnitsLabel=new Label("---------------------------Your Units----------------------------");
     //ArrayList<Button>playerUnits=new ArrayList<Button>();//the units of the current player as a buttons
-    int m;
+    int m=5;
     Button[]playerUnits;
-
+    ScrollPane scrollPane=new ScrollPane();
     HBox playerUnitsHbox=new HBox();
     int ID;
     Label numOfPlayer=new Label("");
-
-    Button arena [][]=new Button[numOfCells][numOfCells];
+    Button arena [][];
     GridPane arenaPane=new GridPane();
+    Stage prevStage;
+    Button DoneButton=new Button("Done");
+    int unitIndex=-1;
+    List<Unit> Units=new ArrayList<>();
 
     int Index=-1;
     void printArena() {
@@ -49,13 +56,13 @@ public class SetUnits {
                 arena[i][j].setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent actionEvent) {
-                        if (Index != -1) {
+                        if (unitIndex != -1) {
                             arena[finalI][finalJ].setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(0), Insets.EMPTY)));
-                            Index = -1;
+                            Units.get(unitIndex).SetPosition(new Position(finalI,finalJ));
+                            unitIndex = -1;
                         }
                     }
                 });
-
 
             }
         }
@@ -63,7 +70,21 @@ public class SetUnits {
 
     Stage BuildSetUnits(int id)
     {
-        m=NumOfPlayers.Players.get(id).GetUnits().size();
+        ID=id;
+        numOfCells=Grid.CellNum;
+        System.out.println(numOfCells);
+        arena=new Button[numOfCells][numOfCells];
+
+
+        scrollPane.setContent(arenaPane);
+        scrollPane.setPrefSize(800,600);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setFitToHeight(true);
+        scrollPane.pannableProperty().set(true);
+        ///////////
+
+        m=NumOfPlayers.Players.get(id-1).GetUnits().size();
         playerUnits=new Button[m];
 
         ////
@@ -76,55 +97,59 @@ public class SetUnits {
         //////
         playerUnitsHbox.setLayoutY(650);
         //////
-        root.getChildren().addAll(imageView,arenaPane,playerUnitsLabel,playerUnitsHbox);
+        DoneButton.setLayoutY(760);
+        DoneButton.setLayoutY(760);
+        DoneButton.setOnAction(this::handle);
         //////
-        printArena();
-        printBench();
+
         //////
-        String playerType=NumOfPlayers.Players.get(id).GetType().toString();
+        String playerType=NumOfPlayers.Players.get(id-1).GetType().toString();
         String playerId=String.valueOf(id);
         String temp=playerType+playerId;
         numOfPlayer.setText(temp);
         numOfPlayer.setLayoutY(700);
         numOfPlayer.setLayoutX(700);
         //////
+        root.getChildren().addAll(imageView,arenaPane,playerUnitsLabel,playerUnitsHbox,numOfPlayer,scrollPane,DoneButton);
+        ////
+        printArena();
+        printBench();
+        ////////
         Scene scene=new Scene(root,800,800);
         Stage stage=new Stage();
         stage.setScene(scene);
+        prevStage=stage;
         return  stage;
-
-
-
     }
-    void fillplayerUnits()
-    {
-
-    }
-
-
 
     public void printBench() {
-        if (playerUnits != null) {
-            for (int i = 0; i <m; i++) {
-                playerUnits[i].setVisible(false);
-            }
-        }
-        playerUnits = new Button[m];
+        Units=NumOfPlayers.Players.get(ID-1).GetUnits();
         for (int i = 0; i < m; i++) {
+            String s=new String();
+            s=Units.get(i).GetType().toString();
+
             playerUnits[i] = new Button();
+            playerUnits[i].setText(s);
             playerUnitsHbox.getChildren().add(playerUnits[i]);
             int finalI = i;
             playerUnits[i].setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    Index = finalI;
-                    playerUnits[Index].setVisible(false);
-
+                    if(unitIndex==-1)
+                    {
+                        unitIndex=finalI;
+                        playerUnits[finalI].setVisible(false);
+                    }
                 }
             });
         }
-
     }
 
-
+    @Override
+    public void handle(Event event) {
+        if(event.getSource()==DoneButton)
+        {
+            prevStage.close();
+        }
+    }
 }

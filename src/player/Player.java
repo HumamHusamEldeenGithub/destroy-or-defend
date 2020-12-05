@@ -58,7 +58,7 @@ public class Player {
         }
         return false;
     }
-    public void SetStrategy(AttackStrategy strategy){
+    public synchronized void SetStrategy(AttackStrategy strategy){
         this.strategy = strategy;
     }
     public int GetId(){

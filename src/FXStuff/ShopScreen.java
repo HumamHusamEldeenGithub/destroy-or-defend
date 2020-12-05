@@ -1,5 +1,6 @@
 package FXStuff;
 
+import gameManager.DoDGameManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -21,19 +22,11 @@ public class ShopScreen implements EventHandler {
     Button nextButton=new Button("Next");
     ImageView imageView=new ImageView("\\Images\\Attackers.jpg");
     Label mainLabel=new Label("STORE");
-
     Pane root =new Pane();
-
     Stage prevStage;
-
-
-
 
     Stage Build()
     {
-
-
-
 
         imageView.setFitWidth(400);
         imageView.setFitHeight(400);
@@ -56,9 +49,6 @@ public class ShopScreen implements EventHandler {
 
         return stage;
 
-
-
-
     }
 
 
@@ -70,50 +60,43 @@ public class ShopScreen implements EventHandler {
             prevStage.close();
             for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
             {
-
-
-
-                Stage MyNewStage;
-
-
-                BuyList buyList =new BuyList();
-                MyNewStage= buyList.BuildBuyList(i);
-
-                MyNewStage.showAndWait();
-
-
-            }
-
-            for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
-            {
                 SetTactics setTactics=new SetTactics();
                 Stage MyNewStage;
                 MyNewStage=setTactics.Build(i);
                 MyNewStage.showAndWait();
             }
 
-          /*  for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
+            for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
             {
 
                 Stage MyNewStage;
-
-
                 BuyList buyList =new BuyList();
-                MyNewStage= buyList.BuildBuyList(i+NumOfPlayers.AttackTeamPlayers);
-
+                MyNewStage= buyList.BuildBuyList(i);
                 MyNewStage.showAndWait();
+
             }
+
             for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
             {
                 SetTactics setTactics=new SetTactics();
                 Stage MyNewStage;
                 MyNewStage=setTactics.Build(i+NumOfPlayers.AttackTeamPlayers);
                 MyNewStage.showAndWait();
-            }*/
-            /*Stage MyNewStage;
-            Arena arena=new Arena();
-            MyNewStage=arena.Build();
-            MyNewStage.showAndWait();*/
+            }
+
+            for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
+            {
+
+                Stage MyNewStage;
+                BuyList buyList =new BuyList();
+                MyNewStage= buyList.BuildBuyList(i+NumOfPlayers.AttackTeamPlayers);
+                MyNewStage.showAndWait();
+            }
+
+            SetUnitsScreen setUnitsScreen=new SetUnitsScreen();
+            Stage MyNewStage=new Stage();
+            MyNewStage=setUnitsScreen.Build();
+            MyNewStage.showAndWait();
         }
         for(int i=1;i<=NumOfPlayers.AttackTeamPlayers;i++)
         {
@@ -121,9 +104,18 @@ public class ShopScreen implements EventHandler {
             Stage MyNewStage=new Stage();
             MyNewStage=setUnits.BuildSetUnits(i);
             MyNewStage.showAndWait();
-
-
-
         }
+
+        for(int i=1;i<=NumOfPlayers.DefendTeamPlayers;i++)
+        {
+            SetUnits setUnits=new SetUnits();
+            Stage MyNewStage=new Stage();
+            MyNewStage=setUnits.BuildSetUnits(i+NumOfPlayers.AttackTeamPlayers);
+            MyNewStage.showAndWait();
+        }
+
+        DoDGameManager.InitializePlayers(NumOfPlayers.Players);
+        GameRunner runner = GameRunner.GetObj();
+        GameRunner.StartGame();
     }
 }

@@ -16,14 +16,9 @@ import javafx.stage.Stage;
 public class Arena {
     //DATAMEMBERS
     GridPane arenaPane =new GridPane();
-    Button arenaButtons[][]=new Button[100][100];
+    Button arenaButtons[][]=new Button[10][10];
     Pane pane=new Pane();
     ScrollPane scrollPane=new ScrollPane();
-
-
-
-
-
 
     void PrintArena()
     {
@@ -44,21 +39,17 @@ public class Arena {
                         System.out.print(finalJ);
                     }
                 });
-
-
             }
         }
     }
     Stage Build()
     {
-
         scrollPane.setContent(arenaPane);
         scrollPane.setPrefSize(800,600);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setFitToHeight(true);
         scrollPane.pannableProperty().set(true);
-
 
         pane.getChildren().addAll(arenaPane,scrollPane);
         PrintArena();
@@ -67,15 +58,5 @@ public class Arena {
 
         stage.setScene(scene);
         return stage;
-
-
-
-
-
     }
-
-
-
-
-
 }

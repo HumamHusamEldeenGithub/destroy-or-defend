@@ -80,7 +80,6 @@ public class Grid {
         if(position.Get_X()>= CellNum){
             position.Set_X(CellNum - 10);
         }
-
         if(position.Get_Y()>= CellNum){
             position.Set_Y(CellNum - 10);
         }

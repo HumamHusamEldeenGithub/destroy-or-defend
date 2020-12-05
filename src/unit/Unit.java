@@ -142,7 +142,6 @@ public class Unit {
             double Damage = GetDamage().GetValue();
             boolean success = this.activeAttackType.PerformAttack(this.targetedUnit, Damage);
             if(success) {
-                System.out.println(AttackStopWatch.GetElapsedSeconds());
                 AttackStopWatch.Reset();
             }
             AttackStopWatch.Start();
@@ -168,7 +167,6 @@ public class Unit {
             if (MoveStopWatch.GetElapsedSeconds() >= 1 / GetMovementSpeed().GetValue()) {
                 movement.move(this);
                 MoveStopWatch.Reset();
-                System.out.println(position);
             }
             MoveStopWatch.Start();
         }

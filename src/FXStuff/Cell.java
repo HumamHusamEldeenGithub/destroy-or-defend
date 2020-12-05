@@ -8,9 +8,7 @@ import unit.Unit;
 import java.util.ArrayList;
 
 public class Cell {
-
     //get from the arena the Position {i,j} of the cell
-
     GridPane gridPane=new GridPane();
     Label unitName=new Label();
     Label num=new Label();
@@ -23,12 +21,7 @@ public class Cell {
         {
 
         }
-
-
         Stage stage=new Stage();
         return stage;
-
     }
-
-
 }

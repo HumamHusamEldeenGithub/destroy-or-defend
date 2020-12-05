@@ -11,7 +11,5 @@ public class About {
         alert.setHeaderText("Welcome to our game");
         alert.setContentText("This game created by :\n ");
         alert.show();
-
-
     }
 }

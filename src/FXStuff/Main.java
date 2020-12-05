@@ -59,7 +59,7 @@ public class Main extends Application {
         while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon)
             DoDGameManager.UpdateGame();
         System.out.println("wa2el");
-        */
+*/
 
         launch(args);
     }

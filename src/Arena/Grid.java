@@ -1,5 +1,6 @@
 package Arena;
 
+import effector.SpeedMovementEffector;
 import unit.Unit;
 import Utilitiy.Position;
 import unit.UnitType;
@@ -49,7 +50,12 @@ public class Grid {
         if(unit.GetType() == UnitType.MainBase){
             Grid.mainBase = unit;
         }
-        return Cells.get(unit.GetPosition()).AddUnit(unit);
+        if (Cells.get(unit.GetPosition()).AddUnit(unit))
+        {
+            SpeedMovementEffector.getObj().effect(unit,Cells.get(unit.GetPosition()).terrainType);
+            return true ;
+        }
+        return false ;
     }
 
     public synchronized static boolean CheckCell(Position pos,Unit unit){

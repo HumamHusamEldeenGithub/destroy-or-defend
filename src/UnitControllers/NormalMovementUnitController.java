@@ -1,10 +1,7 @@
 package UnitControllers;
 
 import Arena.Grid;
-import Utilitiy.PathFinder;
-import Utilitiy.Position;
-import Utilitiy.StopWatch;
-import Utilitiy.StopWatchPool;
+import Utilitiy.*;
 import unit.Unit;
 
 public class NormalMovementUnitController extends MovementUnitController{
@@ -13,7 +10,7 @@ public class NormalMovementUnitController extends MovementUnitController{
         StopWatchPool.GetObj().AddObj(stopWatch);
     }
     public void Execute(Unit unit, Position position){
-        if(stopWatch.GetElapsedSeconds() > 1/unit.GetMovementSpeed().GetValue()) {
+        if(stopWatch.GetElapsedSeconds() > 1/(unit.GetMovementSpeed().GetValue())*unit.GetSpeedMovementEffectorValue()) {
             Position nextPos = PathFinder.GetObj().GetPos(unit.GetPosition(), position, unit.GetRange().GetValue(), unit.GetSize().GetValue());
             if (nextPos != null) {
                 // System.out.println(nextPos);

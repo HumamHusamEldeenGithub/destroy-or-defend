@@ -21,6 +21,7 @@ public class Unit {
     List<UnitProperty> unitProperties ;
     UnitType unitType;
     AttackStrategy strategy;
+    double SpeedMovementEffectorValue = 1 ;
     Unit(){
 
     }
@@ -150,6 +151,12 @@ public class Unit {
         }
         this.position = position ;
     }
+    public void SetSpeedMovementEffectorValue (double value)
+    {
+        this.SpeedMovementEffectorValue = value ;
+    }
+    public double GetSpeedMovementEffectorValue(){return this.SpeedMovementEffectorValue ; }
+    public Logic GetLogic(){return this.logic ; }
 
     public List<Unit> CheckRange (){
         List<Unit> ToAttack = new ArrayList<Unit>();

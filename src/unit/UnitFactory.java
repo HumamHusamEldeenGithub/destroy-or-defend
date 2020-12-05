@@ -135,5 +135,5 @@ public class  UnitFactory {
     public static HashMap<UnitType,String[]> GetUnitsInfo(){
         return UnitsInfo;
     }
-    public static String[] getUnitPropertiesNames(){return UnitPropertiesNames ; }
+    public static String[] getUnitPropertiesNames(){return Arrays.copyOfRange(UnitPropertiesNames, 1 ,UnitPropertiesNames.length) ; }
 }

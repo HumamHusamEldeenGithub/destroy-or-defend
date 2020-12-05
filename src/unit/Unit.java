@@ -14,7 +14,6 @@ import java.util.List;
 
 public class Unit {
     //Props
-    public Unit _next ,_prev ;
     AttackType activeAttackType = new NormalAttackType() ;
     List<UnitType> canAttack;
     Logic logic;
@@ -23,24 +22,18 @@ public class Unit {
     List<UnitProperty> unitProperties ;
     UnitType unitType;
     AttackStrategy strategy;
-    StopWatch AttackStopWatch;
-    StopWatch MoveStopWatch;
     Unit(){
 
     }
 
-    public Unit (UnitType type , ArrayList<UnitProperty> list , Movement movementType , List<UnitType> canTarget, AttackStrategy strategy, Logic logic)
+    public Unit (UnitType type , ArrayList<UnitProperty> list , Logic logic, List<UnitType> canTarget, AttackStrategy strategy)
     {
         this.logic = logic;
         this.unitType = type ;
         this.strategy = strategy;
         unitProperties = list;
         canAttack =  canTarget;
-        AttackStopWatch = new StopWatch();
-        MoveStopWatch = new StopWatch();
         StopWatchPool pool = StopWatchPool.GetObj();
-        pool.AddObj(AttackStopWatch);
-        pool.AddObj(MoveStopWatch);
     }
     public DamageUnitProperty GetDamage(){
         for(UnitProperty unitProperty : unitProperties){
@@ -135,42 +128,14 @@ public class Unit {
         }
     }
 
-    public boolean AttackUnit (Unit targetUnit){
-        if(AttackStopWatch.GetElapsedSeconds() >= 1/GetAttackSpeed().GetValue()) {
-            this.targetedUnit = targetUnit;
-            double Damage = GetDamage().GetValue();
-            boolean success = this.activeAttackType.PerformAttack(this.targetedUnit, Damage);
-            if(success) {
-                AttackStopWatch.Reset();
-            }
-            AttackStopWatch.Start();
-            return success;
-        }
-        else
-            AttackStopWatch.Start();
-        return (targetUnit!=null && targetUnit.GetHealth().GetValue()>0);
+    public void AttackUnit (Unit targetUnit){
+        this.targetedUnit = targetUnit;
+        double Damage = GetDamage().GetValue();
+        this.activeAttackType.PerformAttack(this.targetedUnit, Damage);
     }
 
     public void Execute() {
-        /*
-        Unit nextAttackUnit = null;
-        boolean hasReattacked = false;
-        hasReattacked = this.ReAttack();
-        if(!hasReattacked){
-            List<Unit> ToAttack = this.CheckRange();
-            nextAttackUnit = this.GetPrioritizedUnit(ToAttack);
-        }
-        if(nextAttackUnit!=null){
-            this.AttackUnit(nextAttackUnit);
-        }
-        else if(!hasReattacked && AttackerMovement.class.isInstance(movement)){
-            if (MoveStopWatch.GetElapsedSeconds() >= 1 / GetMovementSpeed().GetValue()) {
-                movement.move(this);
-                MoveStopWatch.Reset();
-            }
-            MoveStopWatch.Start();
-        }
-         */
+
         logic.Execute(this);
     }
 
@@ -179,10 +144,6 @@ public class Unit {
     }
 
     public void SetPosition (Position position ) { this.position = position ; }
-
-    public boolean ReAttack(){
-        return AttackUnit(targetedUnit);
-    }
 
     public List<Unit> CheckRange (){
         List<Unit> ToAttack = new ArrayList<Unit>();

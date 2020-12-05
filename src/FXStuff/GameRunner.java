@@ -7,8 +7,10 @@ import gameManager.GameState;
 public class GameRunner {
     public static void StartGame(){
         DoDGameManager.StartGame();
-        while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon)
+        while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon) {
             DoDGameManager.UpdateGame();
+            Arena.ColorCell();
+        }
     }
     public GameRunner(){}
     static GameRunner runner;

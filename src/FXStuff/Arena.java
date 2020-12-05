@@ -24,7 +24,7 @@ import java.util.List;
 public class Arena implements EventHandler {
     //DATAMEMBERS
     GridPane arenaPane =new GridPane();
-    Button arenaButtons[][]=new Button[10][10];
+    static Button arenaButtons[][]=new Button[10][10];
     Pane pane=new Pane();
     Button UpButton=new Button("Up");
     Button DownButton=new Button("Down");
@@ -36,7 +36,7 @@ public class Arena implements EventHandler {
     Label XLabel=new Label("X:");
     Label YLabel=new Label("Y:");
     Position left_upper_corrner=new Position(0,0);
-    GridCell cells[][]=null;
+    static GridCell cells[][]=null;
 
 
 
@@ -243,7 +243,7 @@ public class Arena implements EventHandler {
         }
     }
 
-    public void ColorCell(){
+    public static void ColorCell(){
         for(int i=0;i<cells.length;i++)
             for(int j=0;j<cells.length;j++)
             {

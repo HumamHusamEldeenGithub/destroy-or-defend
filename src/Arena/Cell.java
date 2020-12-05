@@ -44,6 +44,8 @@ public class Cell {
     public int GetSize(){
         return size;
     }
+    public void SetSize(int size){this.size =size; }
+
 
     public TerrainType GetTerrain(){
         return terrainType;

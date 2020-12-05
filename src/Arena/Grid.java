@@ -61,6 +61,9 @@ public class Grid {
         Cells.get(unit.GetPosition()).RemoveUnit(unit);
     }
 
+    public int GetSizeAtPosition(Position pos) {return Grid.Cells.get(pos).GetSize() ;  }
+    public void SetSizeAtPosition(Position pos ,int size) {Grid.Cells.get(pos).SetSize(size); }
+
     public static synchronized Position getBasePosition(){
         return mainBase.GetPosition() ;
     }

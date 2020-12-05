@@ -60,12 +60,13 @@ public class Grid {
         return Cells.get(unit.GetPosition()).AddUnit(unit);
     }
 
+    public synchronized static boolean CheckCell(Position pos,Unit unit){
+        return Cells.get(unit.GetPosition()).CheckAvailability(pos,unit);
+    }
+
     public synchronized static void RemoveUnit(Unit unit){
         Cells.get(unit.GetPosition()).RemoveUnit(unit);
     }
-
-    public int GetSizeAtPosition(Position pos) {return Grid.Cells.get(pos).GetSize() ;  }
-    public void SetSizeAtPosition(Position pos ,int size) {Grid.Cells.get(pos).SetSize(size); }
 
     public static synchronized Position getBasePosition(){
         return mainBase.GetPosition() ;

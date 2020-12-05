@@ -25,11 +25,18 @@ public class Cell {
         this.terrainType = terrainType;
     }
     public boolean AddUnit(Unit unit){
-        if(unit.GetSize().GetValue()>this.size){
+        if(unit.GetSize().GetValue()>this.size || terrainType == TerrainType.Valley){
             return false;
         }
         this.size-=unit.GetSize().GetValue();
         units.add(unit);
+        return true;
+    }
+
+    public boolean CheckAvailability(Position pos,Unit unit){
+        if(unit.GetSize().GetValue()>this.size || terrainType == TerrainType.Valley){
+            return false;
+        }
         return true;
     }
     public void RemoveUnit(Unit unit){
@@ -41,11 +48,9 @@ public class Cell {
             System.err.println("Error removing unit");
         }
     }
-    public int GetSize(){
-        return size;
-    }
     public void SetSize(int size){this.size =size; }
 
+    public int GetSize(){ return this.size; }
 
     public TerrainType GetTerrain(){
         return terrainType;

@@ -89,8 +89,8 @@ public class Grid {
             position.Set_Y(CellNum - 10);
         }
         GridCell[][] gridCells = new GridCell[10][10];
-        for(int i=position.Get_X();i<position.Get_X()+10;i++){
-            for(int j=position.Get_Y();j<position.Get_Y()+10;j++){
+        for(int i=position.Get_X(),newI=0;i<position.Get_X()+10 && newI < 10;i++,newI++){
+            for(int j=position.Get_Y(),newJ = 0;j<position.Get_Y()+10 && newJ < 10;j++,newJ++){
                 gridCells[i][j] = Cells.get(new Position(i,j));
             }
         }

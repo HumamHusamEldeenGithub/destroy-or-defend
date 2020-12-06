@@ -34,7 +34,9 @@ public class Grid {
         }
     }
     public synchronized static TerrainType GetTerrain(Position position){
-        return Cells.get(position).GetTerrain();
+        if(Cells.containsKey(position))
+            return Cells.get(position).GetTerrain();
+        return null;
     }
     public synchronized static void SetTerrain(Position position,TerrainType terrainType){
         if(Cells.containsKey(position))
@@ -46,6 +48,27 @@ public class Grid {
             return true;
         }
         return false;
+    }
+    public static void Print(){
+        for(int i=0;i<CellNum;i++){
+            for(int j=0;j<CellNum;j++){
+                TerrainType type = Cells.get(new Position(i,j)).GetTerrain();
+                if(type==TerrainType.River){
+                    System.out.print("r ");
+                }
+                else if(type==TerrainType.Valley){
+                    System.out.print("v ");
+                }
+                else if(type==TerrainType.Bridge){
+                    System.out.print("B ");
+                }
+                else{
+                    System.out.print(". ");
+                }
+
+            }
+            System.out.println();
+        }
     }
     public synchronized static boolean addUnit(Unit unit){
         if(unit.GetType() == UnitType.MainBase){

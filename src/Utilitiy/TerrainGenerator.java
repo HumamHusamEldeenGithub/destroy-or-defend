@@ -1,8 +1,10 @@
 package Utilitiy;
 
 import Arena.Grid;
+import Arena.TerrainType;
 
 import java.awt.*;
+import java.lang.invoke.VarHandle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -68,23 +70,38 @@ public class TerrainGenerator {
 
     private void MakeChoice(boolean choice,List<Point> points){
         if(choice){
-            GenerateRiver(points);
+            GenerateChunk(points,TerrainType.River);
         }
         else
-            GenerateValley(points);
+            GenerateChunk(points,TerrainType.Valley);
     }
 
-    private void GenerateRiver(List<Point> points) {
-        boolean bridgeMad = false;
+    private void GenerateChunk(List<Point> points,TerrainType terrainType) {
+        boolean bridgeMade = false;
         for(Point point : points){
-            for()
+            int bridgeChance = new Random().nextInt(50);
+            boolean makeBridge = bridgeChance>40 && point!= points.get(0);
+            for(int i=(int)point.x-2;i<point.x+2;i++){
+                for (int j=(int)point.y-2;j<point.y+2;j++){
+                    if(makeBridge){
+                        if(bridgeMade){
+                            if(Grid.GetTerrain(new Position(i,j))!=TerrainType.Bridge)
+                                Grid.SetTerrain(new Position(i,j), terrainType);
+                        }
+                        else{
+                            Grid.SetTerrain(new Position(i,j), TerrainType.Bridge);
+                        }
+                    }
+                    else{
+                        if(Grid.GetTerrain(new Position(i,j))!=TerrainType.Bridge)
+                            Grid.SetTerrain(new Position(i,j), terrainType);
+                    }
+                }
+            }
+            if(makeBridge)
+                bridgeMade = true;
         }
     }
-
-    private void GenerateValley(List<Point> points) {
-
-    }
-
 
     private List<Point> GetLine(Position first, Position second){
         Point p1 = new Point(first.Get_X(),first.Get_Y());
@@ -103,9 +120,11 @@ public class TerrainGenerator {
             }
         }
         Points.addAll(additionalPoints);
+        /*
         for(Point point : Points){
             System.out.println(point);
         }
+         */
         return Points;
     }
 

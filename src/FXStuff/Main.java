@@ -4,6 +4,7 @@ package FXStuff;
 import Strategies.LowestHealthAttackStrategy;
 import Utilitiy.Position;
 import Utilitiy.StopWatch;
+import Utilitiy.TerrainGenerator;
 import gameManager.DoDGameManager;
 import gameManager.GameState;
 import javafx.application.Application;
@@ -16,7 +17,7 @@ import player.PlayerType;
 import unit.Unit;
 import unit.UnitFactory;
 import unit.UnitType;
-
+import Arena.Grid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,9 @@ public class Main extends Application {
         System.out.println("wa2el");
 */
 
-        launch(args);
+        //launch(args);
+        TerrainGenerator terrainGenerator = new TerrainGenerator();
+        terrainGenerator.GenerateTerrain();
+        Grid.Print();
     }
 }

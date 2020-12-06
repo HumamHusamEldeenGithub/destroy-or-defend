@@ -13,8 +13,8 @@ import java.util.List;
 public class Player {
     protected int teamId;
     protected int coins;
-    protected PlayerType playerType;
-    AttackStrategy strategy;
+    protected PlayerType playerType = null;
+    AttackStrategy strategy = null;
     List<Unit> MyUnits = new ArrayList<Unit>();
     int CurrentUnit = 0;
     public Player(PlayerType playerType, int teamId, AttackStrategy strategy){
@@ -31,6 +31,7 @@ public class Player {
         return MyUnits;
     }
     public PlayerType GetType(){ return playerType; }
+    public AttackStrategy GetStrategy(){ return strategy; }
     public int GetCoins(){
         return coins;
     }

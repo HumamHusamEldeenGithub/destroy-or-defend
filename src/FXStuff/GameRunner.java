@@ -5,11 +5,12 @@ import gameManager.DoDGameManager;
 import gameManager.GameState;
 
 public class GameRunner {
-    public static void StartGame(){
+    public static void StartGame(javafx.stage.Stage stage){
         DoDGameManager.StartGame();
         while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState() != GameState.DefenderWon) {
             DoDGameManager.UpdateGame();
             Arena.ColorCell();
+            stage.showAndWait();
         }
     }
     public GameRunner(){}

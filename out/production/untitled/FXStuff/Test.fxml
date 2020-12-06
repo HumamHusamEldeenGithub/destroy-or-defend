@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane blendMode="ADD" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="433.0" layoutY="385.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="About" />
+      <Button layoutX="433.0" layoutY="462.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Exit" />
+      <Button fx:id="play" layoutX="433.0" layoutY="314.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" text="Play">
+         <font>
+            <Font name="High Tower Text" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

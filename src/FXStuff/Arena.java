@@ -253,7 +253,7 @@ public class Arena implements EventHandler {
                 boolean att=false;
                 for(Unit unit:units)
                 {
-                    if(AirForceLogic.class.isInstance(unit.GetLogic()) || AttackerLogic.class.isInstance(unit.GetLogic()))
+                    if(unit.GetLogic() instanceof AirForceLogic || unit.GetLogic() instanceof AttackerLogic)
                         att = true;
                     else
                         def = true;

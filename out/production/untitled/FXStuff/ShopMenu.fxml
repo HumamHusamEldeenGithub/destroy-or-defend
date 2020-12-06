@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXStuff.ShopMenu">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="297.0" layoutY="39.0" prefHeight="62.0" prefWidth="406.0" style="-fx-border-color: WHite;" text="Shop Menu" textFill="WHITE" AnchorPane.bottomAnchor="699.0" AnchorPane.leftAnchor="297.0" AnchorPane.rightAnchor="297.0" AnchorPane.topAnchor="39.0">
+         <font>
+            <Font name="Yu Gothic Regular" size="30.0" />
+         </font>
+      </Label>
+      <Pane fx:id="UnitsPane" layoutX="124.0" layoutY="162.0" prefHeight="408.0" prefWidth="752.0" style="-fx-background-color: white;">
+         <children>
+            <Circle fx:id="unit0" fill="DODGERBLUE" layoutX="64.0" layoutY="64.0" onMouseClicked="#showUnitInfo" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="unit1" fill="DODGERBLUE" layoutX="176.0" layoutY="64.0" onMouseClicked="#showUnitInfo" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="unit2" fill="DODGERBLUE" layoutX="289.0" layoutY="64.0" onMouseClicked="#showUnitInfo" radius="50.0" stroke="BLACK" strokeType="INSIDE" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -119,10 +119,11 @@ public class ShopScreen implements EventHandler {
             Arena arena=new Arena();
             MyNewStage=new Stage();
             MyNewStage=arena.Build();
-            MyNewStage.showAndWait();
-
             GameRunner runner = GameRunner.GetObj();
-            GameRunner.StartGame();
+            GameRunner.StartGame(MyNewStage );
+            //MyNewStage.showAndWait();
+
+
         }
 
     }

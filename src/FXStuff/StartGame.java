@@ -21,8 +21,5 @@ public class StartGame {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("PlayersCounter.fxml"));
         rootAnchor.getChildren().setAll(pane) ;
     }
-    /*        Parent root = FXMLLoader.load(getClass().getResource("StartGame.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 1000  , 800));
-        primaryStage.show();*/
+    /*        */
 }

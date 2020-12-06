@@ -25,14 +25,14 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-       /* Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("StartGame.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
-        primaryStage.show();*/
-
-        MainMenu mainMenu=new MainMenu();
-        primaryStage=mainMenu.BuildMainMenu();
+        primaryStage.setScene(new Scene(root, 1000  , 800));
         primaryStage.show();
+
+//        MainMenu mainMenu=new MainMenu();
+//        primaryStage=mainMenu.BuildMainMenu();
+//        primaryStage.show();
     }
     static DoDGameManager manager;
     public static void main(String[] args) {
@@ -62,9 +62,9 @@ public class Main extends Application {
         System.out.println("wa2el");
 */
 
-        //launch(args);
-        TerrainGenerator terrainGenerator = new TerrainGenerator();
+        launch(args);
+       /* TerrainGenerator terrainGenerator = new TerrainGenerator();
         terrainGenerator.GenerateTerrain();
-        Grid.Print();
+        Grid.Print();*/
     }
 }

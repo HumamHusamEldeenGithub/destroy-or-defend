@@ -342,7 +342,7 @@ Marking Bits (Prev, Next): (CMBitMap*) 0x000001a20e054ab0, (CMBitMap*) 0x000001a
  Prev Bits: [0x000001a226f70000, 0x000001a22aed0000)
  Next Bits: [0x000001a22aed0000, 0x000001a22ee30000)
 
-Polling page: 0x000001a20be60000
+Polling scene: 0x000001a20be60000
 
 Metaspace:
 
@@ -701,7 +701,7 @@ OS uptime: 0 days 15:51 hours
 
 CPU: total 12 (initial active 12) (6 cores per cpu, 2 threads per core) family 6 model 165 stepping 2 microcode 0xc8, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, vzeroupper, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, fma, clflush, clflushopt
 
-Memory: 4k page, system-wide physical 16222M (8026M free)
+Memory: 4k scene, system-wide physical 16222M (8026M free)
 TotalPageFile size 18654M (AvailPageFile size 4808M)
 current process WorkingSet (physical memory assigned to process): 133M, peak: 167M
 current process commit charge ("private bytes"): 438M, peak: 461M

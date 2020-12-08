@@ -1,6 +1,8 @@
 package GUI;
 
 
+import Arena.Grid;
+import Utilitiy.TerrainGenerator;
 import gameManager.DoDGameManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +14,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("FXML/StartGame.fxml"));
-        primaryStage.setTitle("Hello World");
+        GUIManager.GetRootLinks();
+        Parent root = FXMLLoader.load(getClass().getResource(GUIManager.Pages.get(GUI.Scene.StartGame)));
+        primaryStage.setTitle("Destroy Or Defend");
         primaryStage.setScene(new Scene(root, 1000  , 800));
         primaryStage.show();
 
@@ -50,7 +53,7 @@ public class Main extends Application {
 */
 
         launch(args);
-       /* TerrainGenerator terrainGenerator = new TerrainGenerator();
+        /*TerrainGenerator terrainGenerator = new TerrainGenerator();
         terrainGenerator.GenerateTerrain();
         Grid.Print();*/
     }

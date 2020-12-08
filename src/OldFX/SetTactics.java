@@ -66,7 +66,7 @@ public class SetTactics implements EventHandler {
 
     @Override
     public void handle(Event event) {
-        if(event.getSource()==nextButton)
+      /*  if(event.getSource()==nextButton)
         {
             String Tactics=new String();
 
@@ -88,6 +88,6 @@ public class SetTactics implements EventHandler {
                 alert.setContentText("You have to choose of the Tactics above... ");
                 alert.show();
             }
-        }
+        }*/
     }
 }

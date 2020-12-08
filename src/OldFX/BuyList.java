@@ -1,5 +1,6 @@
 package OldFX;
 
+import GUI.ErrorMessage;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class BuyList implements EventHandler {
     Stage BuildBuyList( int id)
     {
         //ImageView imageView=new ImageView("\\Images\\Black.jpg");
-        AllUnits=UnitFactory.GetUnitsInfo();
+       // AllUnits=UnitFactory.GetUnitsInfo();
         Coins=NumOfPlayers.Players.get(id-1).GetCoins();
 ///////////////////
         String playerType=NumOfPlayers.Players.get(id-1).GetType().toString();
@@ -120,14 +121,14 @@ public class BuyList implements EventHandler {
             if(unitType.getText()=="")
             {
                 ErrorMessage errorMessage=new ErrorMessage();
-                errorMessage.PrintError("You need to choose a unit first");
+               // errorMessage.PrintError("You need to choose a unit first");
             }
             else
             {
                 if(getPrice(unitType.getText())>Coins)
                 {
                     ErrorMessage errorMessage=new ErrorMessage();
-                    errorMessage.PrintError("You dont have enough money");
+                    //errorMessage.PrintError("You dont have enough money");
                 }
                 else
                 {
@@ -137,7 +138,7 @@ public class BuyList implements EventHandler {
                         if(NumOfPlayers.hasMainBase==true)
                         {
                             ErrorMessage errorMessage=new ErrorMessage();
-                            errorMessage.PrintError("You cant buy more the one main base");
+                            //.PrintError("You cant buy more the one main base");
                         }
                         else {
                             NumOfPlayers.hasMainBase = true;
@@ -165,7 +166,7 @@ public class BuyList implements EventHandler {
             if(unitType.getText()=="")
             {
                 ErrorMessage errorMessage=new ErrorMessage();
-                errorMessage.PrintError("You need to choose a unit first");
+              //  errorMessage.PrintError("You need to choose a unit first");
             }
             else
             {
@@ -181,14 +182,14 @@ public class BuyList implements EventHandler {
             if(NumOfPlayers.Players.get(ID-1).GetType()==PlayerType.Defender&&ID==NumOfPlayers.AttackTeamPlayers+NumOfPlayers.DefendTeamPlayers&&NumOfPlayers.hasMainBase==false)
             {
                 ErrorMessage errorMessage=new ErrorMessage();
-                errorMessage.PrintError("You have to buy main base");
+                //errorMessage.PrintError("You have to buy main base");
             }
             else if(hasUnit==true)
            prevStage.close();
             else
             {
                 ErrorMessage errorMessage=new ErrorMessage();
-                errorMessage.PrintError("You have to buy on unit at least");
+               // errorMessage.PrintError("You have to buy on unit at least");
             }
         }
     }

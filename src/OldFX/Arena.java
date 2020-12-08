@@ -1,6 +1,7 @@
 package OldFX;
 
 
+import GUI.ErrorMessage;
 import Utilitiy.Position;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -139,7 +140,7 @@ public class Arena implements EventHandler {
             if(XField.getText()==""||YField.getText()=="")
             {
                 ErrorMessage errorMessage=new ErrorMessage();
-                errorMessage.PrintError("Enter the postion Pleaseeeeeeeeeeeeeeeeee");
+                //errorMessage.PrintError("Enter the postion Pleaseeeeeeeeeeeeeeeeee");
 
 
             }

@@ -1,7 +1,7 @@
 package player;
 
 import Arena.Grid;
-import Strategies.AttackStrategy;
+import Strategies.*;
 import unit.AttackType;
 import unit.Unit;
 import unit.UnitFactory;
@@ -23,9 +23,13 @@ public class Player {
         this.strategy = strategy;
         coins = 1000;
     }
-    public void BuyUnit(UnitType unitType){
+    public boolean  BuyUnit(UnitType unitType){
+        if (coins<UnitFactory.getPrice(unitType))
+            return false ;
         Unit newUnit = UnitFactory.CreateUnit(unitType,playerType,strategy);
         MyUnits.add(newUnit);
+        coins -= UnitFactory.getPrice(unitType);
+        return true ;
     }
     public List<Unit> GetUnits(){
         return MyUnits;
@@ -59,8 +63,13 @@ public class Player {
         }
         return false;
     }
-    public synchronized void SetStrategy(AttackStrategy strategy){
-        this.strategy = strategy;
+    public synchronized void SetStrategy(Strategies strategies){
+        if (strategies==Strategies.HighestDamageAttack)
+            this.strategy = HighestDamageAttackStrategy.getObj();
+        else if (strategies==Strategies.LowestHealthAttack)
+            this.strategy = LowestHealthAttackStrategy.getObj() ;
+        else
+            this.strategy = RandomAttackStrategy.getObj() ;
     }
     public int GetId(){
         return teamId;

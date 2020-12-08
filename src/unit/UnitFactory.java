@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class  UnitFactory {
-    static HashMap<UnitType,String[]>UnitsInfo = new HashMap<UnitType,String[]>() ;
+    public final static HashMap<UnitType,String[]>UnitsInfo = new HashMap<UnitType,String[]>() ;
     static UnitFactory unitFactory;
     static String[] UnitPropertiesNames  ;
     public static UnitFactory GetObj(){

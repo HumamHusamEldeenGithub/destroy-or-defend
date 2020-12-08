@@ -17,14 +17,14 @@
             <Image url="@../../Images/setUnits.jpg" />
          </image>
       </ImageView>
-        <Button layoutX="433.0" layoutY="477.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" style="-fx-background-color: transparent;" text="About" textFill="WHITE" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
+        <Button fx:id="about" layoutX="433.0" layoutY="477.0" mnemonicParsing="false" onAction="#AboutPage" prefHeight="31.0" prefWidth="135.0" style="-fx-background-color: transparent;" text="About" textFill="WHITE" AnchorPane.bottomAnchor="292.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
          <font>
             <Font name="Yu Gothic Regular" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-        <Button layoutX="433.0" layoutY="571.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="135.0" style="-fx-background-color: transparent;" text="Exit" textFill="WHITE" AnchorPane.bottomAnchor="198.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
+        <Button fx:id="exit" layoutX="433.0" layoutY="571.0" mnemonicParsing="false" onAction="#Exit" prefHeight="31.0" prefWidth="135.0" style="-fx-background-color: transparent;" text="Exit" textFill="WHITE" AnchorPane.bottomAnchor="198.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
          <font>
             <Font name="Yu Gothic Regular" size="18.0" />
          </font>
@@ -33,7 +33,7 @@
          </cursor></Button>
         <Button fx:id="play" layoutX="400.0" layoutY="383.0" mnemonicParsing="false" onAction="#startGame" prefHeight="31.0" prefWidth="135.0" style="-fx-background-color: transparent;" text="Play" textFill="WHITE" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="400.0">
             <font>
-                <Font name="High Tower Text" size="18.0" />
+                <Font name="Yu Gothic Regular" size="18.0" />
             </font>
          <cursor>
             <Cursor fx:constant="HAND" />

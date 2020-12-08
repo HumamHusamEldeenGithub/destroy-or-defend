@@ -1,4 +1,4 @@
-package OldFX;
+package GUI;
 
 import javafx.scene.control.Alert;
 

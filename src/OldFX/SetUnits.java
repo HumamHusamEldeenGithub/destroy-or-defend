@@ -1,5 +1,6 @@
 package OldFX;
 
+import GUI.ErrorMessage;
 import Utilitiy.Position;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -65,7 +66,7 @@ public class SetUnits implements EventHandler{
                             else
                             {
                                 ErrorMessage errorMessage=new ErrorMessage();
-                                errorMessage.PrintError("You cant place here ");
+                               // errorMessage.PrintError("You cant place here ");
 
                             }
                         }
@@ -168,7 +169,7 @@ public class SetUnits implements EventHandler{
             else
             {
                 ErrorMessage errorMessage=new ErrorMessage();
-                errorMessage.PrintError("You have to set all of your units ");
+               // errorMessage.PrintError("You have to set all of your units ");
             }
         }
     }

@@ -60,7 +60,7 @@ public class ShopMenu {
             circle.setId(unitType.toString());
             circle.addEventFilter(MouseEvent.MOUSE_CLICKED,this::showUnitInfo);
            // ImageView imageView=new ImageView("\\Images\\planet_light.jpg");
-            circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_Canon.png")));
+            circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
             UnitsPane.getChildren().add(circle);
         }
     }

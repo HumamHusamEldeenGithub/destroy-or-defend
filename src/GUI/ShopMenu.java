@@ -18,6 +18,9 @@ import unitProperty.HealthUnitProperty;
 import java.io.IOException;
 
 public class ShopMenu {
+    static int margin = 20 ;
+    static int firstPixel_X = 60 ;
+    static int firstPixel_Y = 150 ;
     final int Radius =50 ;
     static int  playerID =0 ;
     static UnitType LastClickedType ;
@@ -121,11 +124,11 @@ public class ShopMenu {
 
     public Pair<Integer, Integer> GetDimensions(int x ,int y )
     {
-        if (x+ Radius *3 +20>UnitsPane.getPrefWidth())
-            return new Pair<Integer, Integer>(60,y+150) ;
+        if (x+ Radius *3 +margin>UnitsPane.getPrefWidth())
+            return new Pair<Integer, Integer>(firstPixel_X,y+firstPixel_Y) ;
         else if (x==0)
-            return new Pair<Integer, Integer>(60,y) ;
+            return new Pair<Integer, Integer>(firstPixel_X,y) ;
         else
-            return new Pair<Integer, Integer>(x+120,y) ;
+            return new Pair<Integer, Integer>(x+Radius*2 + margin,y) ;
     }
 }

@@ -33,6 +33,7 @@ public class GUIManager extends Application {
             Pages.put(Scene.PlayerCounter , "FXML/PlayersCounter.fxml") ;
             Pages.put(Scene.ShopMenu , "FXML/ShopMenu.fxml") ;
             Pages.put(Scene.Strategy , "FXML/SelectStrategy.fxml") ;
+            Pages.put(Scene.SetUnits , "FXML/SetUnits.fxml") ;
         }
 
     public static void main(String[] args) {

@@ -140,5 +140,6 @@ public class  UnitFactory {
     public static HashMap<UnitType,String[]> GetUnitsInfo(){
         return UnitsInfo;
     }
+    public static double GetSize(UnitType unit){String[] info = UnitsInfo.get(unit) ;return Double.parseDouble(info[6]) ;}
     public static String[] getUnitPropertiesNames(){return Arrays.copyOfRange(UnitPropertiesNames, 1 ,UnitPropertiesNames.length) ; }
 }

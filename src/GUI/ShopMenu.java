@@ -5,9 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import unit.UnitFactory;
@@ -56,6 +59,8 @@ public class ShopMenu {
             Circle circle = new Circle(x,y, Radius);
             circle.setId(unitType.toString());
             circle.addEventFilter(MouseEvent.MOUSE_CLICKED,this::showUnitInfo);
+           // ImageView imageView=new ImageView("\\Images\\planet_light.jpg");
+            circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_Canon.png")));
             UnitsPane.getChildren().add(circle);
         }
     }

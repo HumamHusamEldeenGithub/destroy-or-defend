@@ -66,7 +66,7 @@ public class SetUnits {
         List<Unit> units = DoDGameManager.Players.get(SetUnits.id).GetUnits() ;
         boolean[] flag = new boolean[units.size()] ;
         for (Node node: UnitsPane.getChildren()) {
-            if (Circle.class.isInstance(node)) {
+            if (node instanceof Circle) {
                 Bounds boundsInScene = node.localToScene(node.getBoundsInLocal());
                 Circle circle = (Circle) node;
                 x = (int) boundsInScene.getMinX();

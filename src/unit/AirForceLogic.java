@@ -4,6 +4,7 @@ import Arena.Grid;
 import UnitControllers.AirForceMovementUnitController;
 import UnitControllers.AttackUnitController;
 import UnitControllers.MovementUnitController;
+import Utilitiy.Logger;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class AirForceLogic extends Logic {
                 Reloading = true ;
             }
             else{
-
                 movementUnitController.Execute(unit, Grid.getBasePosition());
+                Logger.Movelog(unit.position, unit.unitType);
             }
         }
     }

@@ -3,6 +3,7 @@ package unit;
 import Arena.Grid;
 import UnitControllers.AttackUnitController;
 import UnitControllers.NormalMovementUnitController;
+import Utilitiy.Logger;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public class AttackerLogic extends Logic{
             }
             else{
                 movementUnitController.Execute(unit, Grid.getBasePosition());
+                Logger.Movelog(unit.position, unit.unitType);
             }
         }
     }

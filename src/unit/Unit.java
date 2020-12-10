@@ -3,6 +3,7 @@ package unit;
 import Arena.GridCell;
 import Arena.Grid;
 import Strategies.AttackStrategy;
+import Utilitiy.Logger;
 import Utilitiy.Position;
 import Utilitiy.StopWatchPool;
 import unitProperty.*;
@@ -132,7 +133,9 @@ public class Unit {
     public void AttackUnit (Unit targetUnit){
         this.targetedUnit = targetUnit;
         double Damage = GetDamage().GetValue();
-        this.activeAttackType.PerformAttack(this.targetedUnit, Damage);
+        if(this.activeAttackType.PerformAttack(this.targetedUnit, Damage)){
+            Logger.Damagelog(this,targetUnit,Damage);
+        }
     }
 
     public void Execute() {
@@ -141,7 +144,9 @@ public class Unit {
     }
 
     public void Destroy (){
+
         Grid.RemoveUnit(this);
+        Logger.Deadlog(this);
     }
 
     public void SetPosition (Position position ) {

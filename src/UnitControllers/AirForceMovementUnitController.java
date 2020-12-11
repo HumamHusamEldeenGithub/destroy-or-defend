@@ -1,6 +1,7 @@
 package UnitControllers;
 
 import Arena.Grid;
+import Utilitiy.Logger;
 import Utilitiy.Position;
 import Utilitiy.StopWatch;
 import Utilitiy.StopWatchPool;
@@ -20,6 +21,7 @@ public class AirForceMovementUnitController extends MovementUnitController {
                 Grid.RemoveUnit(unit);
                 unit.SetPosition(nextPos);
                 Grid.addUnit(unit);
+                Logger.Movelog(unit.GetPosition(), unit.GetType());
                // System.out.println(nextPos);
             } else {
                 System.err.println("Error in finding path");

@@ -18,6 +18,7 @@ public class NormalMovementUnitController extends MovementUnitController{
                 System.out.println(nextPos);
                 unit.SetPosition(nextPos);
                 Grid.addUnit(unit);
+                Logger.Movelog(unit.GetPosition(), unit.GetType());
                 // System.out.println("has moved");
             } else
                 System.err.println("Error in finding path");

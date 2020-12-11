@@ -50,7 +50,7 @@ public class PathFinder {
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
                     if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!= TerrainType.Valley && !visited[j][j] ) {
                         GridNode node = new GridNode();
-                        node.weight = Math.abs(Destination.Get_X() - i + Destination.Get_Y() - j);
+                        node.weight = Math.abs(Destination.Get_X() - i) +Math.abs( Destination.Get_Y() - j);
                         if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
                             node.weight+=2;
                         node.pos.Set_X(i);

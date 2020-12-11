@@ -6,7 +6,7 @@ Solider,Infantry,120,0.20,50,2,1.5,1,1,Sniper-Infantry-GrizzlyTank-NavySEA-Tesla
 Solider,GrizzlyTank,400,0.40,250,4,0.60,2,3,Sniper-Infantry-GrizzlyTank-NavySEAL,50,
 Solider,NavySEAL,100,0.20,100,1,2,3,1,Sniper-Infantry-GrizzlyTank-NavySEAL-TeslaTank-MirageTank-TankDestroyer-PrismTank,10,
 Tank,TankDestroyer,450,0.50,400,6,0.60,3,5,TeslaTank-MirageTank-TankDestroyer-PrismTank,50,
-Tank,PrismTank,500,0.35,240,5,0.60,3,5,TeslaTank-MirageTank-TankDestroyer-PrismTank-Sniper-Infantry-GrizzlyTank-NavySEAL-Pillbox-PrismTower-GrandCannon-MainBase,60,
+Tank,PrismTank,500,0.35,240,5,0.60,3,1,TeslaTank-MirageTank-TankDestroyer-PrismTank-Sniper-Infantry-GrizzlyTank-NavySEAL-Pillbox-PrismTower-GrandCannon-MainBase,60,
 Structure,Pillbox,4000,0.70,100,10,0.70,8,3,Sniper-Infantry-GrizzlyTank-NavySEAL,150,
 Structure,PrismTower,6000,0.70,100,10,0.50,8,2,Sniper-Infantry-GrizzlyTank-NavySEAL-TeslaTank-MirageTank-TankDestroyer-PrismTank,150,
 Structure,GrandCannon,6000,0.70,150,8,0.90,8,2,Sniper-Infantry-GrizzlyTank-NavySEAL-TeslaTank-MirageTank-TankDestroyer-PrismTank,200,

@@ -26,7 +26,6 @@ public class AttackerLogic extends Logic{
             }
             else{
                 movementUnitController.Execute(unit, Grid.getBasePosition());
-                Logger.Movelog(unit.position, unit.unitType);
             }
         }
     }

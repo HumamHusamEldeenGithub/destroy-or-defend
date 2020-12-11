@@ -51,10 +51,10 @@ public class Main extends Application {
             DoDGameManager.UpdateGame();
         System.out.println("wa2el");
 */
-
-        launch(args);
-        /*TerrainGenerator terrainGenerator = new TerrainGenerator();
+        TerrainGenerator terrainGenerator = new TerrainGenerator();
         terrainGenerator.GenerateTerrain();
-        Grid.Print();*/
+        launch(args);
+
+       //Grid.Print();
     }
 }

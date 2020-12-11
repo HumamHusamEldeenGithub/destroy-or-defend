@@ -65,7 +65,7 @@
             </RadioButton>
          </children>
       </VBox>
-      <Button layoutX="801.0" layoutY="701.0" mnemonicParsing="false" onAction="#NextScene" prefHeight="34.0" prefWidth="155.0" text="Next">
+      <Button layoutX="831.0" layoutY="752.0" mnemonicParsing="false" onAction="#NextScene" prefHeight="34.0" prefWidth="155.0" text="Next">
          <font>
             <Font name="Yu Gothic Regular" size="18.0" />
          </font>

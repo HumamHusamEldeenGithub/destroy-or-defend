@@ -31,7 +31,7 @@ public class SelectStrategy {
     @FXML
     void NextScene(ActionEvent event) throws IOException {
         RadioButton radioButton = (RadioButton) Strategy.getSelectedToggle() ;
-        System.out.println(radioButton.getText());
+        //System.out.println(radioButton.getText());
         DoDGameManager.Players.get(SelectStrategy.PlayerId).SetStrategy(Strategies.valueOf(radioButton.getText()));
 
         if (SelectStrategy.PlayerId== DoDGameManager.Players.size()-1)

@@ -6,5 +6,6 @@ public enum Scene {
     PlayerCounter ,
     ShopMenu ,
     Strategy,
-    SetUnits
+    SetUnits,
+    Arena
 }

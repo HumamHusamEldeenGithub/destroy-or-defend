@@ -83,6 +83,7 @@ public class ShopMenu {
                 Label label = (Label) node;
                 if (i == 0) {
                     label.setText(PropNames[i] + " : " + unitType.toString());
+                    //label.wrapTextProperty() ;
                     i++;
                     continue;
                 }

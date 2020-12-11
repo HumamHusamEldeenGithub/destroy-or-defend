@@ -59,7 +59,7 @@ public class DoDGameManager extends GameManager {
 
     public static void Initialize(){
         grid = Grid.GetGrid();
-        grid.Initialize(100,200);
+        grid.Initialize(800,20);
         factory = UnitFactory.GetObj();
         UnitFactory.LoadData();
         stopWatchPool = StopWatchPool.GetObj();

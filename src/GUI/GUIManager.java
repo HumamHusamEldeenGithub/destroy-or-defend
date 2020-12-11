@@ -1,11 +1,16 @@
 package GUI;
 
+import Utilitiy.Position;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import player.Player;
+import Arena.* ;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +39,40 @@ public class GUIManager extends Application {
             Pages.put(Scene.ShopMenu , "FXML/ShopMenu.fxml") ;
             Pages.put(Scene.Strategy , "FXML/SelectStrategy.fxml") ;
             Pages.put(Scene.SetUnits , "FXML/SetUnits.fxml") ;
+            Pages.put(Scene.Arena , "FXML/Arena.fxml") ;
         }
+    static void  GenerateWorld(Pane pane)
+    {
+        for (int i = 0; i< Grid.CellNum ; i++)
+            for (int j = 0; j< Grid.CellNum ; j++)
+            {
+                TerrainType terrainType = Grid.GetTerrain(new Position(i,j));
+                if (terrainType==null)
+                    continue;
+                if (terrainType== TerrainType.River) {
+                    Circle circle = new Circle(4);
+                    circle.setFill(Color.BLUE);
+                    circle.setCenterX(i);
+                    circle.setCenterY(j);
+                    pane.getChildren().add(circle);
+
+                }
+                else if (terrainType== TerrainType.Valley) {
+                    Circle circle = new Circle(4);
+                    circle.setFill(Color.DARKGREEN);
+                    circle.setCenterX(i);
+                    circle.setCenterY(j);
+                    pane.getChildren().add(circle);
+                }
+                else if (terrainType== TerrainType.Bridge) {
+                    Circle circle = new Circle(4);
+                    circle.setFill(Color.BLACK);
+                    circle.setCenterX(i);
+                    circle.setCenterY(j);
+                    pane.getChildren().add(circle);
+                }
+            }
+    }
 
     public static void main(String[] args) {
         launch(args);

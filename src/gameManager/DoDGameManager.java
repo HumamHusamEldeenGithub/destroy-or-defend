@@ -21,7 +21,6 @@ public class DoDGameManager extends GameManager {
     static TeamHandler Defenders;
     static GameState state;
     static UnitFactory unitFactory ;
-    public static List<Player> Players = new ArrayList<>() ;
     private static DoDGameManager doDGameManager=null ;
     private static long StartTime=0;
     private static long OldElapsedTime=0;
@@ -67,7 +66,7 @@ public class DoDGameManager extends GameManager {
         stopWatchPool.AddObj(GameStopWatch);
     }
 
-    public static void InitializePlayers(){
+    public static void InitializePlayers(List<Player>Players){
         StartTime = System.nanoTime();//Check
         List<Player> Attackers = new ArrayList<Player>();
         List<Player> Defenders = new ArrayList<Player>();
@@ -81,23 +80,6 @@ public class DoDGameManager extends GameManager {
                 Defenders.add(player);
             player.PutOnArena();
         }
-    }
-    public static void SetPlayers(int AttackerNumber , int DefenderNumber )
-    {
-        for (int i =0 ; i<AttackerNumber+DefenderNumber ; i++)
-        {
-            if (i<AttackerNumber)
-            {
-                Player player = new Player(PlayerType.Attacker,i,null) ;
-                Players.add(player) ;
-            }
-            else
-            {
-                Player player = new Player(PlayerType.Defender , i-AttackerNumber ,null ) ;
-                Players.add(player) ;
-            }
-        }
-        //DoDGameManager.InitializePlayers(); ;
     }
     public synchronized static void Pause_Unpause(){
         if(DoDGameManager.state == GameState.Running){

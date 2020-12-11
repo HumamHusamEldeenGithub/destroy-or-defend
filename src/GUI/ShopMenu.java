@@ -1,12 +1,11 @@
 package GUI;
 
-import gameManager.DoDGameManager;
+import GUI.GUIManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -15,7 +14,6 @@ import javafx.scene.shape.Circle;
 import javafx.util.Pair;
 import unit.UnitFactory;
 import unit.UnitType;
-import unitProperty.HealthUnitProperty;
 
 
 import java.io.IOException;
@@ -60,18 +58,13 @@ public class ShopMenu {
             circle.setId(unitType.toString());
             circle.addEventFilter(MouseEvent.MOUSE_CLICKED,this::showUnitInfo);
            // ImageView imageView=new ImageView("\\Images\\planet_light.jpg");
+            if (unitType!=UnitType.MainBase)
             circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
             UnitsPane.getChildren().add(circle);
         }
     }
 
     public void showUnitInfo(MouseEvent mouseEvent) {
-        /*String source1 = mouseEvent.getSource().toString(); //yields complete string
-        String source2 = mouseEvent.getPickResult().getIntersectedNode().getId(); //returns JUST the id of the object that was clicked
-        mouseEvent.getPickResult().getIntersectedNode().setTranslateX(mouseEvent.getPickResult().getIntersectedNode().getLayoutX()+0.05);
-        //System.out.println("Full String: " + source1);
-        System.out.println(source1);
-        System.out.println(source2);*/
         UnitType unitType = UnitType.valueOf(mouseEvent.getPickResult().getIntersectedNode().getId()) ;
         LastClickedType = unitType ;
         String[] info  =  UnitFactory.UnitsInfo.get(unitType) ;
@@ -97,27 +90,27 @@ public class ShopMenu {
 
     public void getPlayerId ()
     {
-        PlayerID.setText(DoDGameManager.Players.get(ShopMenu.playerID).GetType().toString() + " id:"+ShopMenu.playerID) ;
+        PlayerID.setText(GUIManager.Players.get(ShopMenu.playerID).GetType().toString() + " id:"+ShopMenu.playerID) ;
     }
     public void getCoins()
     {
-        Coins.setText("Coins :"+String.valueOf(DoDGameManager.Players.get(ShopMenu.playerID).GetCoins()));
+        Coins.setText("Coins :"+String.valueOf(GUIManager.Players.get(ShopMenu.playerID).GetCoins()));
     }
 
     public void NextScene(ActionEvent actionEvent) throws IOException {
-        if (ShopMenu.playerID== DoDGameManager.Players.size()-1)
-            GUIManager.ChangeScene(rootAnchor,Scene.Strategy);
+        if (ShopMenu.playerID== GUIManager.Players.size()-1)
+            GUIManager.ChangeScene(rootAnchor, WindowType.SetUnits);
         else
         {
             ShopMenu.playerID++ ;
-            GUIManager.ChangeScene(rootAnchor,Scene.ShopMenu);
+            GUIManager.ChangeScene(rootAnchor, WindowType.ShopMenu);
         }
     }
     public void BuyUnit(ActionEvent actionEvent) throws IOException {
         if(ShopMenu.LastClickedType!=null) {
 
-            if (DoDGameManager.Players.get(ShopMenu.playerID).BuyUnit(LastClickedType)) {
-                Coins.setText("Coins :"+String.valueOf(DoDGameManager.Players.get(ShopMenu.playerID).GetCoins()));
+            if (GUIManager.Players.get(ShopMenu.playerID).BuyUnit(LastClickedType)) {
+                Coins.setText("Coins :"+String.valueOf(GUIManager.Players.get(ShopMenu.playerID).GetCoins()));
             }
             else
             {

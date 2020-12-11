@@ -2,7 +2,6 @@ package GUI;
 
 import gameManager.DoDGameManager;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
 import player.Player;
@@ -10,7 +9,6 @@ import player.PlayerType;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PlayersCounter {
 
@@ -32,8 +30,24 @@ public class PlayersCounter {
 
         int AttackTeamPlayers = (int) AttackersNum.getValue();
         int DefendTeamPlayers = (int) DefendersNum.getValue();
-        DoDGameManager.SetPlayers(AttackTeamPlayers,DefendTeamPlayers);
-        GUIManager.ChangeScene(rootAnchor,Scene.ShopMenu);
+        SetPlayers(AttackTeamPlayers,DefendTeamPlayers);
+        GUIManager.ChangeScene(rootAnchor, WindowType.Strategy);
+    }
+    void SetPlayers(int AttackerNumber , int DefenderNumber )
+    {
+        for (int i =0 ; i<AttackerNumber+DefenderNumber ; i++)
+        {
+            if (i<AttackerNumber)
+            {
+                Player player = new Player(PlayerType.Attacker,i,null) ;
+                GUIManager.Players.add(player) ;
+            }
+            else
+            {
+                Player player = new Player(PlayerType.Defender , i-AttackerNumber ,null ) ;
+                GUIManager.Players.add(player) ;
+            }
+        }
     }
 
 }

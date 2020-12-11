@@ -1,29 +1,20 @@
 package GUI;
 
+import GUI.GUIObserver.MoveGUIObserver;
 import Utilitiy.Position;
 import gameManager.DoDGameManager;
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TitledPane;
-import javafx.scene.image.PixelReader;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Pair;
 import unit.Unit;
-import unit.UnitFactory;
-import unit.UnitType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,18 +23,7 @@ import Arena.* ;
 
 public class SetUnits {
     static int id = 0 ;
-    static int margin = 20 ;
-    static int firstPixel_X = 60 ;
-    static int firstPixel_Y = 100 ;
-    static int Radius =25 ;
-
-    static boolean zoomIn = false ;
-    static List<Unit> AllUnits =new ArrayList<>() ;
-    static boolean[] flag;
     static Circle SelectedCircle= null ;
-    static int borderWidth = 200  ;
-    static int borderHeight = 200 ;
-    static int ScaleUp = 4 ;
     List<Unit>playerUnits=new ArrayList<>();
 
 
@@ -70,20 +50,20 @@ public class SetUnits {
         GUIManager.GenerateWorld(this.Map);
         Map.setOnMouseClicked(ZoomIn);
         this.DrawUnitsCircles(UnitsPane); ;
-        playerUnits=DoDGameManager.Players.get(id).GetUnits();
+        playerUnits=GUIManager.Players.get(id).GetUnits();
         DrawUnitsOnArena();
     }
     public void DrawUnitsCircles(Pane pane)  {
         int x = 0;
         int y =60 ;
         List<Unit>playerUnits=new ArrayList<>();
-        playerUnits=DoDGameManager.Players.get(id).GetUnits();
+        playerUnits=GUIManager.Players.get(id).GetUnits();
         for (int i =0 ; i<playerUnits.size() ; i++){
             Unit unit = playerUnits.get(i) ;
             Pair<Integer,Integer> dim  = GetDimensions(x,y) ;
             x = dim.getKey() ;
             y = dim.getValue();
-            Circle circle = new Circle(x,y, Radius);
+            Circle circle = new Circle(x,y, GUIManager.Radius);
             circle.setId(i+"");
             circle.setOnMouseClicked(OnSelectedCircleHandler);
             pane.getChildren().add(circle);
@@ -97,12 +77,12 @@ public class SetUnits {
 
     public Pair<Integer, Integer> GetDimensions(int x , int y )
     {
-        if (x+ Radius *3 +margin>UnitsPane.getPrefWidth())
-            return new Pair<Integer, Integer>(firstPixel_X,y+firstPixel_Y) ;
+        if (x+ GUIManager.Radius *3 +GUIManager.margin>UnitsPane.getPrefWidth())
+            return new Pair<Integer, Integer>(GUIManager.firstPixel_X,y+GUIManager.firstPixel_Y) ;
         else if (x==0)
-            return new Pair<Integer, Integer>(firstPixel_X,y) ;
+            return new Pair<Integer, Integer>(GUIManager.firstPixel_X,y) ;
         else
-            return new Pair<Integer, Integer>(x+Radius*2 + margin,y) ;
+            return new Pair<Integer, Integer>(x+GUIManager.Radius*2 + GUIManager.margin,y) ;
     }
 
     EventHandler<MouseEvent> ZoomIn =
@@ -111,16 +91,16 @@ public class SetUnits {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     int LayOutX  =0 , LayOutY=0 ;
-                    LayOutX = 2*(SetUnits.ScaleUp-1) * borderWidth ;
-                    LayOutY = 2*(SetUnits.ScaleUp-1) * borderHeight ;
-                    int x = (int) (mouseEvent.getX()/borderWidth);
-                    int y = (int)mouseEvent.getY()/borderHeight ;
+                    LayOutX = 2*(GUIManager.ScaleUp-1) * GUIManager.borderWidth ;
+                    LayOutY = 2*(GUIManager.ScaleUp-1) * GUIManager.borderHeight ;
+                    int x = (int) (mouseEvent.getX()/GUIManager.borderWidth);
+                    int y = (int)mouseEvent.getY()/GUIManager.borderHeight ;
                    // System.out.println(x + " " + y );
-                    Map.setScaleX(SetUnits.ScaleUp);
-                    Map.setScaleY(SetUnits.ScaleUp);
-                    Map.setLayoutX(LayOutX-(borderWidth*x*SetUnits.ScaleUp));
-                    Map.setLayoutY(LayOutY-(borderHeight*y*SetUnits.ScaleUp));
-                    SetUnits.zoomIn=true ;
+                    Map.setScaleX(GUIManager.ScaleUp);
+                    Map.setScaleY(GUIManager.ScaleUp);
+                    Map.setLayoutX(LayOutX-(GUIManager.borderWidth*x*GUIManager.ScaleUp));
+                    Map.setLayoutY(LayOutY-(GUIManager.borderHeight*y*GUIManager.ScaleUp));
+                    GUIManager.zoomIn=true ;
                     //System.out.println(LayOutX-(borderWidth*x*SetUnits.ScaleUp) + " " + (LayOutY-(borderHeight*y*SetUnits.ScaleUp)));
                 }
             };
@@ -131,7 +111,7 @@ public class SetUnits {
 
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    if (zoomIn) {
+                    if (GUIManager.zoomIn) {
                         if (SetUnits.SelectedCircle!=null)
                             RawShape(SetUnits.SelectedCircle) ;
                         SetUnits.SelectedCircle = (Circle) mouseEvent.getSource();
@@ -144,19 +124,26 @@ public class SetUnits {
             };
     public void GetPosition(MouseEvent mouseEvent) {
             if (SetUnits.SelectedCircle != null) {
-                System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
-                UnitsPane.getChildren().remove(SetUnits.SelectedCircle);
-                RawShape(SetUnits.SelectedCircle);
-                Map.getChildren().add(SetUnits.SelectedCircle);
-                SetUnits.SelectedCircle.setCenterX(mouseEvent.getX());
-                SetUnits.SelectedCircle.setCenterY(mouseEvent.getY());
-                SetUnits.SelectedCircle.setRadius((playerUnits.get(Integer.parseInt(SelectedCircle.getId())).GetSize().GetValue()));
-                SetUnits.SelectedCircle = null;
+                TerrainType terrainType = Grid.GetTerrain(new Position((int)mouseEvent.getX(),(int)mouseEvent.getY()) );
+                if (terrainType==TerrainType.Valley) {
+                    ErrorMessage errorMessage = new ErrorMessage();
+                    errorMessage.PrintError("You can't put units on Vally .. try another position .");
+                }
+                else {
+                    System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
+                    UnitsPane.getChildren().remove(SetUnits.SelectedCircle);
+                    RawShape(SetUnits.SelectedCircle);
+                    Map.getChildren().add(SetUnits.SelectedCircle);
+                    SetUnits.SelectedCircle.setCenterX(mouseEvent.getX());
+                    SetUnits.SelectedCircle.setCenterY(mouseEvent.getY());
+                    SetUnits.SelectedCircle.setRadius((playerUnits.get(Integer.parseInt(SelectedCircle.getId())).GetSize().GetValue()));
+                    SetUnits.SelectedCircle = null;
+                }
             }
     }
 
     public void ZoomOut(ActionEvent actionEvent) {
-        SetUnits.zoomIn = false ;
+        GUIManager.zoomIn = false ;
         Map.setLayoutX(0);
         Map.setLayoutY(0);
         Map.setScaleX(1);
@@ -186,24 +173,36 @@ public class SetUnits {
                 Circle circle = (Circle)node ;
                 System.out.println(circle.getId());
                 Unit unit = playerUnits.get(Integer.parseInt(circle.getId())) ;
+                new MoveGUIObserver(unit,circle);
                 unit.SetPosition(new Position((int)circle.getCenterX() , (int)circle.getCenterY()));
-                AllUnits.add(unit);
+                GUIManager.AllUnits.add(unit);
             }
         }
-        if (SetUnits.id==DoDGameManager.Players.size()-1)
-            GUIManager.ChangeScene(rootAnchor,Scene.Arena);
+        if (SetUnits.id==GUIManager.Players.size()-1)
+
+        {
+            System.out.println("Enter");
+            DoDGameManager.InitializePlayers(GUIManager.Players);
+            DoDGameManager.StartGame();
+            Stage MyNewStage=new Stage();
+            Arena Arena =new Arena();
+            MyNewStage= Arena.Build();
+            Arena.start();
+            MyNewStage.showAndWait();
+
+        }
         else
         {
             SetUnits.id++ ;
-            GUIManager.ChangeScene(rootAnchor,Scene.SetUnits);
+            GUIManager.ChangeScene(rootAnchor, WindowType.SetUnits);
         }
 
     }
     public void DrawUnitsOnArena()
     {
-        Map.setScaleX(SetUnits.ScaleUp);
-        Map.setScaleY(SetUnits.ScaleUp);
-        for (Unit unit :AllUnits)
+        Map.setScaleX(GUIManager.ScaleUp);
+        Map.setScaleY(GUIManager.ScaleUp);
+        for (Unit unit :GUIManager.AllUnits)
         {
             Circle  circle = new Circle();
             Map.getChildren().add(circle) ;

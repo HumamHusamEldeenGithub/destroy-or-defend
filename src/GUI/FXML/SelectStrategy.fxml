@@ -12,6 +12,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane fx:id="rootAnchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.SelectStrategy">
    <children>
       <ImageView layoutX="-683.0" layoutY="-248.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-64.0" AnchorPane.leftAnchor="-683.0" AnchorPane.rightAnchor="-761.0" AnchorPane.topAnchor="-248.0">

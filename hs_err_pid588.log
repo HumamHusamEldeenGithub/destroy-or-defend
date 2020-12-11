@@ -482,11 +482,11 @@ Event: 4.604 Thread 0x000001a234c28350 Exception <a 'java/lang/NoSuchMethodError
 thrown [./open/src/hotspot/share/interpreter/linkResolver.cpp, line 782]
 Event: 6.183 Thread 0x000001a234c28350 Exception <a 'java/lang/NoSuchMethodError'{0x0000000711fcf6e8}: 'void java.lang.invoke.DirectMethodHandle$Holder.invokeSpecial(java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object, java.lang.Object)'> (0x0000000711fcf6e8) 
 thrown [./open/src/hotspot/share/interpreter/linkResolver.cpp, line 782]
-Event: 6.194 Thread 0x000001a234c28350 Exception <a 'java/lang/ClassNotFoundException'{0x0000000711d04520}: com/sun/javafx/scene/control/skin/resources/controls> (0x0000000711d04520) 
+Event: 6.194 Thread 0x000001a234c28350 Exception <a 'java/lang/ClassNotFoundException'{0x0000000711d04520}: com/sun/javafx/scene/control/skin/resources/controls> (0x0000000711d04520)
 thrown [./open/src/hotspot/share/prims/jni.cpp, line 599]
-Event: 6.194 Thread 0x000001a234c28350 Exception <a 'java/lang/ClassNotFoundException'{0x0000000711d12840}: com/sun/javafx/scene/control/skin/resources/controls_en> (0x0000000711d12840) 
+Event: 6.194 Thread 0x000001a234c28350 Exception <a 'java/lang/ClassNotFoundException'{0x0000000711d12840}: com/sun/javafx/scene/control/skin/resources/controls_en> (0x0000000711d12840)
 thrown [./open/src/hotspot/share/prims/jni.cpp, line 599]
-Event: 6.195 Thread 0x000001a234c28350 Exception <a 'java/lang/ClassNotFoundException'{0x0000000711d142f8}: com/sun/javafx/scene/control/skin/resources/controls_en_US> (0x0000000711d142f8) 
+Event: 6.195 Thread 0x000001a234c28350 Exception <a 'java/lang/ClassNotFoundException'{0x0000000711d142f8}: com/sun/javafx/scene/control/skin/resources/controls_en_US> (0x0000000711d142f8)
 thrown [./open/src/hotspot/share/prims/jni.cpp, line 599]
 Event: 7.047 Thread 0x000001a234c28350 Exception <a 'java/lang/NoSuchMethodError'{0x0000000711623870}: 'java.lang.Object java.lang.invoke.DirectMethodHandle$Holder.newInvokeSpecial(java.lang.Object, java.lang.Object, int, int, int, int, int, java.lang.Object)'> (0x0000000711623870) 
 thrown [./open/src/hotspot/share/interpreter/linkResolver.cpp, line 782]

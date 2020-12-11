@@ -1,6 +1,6 @@
 package GUI;
 
-public enum Scene {
+public enum WindowType {
     StartGame ,
     About,
     PlayerCounter ,

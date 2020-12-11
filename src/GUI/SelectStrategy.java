@@ -1,14 +1,13 @@
 package GUI;
 
 import Strategies.Strategies;
-import gameManager.DoDGameManager;
+import GUI.GUIManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
-import player.Player;
 
 import java.io.IOException;
 
@@ -31,21 +30,21 @@ public class SelectStrategy {
     @FXML
     void NextScene(ActionEvent event) throws IOException {
         RadioButton radioButton = (RadioButton) Strategy.getSelectedToggle() ;
-        //System.out.println(radioButton.getText());
-        DoDGameManager.Players.get(SelectStrategy.PlayerId).SetStrategy(Strategies.valueOf(radioButton.getText()));
-
-        if (SelectStrategy.PlayerId== DoDGameManager.Players.size()-1)
-                 GUIManager.ChangeScene(rootAnchor,Scene.SetUnits);
+        System.out.println(radioButton.getText());
+        GUIManager.Players.get(SelectStrategy.PlayerId).SetStrategy(Strategies.valueOf(radioButton.getText()));
+        System.out.println(GUIManager.Players.get(SelectStrategy.PlayerId).GetStrategy().toString());
+        if (SelectStrategy.PlayerId== GUIManager.Players.size()-1)
+                 GUIManager.ChangeScene(rootAnchor, WindowType.ShopMenu);
         else
         {
             SelectStrategy.PlayerId++ ;
-            GUIManager.ChangeScene(rootAnchor,Scene.Strategy);
+            GUIManager.ChangeScene(rootAnchor, WindowType.Strategy);
         }
 
     }
     public void getPlayerId ()
     {
-        id.setText(DoDGameManager.Players.get(SelectStrategy.PlayerId).GetType().toString() + "  id : "+SelectStrategy.PlayerId) ;
+        id.setText(GUIManager.Players.get(SelectStrategy.PlayerId).GetType().toString() + "  id : "+SelectStrategy.PlayerId) ;
     }
 
 }

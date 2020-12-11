@@ -2,6 +2,7 @@ package unit;
 
 import Arena.GridCell;
 import Arena.Grid;
+import GUI.GUIObserver.MoveGUIObserver;
 import Strategies.AttackStrategy;
 import Utilitiy.Logger;
 import Utilitiy.Position;
@@ -23,6 +24,7 @@ public class Unit {
     UnitType unitType;
     AttackStrategy strategy;
     double SpeedMovementEffectorValue = 1 ;
+    MoveGUIObserver moveGUIObserver  ;
     Unit(){
 
     }
@@ -155,7 +157,10 @@ public class Unit {
             this.initializePosition = position ;
         }
         this.position = position ;
+        //moveGUIObserver.update();
     }
+    public void SetMoveGUIObserver (MoveGUIObserver moveGUIObserver)
+    {this.moveGUIObserver = moveGUIObserver ; }
     public void SetSpeedMovementEffectorValue (double value)
     {
         this.SpeedMovementEffectorValue = value ;

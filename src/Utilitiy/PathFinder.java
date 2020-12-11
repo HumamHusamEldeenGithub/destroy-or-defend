@@ -44,15 +44,20 @@ public class PathFinder {
 
     SortedSet<GridNode> GridSet = new TreeSet<>(cmp);
     public Position GetPos(Position currentPos,Position Destination,double Range,double Size){
+        GridSet.clear();
         // Fill nodes
         for(int i = currentPos.Get_X() - 1; i <= currentPos.Get_X() + 1;i++){
             for(int j = currentPos.Get_Y() - 1;j<= currentPos.Get_Y() + 1;j++){
                 if(i>=0 && i<10000 && j>=0 && j<10000 ) {
                     if (Grid.HasSpace(new Position(i, j),(int)Size) && Grid.GetTerrain(new Position(i, j))!= TerrainType.Valley && !visited[j][j] ) {
+                        if(i == currentPos.Get_X() && j == currentPos.Get_Y())
+                            continue;
+                        if(visited[i][j])
+                            continue;
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - i) +Math.abs( Destination.Get_Y() - j);
                         if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
-                            node.weight+=2;
+                            node.weight+=1;
                         node.pos.Set_X(i);
                         node.pos.Set_Y(j);
                         GridSet.add(node);

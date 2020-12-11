@@ -38,7 +38,7 @@ public class Main extends Application {
 
         manager = DoDGameManager.getObj();
         DoDGameManager.Initialize();
-
+        /*
         List<Player> players = new ArrayList<Player>();
         Player player1 = new Player(PlayerType.Attacker,1, LowestHealthAttackStrategy.getObj());
         Player player2 = new Player(PlayerType.Defender,2,LowestHealthAttackStrategy.getObj());
@@ -59,9 +59,12 @@ public class Main extends Application {
             DoDGameManager.UpdateGame();
         System.out.println("wa2el");
 
+
+         */
         TerrainGenerator terrainGenerator = new TerrainGenerator();
         terrainGenerator.GenerateTerrain();
-        //launch(args);
+
+        launch(args);
 
        //Grid.Print();
     }

@@ -81,8 +81,8 @@ public class TerrainGenerator {
         for(Point point : points){
             int bridgeChance = new Random().nextInt(50);
             boolean makeBridge = bridgeChance>40 && point!= points.get(0);
-            for(int i=(int)point.x-2;i<point.x+2;i++){
-                for (int j=(int)point.y-2;j<point.y+2;j++){
+            for(int i=(int)point.x-4;i<point.x+4;i++){
+                for (int j=(int)point.y-4;j<point.y+4;j++){
                     if(makeBridge){
                         if(bridgeMade){
                             if(Grid.GetTerrain(new Position(i,j))!=TerrainType.Bridge)

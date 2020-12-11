@@ -22,7 +22,7 @@ public class Logger {
     }
     public static void  Movelog(Position position, UnitType type)
     {
-        System.out.println("Unit " + type +"is in " + position);
+        System.out.println("Unit " + type +" moved to " + position);
 
     }
     public static void Damagelog(Unit attacker , Unit enemy, double damage){

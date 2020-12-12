@@ -10,10 +10,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -25,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import Arena.* ;
+import unit.UnitFactory;
 
 public class SetUnits {
     static int id = 0 ;
@@ -68,10 +71,11 @@ public class SetUnits {
             y = dim.getValue();
             Circle circle = new Circle(x,y, GUIManager.Radius);
             circle.setId(i+"");
-            if (GUIManager.Players.get(SetUnits.id).GetType()== PlayerType.Attacker)
-                circle.setFill(new Color(1,0,0,0.5));
-            else
-                circle.setFill(new Color(0,0,1,0.5));
+//            if (GUIManager.Players.get(SetUnits.id).GetType()== PlayerType.Attacker)
+//                circle.setFill(new Color(1,0,0,0.5));
+//            else
+//                circle.setFill(new Color(0,0,1,0.5));
+            circle.setFill(new ImagePattern(new Image("\\Images\\"+ UnitFactory.GetImagePath(unit.GetType()))));
             circle.setOnMouseClicked(OnSelectedCircleHandler);
             pane.getChildren().add(circle);
         }
@@ -237,10 +241,11 @@ public class SetUnits {
             circle.setCenterX(unit.GetPosition().Get_X());
             circle.setCenterY(unit.GetPosition().Get_Y());
             circle.setRadius((int)unit.GetSize().GetValue());
-            if (unit.GetPlayerType()==PlayerType.Attacker)
-                circle.setFill(new Color(1,0,0,0.5));
-            else
-                circle.setFill(new Color(0,0,1,0.5));
+//            if (unit.GetPlayerType()==PlayerType.Attacker)
+//                circle.setFill(new Color(1,0,0,0.5));
+//            else
+//                circle.setFill(new Color(0,0,1,0.5));
+            circle.setFill(new ImagePattern(new Image("\\Images\\"+ UnitFactory.GetImagePath(unit.GetType()))));
         }
         Map.setScaleX(1);
         Map.setScaleY(1);

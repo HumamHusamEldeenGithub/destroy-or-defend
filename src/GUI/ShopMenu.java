@@ -63,7 +63,7 @@ public class ShopMenu {
                     Circle circle = new Circle(x, y, Radius);
                     circle.setId(unitType.toString());
                     circle.addEventFilter(MouseEvent.MOUSE_CLICKED, this::showUnitInfo);
-                    circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
+                    circle.setFill(new ImagePattern(new Image("\\Images\\"+UnitFactory.GetImagePath(unitType))));
                     UnitsPane.getChildren().add(circle);
 
             }

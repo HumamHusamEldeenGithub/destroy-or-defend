@@ -144,4 +144,5 @@ public class  UnitFactory {
     public static double GetSize(UnitType unit){String[] info = UnitsInfo.get(unit) ;return Double.parseDouble(info[CSVProperties.Size.ordinal()-2]) ;}
     public static double GetMovementSpeed(UnitType unitType){String[] info = UnitsInfo.get(unitType) ;return Double.parseDouble(info[CSVProperties.MovementSpeed.ordinal()-2]) ; }
     public static String[] getUnitPropertiesNames(){return Arrays.copyOfRange(UnitPropertiesNames, 1 ,UnitPropertiesNames.length) ; }
+    public static String GetImagePath(UnitType unitType){String[] info = UnitsInfo.get(unitType) ; return info[CSVProperties.Image.ordinal()-2];}
 }

@@ -3,6 +3,7 @@ package GUI;
 import gameManager.DoDGameManager;
 import gameManager.GameState;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,12 +16,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import player.PlayerType;
 import unit.Unit;
-
+import unit.UnitFactory;
 
 public class Arena extends Thread {
     AnchorPane rootAnchor=new AnchorPane();
@@ -29,22 +31,21 @@ public class Arena extends Thread {
     Button Pause = new Button() ;
     ProgressBar progressBar = new ProgressBar(0) ;
     Node LastClickedNode = null ;
-    Label info = new Label() ;
-    Pane temp = new Pane() ;
+    Pane Result = new Pane() ;
+    Label AttackerWon = new Label("AttackerWon") ;
+    Label DefenderWon = new Label("DefenderWon") ;
     Stage Build()
     {
         setPauseButton() ;
         setMapLayout();
         setProgressBar() ;
-        setUnitsPane() ;
+        setResultPane() ;
         rootAnchor.setPrefHeight(800);
-        rootAnchor.setPrefWidth(1000);
+        rootAnchor.setPrefWidth(800);
         GUIManager.GenerateWorld(Map);
-        temp.setPrefSize(200,800);
-        temp.getChildren().add(info) ;
         PutUnitsOnArena() ;
-        rootAnchor.getChildren().addAll(Map,UnitsPane,Pause,progressBar);
-        Scene scene=new Scene(rootAnchor,1000,800);
+        rootAnchor.getChildren().addAll(Map,Result,Pause,progressBar);
+        Scene scene=new Scene(rootAnchor,800,800);
         Stage stage=new Stage();
         stage.setScene(scene);
         return  stage;
@@ -82,10 +83,23 @@ public class Arena extends Thread {
         UnitsPane.setLayoutX(800);
         UnitsPane.setPrefSize(200,800);
         UnitsPane.setText("Units info");
-
-
-
-        //AnchorPane.setLeftAnchor(UnitsPane,800.0);
+    }
+    void setResultPane()
+    {
+        Result.setLayoutX(40000);
+        Result.setLayoutY(40000);
+        Result.setPrefSize(200,50);
+        AttackerWon.setPrefSize(200,50);
+        AttackerWon.setFont(new Font("Yu Gothic" , 16));
+        DefenderWon.setFont(new Font("Yu Gothic" , 16));
+        AttackerWon.setTextFill(Color.WHITE);
+        DefenderWon.setTextFill(Color.WHITE);
+        AttackerWon.setAlignment(Pos.CENTER) ;
+        DefenderWon.setAlignment(Pos.CENTER);
+        DefenderWon.setPrefSize(200,50);
+        AttackerWon.setOpacity(0);
+        DefenderWon.setOpacity(0);
+        Result.getChildren().addAll(AttackerWon,DefenderWon) ;
     }
     public void Pause_Unpause(ActionEvent actionEvent)
     {
@@ -142,17 +156,16 @@ public class Arena extends Thread {
             circle.setCenterY(unit.GetPosition().Get_Y());
             circle.setRadius((int)unit.GetSize().GetValue());
             //circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
-            if (unit.GetPlayerType()== PlayerType.Attacker)
-                circle.setFill(new Color(1,0,0,0.5));
-            else
-                circle.setFill(new Color(0,0,1,0.5));
-            circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
+//            if (unit.GetPlayerType()== PlayerType.Attacker)
+//                circle.setFill(new Color(1,0,0,0.5));
+//            else
+//                circle.setFill(new Color(0,0,1,0.5));
+            circle.setFill(new ImagePattern(new Image("\\Images\\"+ UnitFactory.GetImagePath(unit.GetType()))));
             circle.setId(unit.GetUniqueId());
             circle.setOnMouseClicked(this::ShowUnitInfo);
         }
         Map.setScaleX(1);
         Map.setScaleY(1);
-        UnitsPane.setContent(temp);
     }
     public void MoveUnits() throws InterruptedException {
         while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState()!=GameState.DefenderWon ) {
@@ -177,15 +190,16 @@ public class Arena extends Thread {
                 }
             }
             DoDGameManager.UpdateGame();
-//            if (DoDGameManager.GetState()!= GameState.AttackerWon)
-//            {
-//                UnitInfoAlert unitInfoAlert = new UnitInfoAlert() ;
-//                unitInfoAlert.PrintError("Attackers Won !");
-//            }
-//            else {
-//                UnitInfoAlert unitInfoAlert = new UnitInfoAlert() ;
-//                unitInfoAlert.PrintError("Defenders Won !");
-//            }
+        }
+        Result.setLayoutX(300);
+        Result.setLayoutY(400);
+        if (DoDGameManager.GetState()== GameState.AttackerWon) {
+            AttackerWon.setOpacity(1);
+            Result.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, null)));
+        }
+        else {
+            Result.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, null)));
+            DefenderWon.setOpacity(1);
         }
 
     }

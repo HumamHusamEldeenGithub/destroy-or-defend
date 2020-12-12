@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Pair;
 import player.PlayerType;
 import unit.AttackerLogic;
@@ -55,7 +56,7 @@ public class ShopMenu {
         int x = 0;
         int y =60 ;
         for (UnitType unitType : UnitFactory.UnitsInfo.keySet()) {
-            if (!ShopRestriction(unitType)) {
+            if (ShopRestriction(unitType)) {
                     Pair<Integer, Integer> dim = GetDimensions(x, y);
                     x = dim.getKey();
                     y = dim.getValue();
@@ -71,7 +72,13 @@ public class ShopMenu {
 
     boolean ShopRestriction(UnitType unitType)
     {
-        return (unitType==UnitType.MainBase)&&(GUIManager.Players.get(ShopMenu.playerID).GetType()== PlayerType.Attacker ||ShopMenu.BaseHasBeenPurchased);
+        if (GUIManager.Players.get(ShopMenu.playerID).GetType()==PlayerType.Attacker)
+            return !(UnitFactory.GetMovementSpeed(unitType)==0 );
+        else
+        {
+            return unitType != UnitType.MainBase || !ShopMenu.BaseHasBeenPurchased;
+        }
+
     }
 
     public void showUnitInfo(MouseEvent mouseEvent) {
@@ -90,11 +97,14 @@ public class ShopMenu {
                 Label label = (Label) node;
                 if (i == 0) {
                     label.setText(PropNames[i] + " : " + unitType.toString());
-                    //label.wrapTextProperty() ;
+                    label.setWrapText(true);
+                    label.setTextAlignment(TextAlignment.JUSTIFY);
                     i++;
                     continue;
                 }
                 label.setText(PropNames[i] + " : " + info[i - 1]);
+                label.setWrapText(true);
+                label.setTextAlignment(TextAlignment.JUSTIFY);
                 i++;
             }
 
@@ -112,26 +122,30 @@ public class ShopMenu {
     }
 
     public void NextScene(ActionEvent actionEvent) throws IOException {
-        if (ShopMenu.playerID== GUIManager.Players.size()-1&&ShopMenu.BaseHasBeenPurchased)
+        if (ShopMenu.playerID==GUIManager.Players.size()-1)
             GUIManager.ChangeScene(rootAnchor, WindowType.SetUnits);
+        else if (ShopMenu.playerID== PlayersCounter.DefenderNumber-1&&!ShopMenu.BaseHasBeenPurchased)
+        {
+            ErrorMessage errorMessage = new ErrorMessage() ;
+            errorMessage.PrintError("You Must Purchase a MainBase ! ");
+        }
         else if (ShopMenu.playerID!= GUIManager.Players.size()-1)
         {
             ShopMenu.playerID++ ;
             GUIManager.ChangeScene(rootAnchor, WindowType.ShopMenu);
         }
-        else
-        {
-            ErrorMessage errorMessage = new ErrorMessage() ;
-            errorMessage.PrintError("You Must Purchase a MainBase ! ");
-        }
+
     }
     public void BuyUnit(ActionEvent actionEvent) throws IOException {
         if(ShopMenu.LastClickedType!=null) {
 
             if (GUIManager.Players.get(ShopMenu.playerID).BuyUnit(UnitType.valueOf(LastClickedType.getId()))) {
                 Coins.setText("Coins :"+String.valueOf(GUIManager.Players.get(ShopMenu.playerID).GetCoins()));
-                if (UnitType.valueOf(LastClickedType.getId())==UnitType.MainBase)
-                    ShopMenu.BaseHasBeenPurchased=true ;
+                if (UnitType.valueOf(LastClickedType.getId())==UnitType.MainBase) {
+                    LastClickedType.setDisable(true);
+                    LastClickedType = null ;
+                    ShopMenu.BaseHasBeenPurchased = true;
+                }
 
             }
             else

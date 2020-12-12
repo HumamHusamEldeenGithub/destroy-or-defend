@@ -6,31 +6,45 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import player.PlayerType;
 import unit.Unit;
 
 
 public class Arena extends Thread {
     AnchorPane rootAnchor=new AnchorPane();
     Pane Map=new Pane();
-    Pane UnitsPane=new Pane();
+    TitledPane UnitsPane=new TitledPane();
     Button Pause = new Button() ;
+    ProgressBar progressBar = new ProgressBar(0) ;
+    Node LastClickedNode = null ;
+    Label info = new Label() ;
+    Pane temp = new Pane() ;
     Stage Build()
     {
         setPauseButton() ;
         setMapLayout();
+        setProgressBar() ;
+        setUnitsPane() ;
         rootAnchor.setPrefHeight(800);
-        rootAnchor.setPrefWidth(800);
+        rootAnchor.setPrefWidth(1000);
         GUIManager.GenerateWorld(Map);
+        temp.setPrefSize(200,800);
+        temp.getChildren().add(info) ;
         PutUnitsOnArena() ;
-        rootAnchor.getChildren().addAll(Map,Pause);
-        Scene scene=new Scene(rootAnchor,800,800);
+        rootAnchor.getChildren().addAll(Map,UnitsPane,Pause,progressBar);
+        Scene scene=new Scene(rootAnchor,1000,800);
         Stage stage=new Stage();
         stage.setScene(scene);
         return  stage;
@@ -53,15 +67,32 @@ public class Arena extends Thread {
         Map.setLayoutY(0);
         Map.setPrefWidth(800);
         Map.setPrefHeight(800);
+        Map.setMaxSize(800,800);
         Map.setBackground(new Background(new BackgroundFill(Color.GREEN, CornerRadii.EMPTY,null)));
         Map.setOnMouseClicked(this::ZoomInZoomOut);
+    }
+    void setProgressBar()
+    {
+        progressBar.setPrefWidth(800);
+        progressBar.setPrefHeight(20);
+        progressBar.setLayoutY(780);
+    }
+    void setUnitsPane()
+    {
+        UnitsPane.setLayoutX(800);
+        UnitsPane.setPrefSize(200,800);
+        UnitsPane.setText("Units info");
+
+
+
+        //AnchorPane.setLeftAnchor(UnitsPane,800.0);
     }
     public void Pause_Unpause(ActionEvent actionEvent)
     {
         DoDGameManager.Pause_Unpause();
     }
     public void ZoomInZoomOut(MouseEvent mouseEvent) {
-        UnitsPane.toFront();
+
         if (GUIManager.zoomIn) {
             Map.setLayoutX(0);
             Map.setLayoutY(0);
@@ -88,8 +119,8 @@ public class Arena extends Thread {
             Map.setLayoutX(newLayouytX);
             Map.setLayoutY(newLayoutY);
             GUIManager.zoomIn = true;
-            UnitsPane.toFront();
         }
+
     }
     public double getLayout(double x )
     {
@@ -110,13 +141,22 @@ public class Arena extends Thread {
             circle.setCenterX(unit.GetPosition().Get_X());
             circle.setCenterY(unit.GetPosition().Get_Y());
             circle.setRadius((int)unit.GetSize().GetValue());
+            //circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
+            if (unit.GetPlayerType()== PlayerType.Attacker)
+                circle.setFill(new Color(1,0,0,0.5));
+            else
+                circle.setFill(new Color(0,0,1,0.5));
+            circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
             circle.setId(unit.GetUniqueId());
+            circle.setOnMouseClicked(this::ShowUnitInfo);
         }
         Map.setScaleX(1);
         Map.setScaleY(1);
+        UnitsPane.setContent(temp);
     }
     public void MoveUnits() throws InterruptedException {
         while (DoDGameManager.GetState()!= GameState.AttackerWon && DoDGameManager.GetState()!=GameState.DefenderWon ) {
+            progressBar.setProgress(DoDGameManager.GetTime()/DoDGameManager.GetRemainingTime());
             for (int i =0 ; i<GUIManager.AllUnits.size() ; i++) {
                 Unit unit = GUIManager.AllUnits.get(i);
                 for (Node node : Map.getChildren()) {
@@ -137,7 +177,17 @@ public class Arena extends Thread {
                 }
             }
             DoDGameManager.UpdateGame();
+//            if (DoDGameManager.GetState()!= GameState.AttackerWon)
+//            {
+//                UnitInfoAlert unitInfoAlert = new UnitInfoAlert() ;
+//                unitInfoAlert.PrintError("Attackers Won !");
+//            }
+//            else {
+//                UnitInfoAlert unitInfoAlert = new UnitInfoAlert() ;
+//                unitInfoAlert.PrintError("Defenders Won !");
+//            }
         }
+
     }
     @Override
     public void run() {
@@ -146,6 +196,18 @@ public class Arena extends Thread {
             this.MoveUnits();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+    public void ShowUnitInfo(MouseEvent mouseEvent)
+    {
+        LastClickedNode = (Node) mouseEvent.getSource();
+        for (Unit unit :GUIManager.AllUnits)
+        {
+            if (unit.GetUniqueId().equals(LastClickedNode.getId()))
+            {
+                UnitInfoAlert unitInfoAlert = new UnitInfoAlert() ;
+                unitInfoAlert.PrintError("");
+            }
         }
     }
 }

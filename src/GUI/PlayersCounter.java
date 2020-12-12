@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class PlayersCounter {
+    static int AttackerNumber =0 ;
+    static int DefenderNumber =0 ;
 
     @FXML
     private AnchorPane rootAnchor;
@@ -28,23 +30,23 @@ public class PlayersCounter {
     @FXML
     public void NextScene(javafx.event.ActionEvent actionEvent) throws IOException {
 
-        int AttackTeamPlayers = (int) AttackersNum.getValue();
-        int DefendTeamPlayers = (int) DefendersNum.getValue();
-        SetPlayers(AttackTeamPlayers,DefendTeamPlayers);
+         PlayersCounter.AttackerNumber = (int) AttackersNum.getValue();
+         PlayersCounter.DefenderNumber = (int) DefendersNum.getValue();
+        SetPlayers();
         GUIManager.ChangeScene(rootAnchor, WindowType.Strategy);
     }
-    void SetPlayers(int AttackerNumber , int DefenderNumber )
+    void SetPlayers( )
     {
         for (int i =0 ; i<AttackerNumber+DefenderNumber ; i++)
         {
-            if (i<AttackerNumber)
+            if (i<DefenderNumber)
             {
-                Player player = new Player(PlayerType.Attacker,i,null) ;
+                Player player = new Player(PlayerType.Defender,i,null) ;
                 GUIManager.Players.add(player) ;
             }
             else
             {
-                Player player = new Player(PlayerType.Defender , i-AttackerNumber ,null ) ;
+                Player player = new Player(PlayerType.Attacker , i-DefenderNumber ,null ) ;
                 GUIManager.Players.add(player) ;
             }
         }

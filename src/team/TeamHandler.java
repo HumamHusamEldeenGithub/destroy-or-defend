@@ -26,6 +26,6 @@ public class TeamHandler extends Thread {
                 handler.start();
             }
         }
-        System.out.println("5lsttt");
+       // System.out.println("5lsttt");
     }
 }

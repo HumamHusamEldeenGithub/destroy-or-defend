@@ -7,13 +7,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import player.PlayerType;
 import unit.Unit;
 
 import java.io.IOException;
@@ -30,16 +35,13 @@ public class SetUnits {
     @FXML
     private AnchorPane rootAnchor;
 
-//    @FXML
-//    private TitledPane PlayerId;
-
    @FXML
     private Pane Map ;
 
     @FXML
     private Pane UnitsPane;
     @FXML
-    private ScrollPane scrollPane ;
+    private Label PlayerId;
 
 
     @FXML
@@ -47,6 +49,7 @@ public class SetUnits {
 
     public void initialize(){
        // this.getPlayerId();
+        getPlayerId();
         GUIManager.GenerateWorld(this.Map);
         Map.setOnMouseClicked(ZoomIn);
         this.DrawUnitsCircles(UnitsPane); ;
@@ -65,15 +68,19 @@ public class SetUnits {
             y = dim.getValue();
             Circle circle = new Circle(x,y, GUIManager.Radius);
             circle.setId(i+"");
+            if (GUIManager.Players.get(SetUnits.id).GetType()== PlayerType.Attacker)
+                circle.setFill(new Color(1,0,0,0.5));
+            else
+                circle.setFill(new Color(0,0,1,0.5));
             circle.setOnMouseClicked(OnSelectedCircleHandler);
             pane.getChildren().add(circle);
         }
     }
 
-//    public void getPlayerId ()
-//    {
-//        PlayerId.setText(DoDGameManager.Players.get(SetUnits.id).GetType().toString() + "  id : "+SetUnits.id) ;
-//    }
+    public void getPlayerId ()
+    {
+        PlayerId.setText(GUIManager.Players.get(SetUnits.id).GetType().toString() + "  id : "+SetUnits.id); ;
+    }
 
     public Pair<Integer, Integer> GetDimensions(int x , int y )
     {
@@ -230,6 +237,10 @@ public class SetUnits {
             circle.setCenterX(unit.GetPosition().Get_X());
             circle.setCenterY(unit.GetPosition().Get_Y());
             circle.setRadius((int)unit.GetSize().GetValue());
+            if (unit.GetPlayerType()==PlayerType.Attacker)
+                circle.setFill(new Color(1,0,0,0.5));
+            else
+                circle.setFill(new Color(0,0,1,0.5));
         }
         Map.setScaleX(1);
         Map.setScaleY(1);

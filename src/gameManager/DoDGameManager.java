@@ -81,6 +81,11 @@ public class DoDGameManager extends GameManager {
             player.PutOnArena();
         }
     }
+    public synchronized static double GetTime(){
+        return GameStopWatch.GetElapsedSeconds();
+    }
+    public synchronized static double GetRemainingTime() {return DoDGameManager.remainingTime ; }
+
     public synchronized static void Pause_Unpause(){
         if(DoDGameManager.state == GameState.Running){
             OldElapsedTime += System.nanoTime() - StartTime;

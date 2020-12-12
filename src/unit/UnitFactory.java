@@ -1,6 +1,7 @@
 package unit;
 
 import Strategies.AttackStrategy;
+import Utilitiy.CSVProperties;
 import Utilitiy.CSVReader;
 import player.PlayerType;
 import unitProperty.*;
@@ -126,7 +127,7 @@ public class  UnitFactory {
     public static double getPrice (UnitType unit)
     {
         String[] info = UnitsInfo.get(unit) ;
-        return Double.parseDouble(info[info.length-1]) ;
+        return Double.parseDouble(info[CSVProperties.UnitPrice.ordinal()-2]) ;
     }
 
     static List<UnitType> getTypes (String[] CanTarget)
@@ -140,6 +141,7 @@ public class  UnitFactory {
     public static HashMap<UnitType,String[]> GetUnitsInfo(){
         return UnitsInfo;
     }
-    public static double GetSize(UnitType unit){String[] info = UnitsInfo.get(unit) ;return Double.parseDouble(info[6]) ;}
+    public static double GetSize(UnitType unit){String[] info = UnitsInfo.get(unit) ;return Double.parseDouble(info[CSVProperties.Size.ordinal()-2]) ;}
+    public static double GetMovementSpeed(UnitType unitType){String[] info = UnitsInfo.get(unitType) ;return Double.parseDouble(info[CSVProperties.MovementSpeed.ordinal()-2]) ; }
     public static String[] getUnitPropertiesNames(){return Arrays.copyOfRange(UnitPropertiesNames, 1 ,UnitPropertiesNames.length) ; }
 }

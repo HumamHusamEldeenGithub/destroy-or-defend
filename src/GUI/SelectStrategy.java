@@ -30,9 +30,7 @@ public class SelectStrategy {
     @FXML
     void NextScene(ActionEvent event) throws IOException {
         RadioButton radioButton = (RadioButton) Strategy.getSelectedToggle() ;
-        System.out.println(radioButton.getText());
         GUIManager.Players.get(SelectStrategy.PlayerId).SetStrategy(Strategies.valueOf(radioButton.getText()));
-        System.out.println(GUIManager.Players.get(SelectStrategy.PlayerId).GetStrategy().toString());
         if (SelectStrategy.PlayerId== GUIManager.Players.size()-1)
                  GUIManager.ChangeScene(rootAnchor, WindowType.ShopMenu);
         else

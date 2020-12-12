@@ -93,7 +93,7 @@ public class  UnitFactory {
         }catch (Exception e){
 
         }
-        return new Unit(unitType,properties, logic, getTypes(CanTarget) , strategy);
+        return new Unit(unitType,playerType,properties, logic, getTypes(CanTarget) , strategy);
     }
 
 

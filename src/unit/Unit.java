@@ -7,6 +7,9 @@ import Strategies.AttackStrategy;
 import Utilitiy.Logger;
 import Utilitiy.Position;
 import Utilitiy.StopWatchPool;
+import Utilitiy.UniqueIDGenerator;
+import player.Player;
+import player.PlayerType;
 import unitProperty.*;
 
 import java.util.ArrayList;
@@ -22,20 +25,25 @@ public class Unit {
     Unit targetedUnit ;
     List<UnitProperty> unitProperties ;
     UnitType unitType;
+    PlayerType playerType ;
     AttackStrategy strategy;
     double SpeedMovementEffectorValue = 1 ;
-    MoveGUIObserver moveGUIObserver  ;
+    String uniqueId=null ;
+    boolean isAlive  ;
     Unit(){
 
     }
 
-    public Unit (UnitType type , ArrayList<UnitProperty> list , Logic logic, List<UnitType> canTarget, AttackStrategy strategy)
+    public Unit (UnitType type ,PlayerType playerType , ArrayList<UnitProperty> list , Logic logic, List<UnitType> canTarget, AttackStrategy strategy)
     {
         this.logic = logic;
         this.unitType = type ;
+        this.playerType=playerType ;
         this.strategy = strategy;
-        unitProperties = list;
-        canAttack =  canTarget;
+        this.unitProperties = list;
+        this.canAttack =  canTarget;
+        this.uniqueId = UniqueIDGenerator.GenerateID(this.unitType) ;
+        this.isAlive = true ;
         StopWatchPool pool = StopWatchPool.GetObj();
     }
     public DamageUnitProperty GetDamage(){
@@ -101,9 +109,17 @@ public class Unit {
         return null;
     }
 
-    public UnitType GetType() {
-        return unitType;
+    public String GetUniqueId()
+    {
+        return this.uniqueId;
     }
+    public boolean GetIsAlive() {return this.isAlive ; }
+
+    public UnitType GetType() {
+        return this.unitType;
+    }
+
+    public PlayerType GetPlayerType(){return this.playerType ; }
 
     public Position GetPosition() {
         return position;
@@ -149,6 +165,7 @@ public class Unit {
 
         Grid.RemoveUnit(this);
         Logger.Deadlog(this);
+        this.isAlive=false ;
     }
 
     public void SetPosition (Position position ) {
@@ -159,8 +176,8 @@ public class Unit {
         this.position = position ;
         //moveGUIObserver.update();
     }
-    public void SetMoveGUIObserver (MoveGUIObserver moveGUIObserver)
-    {this.moveGUIObserver = moveGUIObserver ; }
+//    public void SetMoveGUIObserver (MoveGUIObserver moveGUIObserver)
+//    {this.moveGUIObserver = moveGUIObserver ; }
     public void SetSpeedMovementEffectorValue (double value)
     {
         this.SpeedMovementEffectorValue = value ;
@@ -175,7 +192,7 @@ public class Unit {
                 GridCell curGridCell = Grid.GetCell(new Position(i,j));
                 if(curGridCell !=null){
                     for(Unit target : curGridCell.GetUnits()){
-                        if(this == target)
+                        if(this == target||target.GetPlayerType()==this.playerType)
                             continue;
                         for(UnitType type : this.canAttack){
                             if(type == target.GetType()){

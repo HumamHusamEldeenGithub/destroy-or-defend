@@ -35,7 +35,7 @@ public class TerrainGenerator {
         List<Point> curLine = GetLine(new Position(X1,Y1),new Position(X2,Y2));
         boolean choice = new Random().nextBoolean();
         MakeChoice(choice,curLine);
-        System.out.println("done here");
+       // System.out.println("done here");
 
         //Second Section
         X1 = Math.abs(new Random().nextInt(RightDownCorner.Get_X())) + CellNum/2;
@@ -45,7 +45,7 @@ public class TerrainGenerator {
         choice = new Random().nextBoolean();
         curLine = GetLine(new Position(X1,Y1),new Position(X2,Y2));
         MakeChoice(choice,curLine);
-        System.out.println("done here");
+       // System.out.println("done here");
 
         //Third Section
         X1 = Math.abs(new Random().nextInt(RightDownCorner.Get_X()));
@@ -55,7 +55,7 @@ public class TerrainGenerator {
         choice = new Random().nextBoolean();
         curLine = GetLine(new Position(X1,Y1),new Position(X2,Y2));
         MakeChoice(choice,curLine);
-        System.out.println("done here");
+       // System.out.println("done here");
 
         //Fourth Section
         X1 = Math.abs(new Random().nextInt(RightDownCorner.Get_X())) + CellNum/2;
@@ -65,7 +65,7 @@ public class TerrainGenerator {
         choice = new Random().nextBoolean();
         curLine = GetLine(new Position(X1,Y1),new Position(X2,Y2));
         MakeChoice(choice,curLine);
-        System.out.println("done here");
+       // System.out.println("done here");
     }
 
     private void MakeChoice(boolean choice,List<Point> points){
@@ -78,9 +78,13 @@ public class TerrainGenerator {
 
     private void GenerateChunk(List<Point> points,TerrainType terrainType) {
         boolean bridgeMade = false;
-        for(Point point : points){
+        for(int k = 0;k<points.size();k++){
+            Point point = points.get(k);
             int bridgeChance = new Random().nextInt(50);
-            boolean makeBridge = bridgeChance>40 && point!= points.get(0);
+            boolean makeBridge = false;
+            if(k>points.size()/3) {
+                makeBridge = bridgeChance > 46 && point != points.get(0);
+            }
             for(int i=(int)point.x-4;i<point.x+4;i++){
                 for (int j=(int)point.y-4;j<point.y+4;j++){
                     if(makeBridge){

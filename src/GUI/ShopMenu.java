@@ -12,6 +12,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.util.Pair;
+import player.PlayerType;
+import unit.AttackerLogic;
+import unit.Unit;
 import unit.UnitFactory;
 import unit.UnitType;
 
@@ -24,7 +27,8 @@ public class ShopMenu {
     static int firstPixel_Y = 150 ;
     final int Radius =50 ;
     static int  playerID =0 ;
-    static UnitType LastClickedType ;
+    static Node LastClickedType ;
+    static boolean BaseHasBeenPurchased =false;
     public void initialize()
     {
         LastClickedType = null ;
@@ -51,22 +55,32 @@ public class ShopMenu {
         int x = 0;
         int y =60 ;
         for (UnitType unitType : UnitFactory.UnitsInfo.keySet()) {
-            Pair<Integer,Integer> dim  = GetDimensions(x,y) ;
-            x = dim.getKey() ;
-            y = dim.getValue();
-            Circle circle = new Circle(x,y, Radius);
-            circle.setId(unitType.toString());
-            circle.addEventFilter(MouseEvent.MOUSE_CLICKED,this::showUnitInfo);
-           // ImageView imageView=new ImageView("\\Images\\planet_light.jpg");
-            if (unitType!=UnitType.MainBase)
-            circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
-            UnitsPane.getChildren().add(circle);
+            if (!ShopRestriction(unitType)) {
+                    Pair<Integer, Integer> dim = GetDimensions(x, y);
+                    x = dim.getKey();
+                    y = dim.getValue();
+                    Circle circle = new Circle(x, y, Radius);
+                    circle.setId(unitType.toString());
+                    circle.addEventFilter(MouseEvent.MOUSE_CLICKED, this::showUnitInfo);
+                    circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
+                    UnitsPane.getChildren().add(circle);
+
+            }
         }
     }
 
+    boolean ShopRestriction(UnitType unitType)
+    {
+        return (unitType==UnitType.MainBase)&&(GUIManager.Players.get(ShopMenu.playerID).GetType()== PlayerType.Attacker ||ShopMenu.BaseHasBeenPurchased);
+    }
+
     public void showUnitInfo(MouseEvent mouseEvent) {
-        UnitType unitType = UnitType.valueOf(mouseEvent.getPickResult().getIntersectedNode().getId()) ;
-        LastClickedType = unitType ;
+        Node ClickedNode = (Node) mouseEvent.getSource();
+        ClickedNode.setOpacity(0.5);
+        UnitType unitType = UnitType.valueOf(ClickedNode.getId()) ;
+        if (LastClickedType!=null)
+            LastClickedType.setOpacity(1);
+        LastClickedType = ClickedNode ;
         String[] info  =  UnitFactory.UnitsInfo.get(unitType) ;
         String[] PropNames = UnitFactory.getUnitPropertiesNames() ;
         int i =0 ;
@@ -98,19 +112,27 @@ public class ShopMenu {
     }
 
     public void NextScene(ActionEvent actionEvent) throws IOException {
-        if (ShopMenu.playerID== GUIManager.Players.size()-1)
+        if (ShopMenu.playerID== GUIManager.Players.size()-1&&ShopMenu.BaseHasBeenPurchased)
             GUIManager.ChangeScene(rootAnchor, WindowType.SetUnits);
-        else
+        else if (ShopMenu.playerID!= GUIManager.Players.size()-1)
         {
             ShopMenu.playerID++ ;
             GUIManager.ChangeScene(rootAnchor, WindowType.ShopMenu);
+        }
+        else
+        {
+            ErrorMessage errorMessage = new ErrorMessage() ;
+            errorMessage.PrintError("You Must Purchase a MainBase ! ");
         }
     }
     public void BuyUnit(ActionEvent actionEvent) throws IOException {
         if(ShopMenu.LastClickedType!=null) {
 
-            if (GUIManager.Players.get(ShopMenu.playerID).BuyUnit(LastClickedType)) {
+            if (GUIManager.Players.get(ShopMenu.playerID).BuyUnit(UnitType.valueOf(LastClickedType.getId()))) {
                 Coins.setText("Coins :"+String.valueOf(GUIManager.Players.get(ShopMenu.playerID).GetCoins()));
+                if (UnitType.valueOf(LastClickedType.getId())==UnitType.MainBase)
+                    ShopMenu.BaseHasBeenPurchased=true ;
+
             }
             else
             {

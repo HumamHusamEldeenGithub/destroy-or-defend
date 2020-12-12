@@ -1,6 +1,8 @@
 package GUI;
 
 import Utilitiy.Position;
+import Utilitiy.TerrainGenerator;
+import gameManager.DoDGameManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -62,7 +64,6 @@ public class GUIManager extends Application {
             Pages.put(WindowType.ShopMenu , "FXML/ShopMenu.fxml") ;
             Pages.put(WindowType.Strategy , "FXML/SelectStrategy.fxml") ;
             Pages.put(WindowType.SetUnits , "FXML/SetUnits.fxml") ;
-            Pages.put(WindowType.Arena , "FXML/Arena.fxml") ;
 
         }
     static void  GenerateWorld(Pane pane)
@@ -74,7 +75,7 @@ public class GUIManager extends Application {
                 if (terrainType==null)
                     continue;
                 if (terrainType== TerrainType.River) {
-                    Circle circle = new Circle(4);
+                    Circle circle = new Circle(1);
                     circle.setFill(Color.BLUE);
                     circle.setCenterX(i);
                     circle.setCenterY(j);
@@ -97,8 +98,12 @@ public class GUIManager extends Application {
                 }
             }
     }
-
+    static DoDGameManager manager;
     public static void main(String[] args) {
+        manager = DoDGameManager.getObj();
+        DoDGameManager.Initialize();
+        TerrainGenerator terrainGenerator = new TerrainGenerator();
+        terrainGenerator.GenerateTerrain();
         launch(args);
     }
 }

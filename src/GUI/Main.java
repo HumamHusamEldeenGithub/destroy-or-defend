@@ -1,22 +1,13 @@
 package GUI;
 
 
-import Strategies.LowestHealthAttackStrategy;
-import Utilitiy.Position;
 import Utilitiy.TerrainGenerator;
 import gameManager.DoDGameManager;
-import gameManager.GameState;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
-import player.Player;
-import player.PlayerType;
-import unit.Unit;
-import unit.UnitType;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main extends Application {
 
@@ -26,11 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource(GUIManager.Pages.get(WindowType.StartGame)));
         primaryStage.setTitle("Destroy Or Defend");
         primaryStage.setScene(new javafx.scene.Scene(root, 1000  , 800));
-//        primaryStage=newArena.Build();
         primaryStage.show();
-//        MainMenu mainMenu=new MainMenu();
-//        primaryStage=mainMenu.BuildMainMenu();
-//        primaryStage.show();
     }
     static DoDGameManager manager;
     public static void main(String[] args) {

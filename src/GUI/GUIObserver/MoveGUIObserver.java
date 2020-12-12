@@ -12,7 +12,7 @@ public class MoveGUIObserver extends GUIObserver {
     {
         this.unit = unit ;
         this.node = node;
-        this.unit.SetMoveGUIObserver(this);
+       // this.unit.SetMoveGUIObserver(this);
     }
     public void update()
     {

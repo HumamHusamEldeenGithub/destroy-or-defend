@@ -90,22 +90,28 @@ public class SetUnits {
 
                 @Override
                 public void handle(MouseEvent mouseEvent) {
-                    int LayOutX  =0 , LayOutY=0 ;
-                    LayOutX = 2*(GUIManager.ScaleUp-1) * GUIManager.borderWidth ;
-                    LayOutY = 2*(GUIManager.ScaleUp-1) * GUIManager.borderHeight ;
-                    int x = (int) (mouseEvent.getX()/GUIManager.borderWidth);
-                    int y = (int)mouseEvent.getY()/GUIManager.borderHeight ;
-                   // System.out.println(x + " " + y );
-                    Map.setScaleX(GUIManager.ScaleUp);
-                    Map.setScaleY(GUIManager.ScaleUp);
-                    Map.setLayoutX(LayOutX-(GUIManager.borderWidth*x*GUIManager.ScaleUp));
-                    Map.setLayoutY(LayOutY-(GUIManager.borderHeight*y*GUIManager.ScaleUp));
-                    GUIManager.zoomIn=true ;
-                    //System.out.println(LayOutX-(borderWidth*x*SetUnits.ScaleUp) + " " + (LayOutY-(borderHeight*y*SetUnits.ScaleUp)));
+                    if (!GUIManager.zoomIn) {
+                        double BorderWidthScaleUp = 0, BorderHeightScaleUp = 0, LayOutX = 0, LayOutY = 0;
+                        BorderWidthScaleUp = 2 * (GUIManager.ScaleUp - 2) * GUIManager.borderWidth;
+                        BorderHeightScaleUp = 2 * (GUIManager.ScaleUp - 2) * GUIManager.borderHeight;
+                        LayOutX = 2 * (GUIManager.ScaleUp - 1) * GUIManager.borderWidth;
+                        LayOutY = 2 * (GUIManager.ScaleUp - 1) * GUIManager.borderHeight;
+                        double x = (mouseEvent.getX() - ((float) GUIManager.borderWidth / 2.0f));
+                        double y = (mouseEvent.getY()) - ((float) GUIManager.borderHeight / 2.0f);
+                        System.out.println(x + " " + y);
+                        double MapNewWidth = 0 ,MapNewHeight=0 , newLayouytX =0 , newLayoutY=0 ;
+                        MapNewWidth = Map.getPrefWidth()/GUIManager.borderWidth * BorderWidthScaleUp ;
+                        MapNewHeight = Map.getPrefHeight()/GUIManager.borderHeight * BorderHeightScaleUp ;
+                        Map.setScaleX(GUIManager.ScaleUp);
+                        Map.setScaleY(GUIManager.ScaleUp);
+                        newLayouytX = getLayout(LayOutX - ((x / (float) GUIManager.borderWidth) * BorderWidthScaleUp)) ;
+                        newLayoutY = getLayout(LayOutY - ((y / (float) GUIManager.borderHeight) * BorderHeightScaleUp)) ;
+                        Map.setLayoutX(newLayouytX);
+                        Map.setLayoutY(newLayoutY);
+                        GUIManager.zoomIn = true;
+                    }
                 }
             };
-
-
                 EventHandler<MouseEvent> OnSelectedCircleHandler =
                         new EventHandler<MouseEvent>() {
 
@@ -115,13 +121,21 @@ public class SetUnits {
                         if (SetUnits.SelectedCircle!=null)
                             RawShape(SetUnits.SelectedCircle) ;
                         SetUnits.SelectedCircle = (Circle) mouseEvent.getSource();
-                        SetUnits.SelectedCircle.setStyle("-fx-background-color : red") ;
                         SetUnits.SelectedCircle.setOpacity(0.5);
                         //System.out.println(SetUnits.SelectedCircle.getId());
                     }
 
                 }
             };
+
+    public double getLayout(double x )
+    {
+        if (x<-1200)
+            return -1200 ;
+        if (x>1200)
+            return 1200 ;
+        return x ;
+    }
     public void GetPosition(MouseEvent mouseEvent) {
             if (SetUnits.SelectedCircle != null) {
                 TerrainType terrainType = Grid.GetTerrain(new Position((int)mouseEvent.getX(),(int)mouseEvent.getY()) );
@@ -130,7 +144,6 @@ public class SetUnits {
                     errorMessage.PrintError("You can't put units on Vally .. try another position .");
                 }
                 else {
-                    System.out.println(mouseEvent.getX() + " " + mouseEvent.getY());
                     UnitsPane.getChildren().remove(SetUnits.SelectedCircle);
                     RawShape(SetUnits.SelectedCircle);
                     Map.getChildren().add(SetUnits.SelectedCircle);
@@ -166,37 +179,45 @@ public class SetUnits {
 //    }
 
     public void Done(ActionEvent actionEvent) throws IOException {
-        for (Node node :Map.getChildren())
-        {
-            if (node instanceof Circle&&node.getId()!=null)
-            {
-                Circle circle = (Circle)node ;
-                System.out.println(circle.getId());
-                Unit unit = playerUnits.get(Integer.parseInt(circle.getId())) ;
-                new MoveGUIObserver(unit,circle);
-                unit.SetPosition(new Position((int)circle.getCenterX() , (int)circle.getCenterY()));
-                GUIManager.AllUnits.add(unit);
+        GUIManager.zoomIn=false ;
+        if (AllUnitsOnArena()) {
+            for (Node node : Map.getChildren()) {
+                if (node instanceof Circle && node.getId() != null) {
+                    Circle circle = (Circle) node;
+                    Unit unit = playerUnits.get(Integer.parseInt(circle.getId()));
+                    new MoveGUIObserver(unit, circle);
+                    unit.SetPosition(new Position((int) circle.getCenterX(), (int) circle.getCenterY()));
+                    GUIManager.AllUnits.add(unit);
+                }
+            }
+            if (SetUnits.id == GUIManager.Players.size() - 1) {
+                DoDGameManager.InitializePlayers(GUIManager.Players);
+                DoDGameManager.StartGame();
+                Stage MyNewStage = new Stage();
+                Arena Arena = new Arena();
+                MyNewStage = Arena.Build();
+                Arena.start();
+                MyNewStage.showAndWait();
+
+            } else {
+                SetUnits.id++;
+                GUIManager.ChangeScene(rootAnchor, WindowType.SetUnits);
             }
         }
-        if (SetUnits.id==GUIManager.Players.size()-1)
-
-        {
-            System.out.println("Enter");
-            DoDGameManager.InitializePlayers(GUIManager.Players);
-            DoDGameManager.StartGame();
-            Stage MyNewStage=new Stage();
-            Arena Arena =new Arena();
-            MyNewStage= Arena.Build();
-            Arena.start();
-            MyNewStage.showAndWait();
-
-        }
-        else
-        {
-            SetUnits.id++ ;
-            GUIManager.ChangeScene(rootAnchor, WindowType.SetUnits);
+        else {
+            ErrorMessage errorMessage = new ErrorMessage() ;
+            errorMessage.PrintError("You Must put all the units on Arena ! ");
         }
 
+    }
+    boolean AllUnitsOnArena()
+    {
+        for (Node node : UnitsPane.getChildren())
+        {
+            if (node instanceof Circle&&node.getId()!=null)
+                return false ;
+        }
+        return true ;
     }
     public void DrawUnitsOnArena()
     {

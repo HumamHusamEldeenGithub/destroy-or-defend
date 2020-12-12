@@ -57,7 +57,7 @@ public class PathFinder {
                         GridNode node = new GridNode();
                         node.weight = Math.abs(Destination.Get_X() - i) +Math.abs( Destination.Get_Y() - j);
                         if(Grid.GetTerrain(new Position(i, j))==TerrainType.River)
-                            node.weight+=1;
+                            node.weight+=2;
                         node.pos.Set_X(i);
                         node.pos.Set_Y(j);
                         GridSet.add(node);
@@ -70,8 +70,10 @@ public class PathFinder {
 
             Position newCur = node.pos;
             if(Math.abs(newCur.Get_X() - Destination.Get_X()) < Range && Math.abs(newCur.Get_Y() - Destination.Get_Y()) < Range){
-                if(node == GridSet.last())
+                if(node == GridSet.last()){
+                    visited[node.pos.Get_X()][node.pos.Get_Y()] = true;
                     return currentPos;
+                }
                 continue;
             }
             //DFS
@@ -113,24 +115,33 @@ public class PathFinder {
                 }
             }
         }
+        Position finalPosition = null;
         for(GridNode node : Nodes){
             if(Destination.Get_X()<currentPos.Get_X()){
                 if(node.pos.Get_X()<currentPos.Get_X())
-                    return currentPos;
+                    finalPosition = currentPos;
+                if(Grid.GetTerrain(currentPos)==TerrainType.Bridge)
+                    return finalPosition;
             }
             else if(Destination.Get_X()>currentPos.Get_X()){
                 if(node.pos.Get_X()>currentPos.Get_X())
-                    return currentPos;
+                    finalPosition = currentPos;
+                if(Grid.GetTerrain(currentPos)==TerrainType.Bridge)
+                    return finalPosition;
             }
             else if(Destination.Get_Y()<currentPos.Get_Y()){
                 if(node.pos.Get_Y()<currentPos.Get_Y())
-                    return currentPos;
+                    finalPosition = currentPos;
+                if(Grid.GetTerrain(currentPos)==TerrainType.Bridge)
+                    return finalPosition;
             }
             else if(Destination.Get_Y()>currentPos.Get_Y()){
                 if(node.pos.Get_Y()>currentPos.Get_Y())
-                    return currentPos;
+                    finalPosition = currentPos;
+                if(Grid.GetTerrain(currentPos)==TerrainType.Bridge)
+                    return finalPosition;
             }
         }
-        return null;
+        return finalPosition;
     }
 }

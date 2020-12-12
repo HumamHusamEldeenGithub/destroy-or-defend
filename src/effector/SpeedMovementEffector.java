@@ -23,7 +23,7 @@ public class SpeedMovementEffector extends Effector{
     @Override
     public synchronized void effect(Unit unit, TerrainType terrainType) {
         if (terrainType==TerrainType.River)
-            unit.SetSpeedMovementEffectorValue(0.5);
+            unit.SetSpeedMovementEffectorValue(3.5);
         else if (terrainType==TerrainType.Flat)
             unit.SetSpeedMovementEffectorValue(1);
 

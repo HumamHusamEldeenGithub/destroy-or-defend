@@ -16,11 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import player.PlayerType;
 import unit.Unit;
 import unit.UnitFactory;
 
@@ -86,8 +84,8 @@ public class Arena extends Thread {
     }
     void setResultPane()
     {
-        Result.setLayoutX(40000);
-        Result.setLayoutY(40000);
+        Result.setLayoutX(300);
+        Result.setLayoutY(400);
         Result.setPrefSize(200,50);
         AttackerWon.setPrefSize(200,50);
         AttackerWon.setFont(new Font("Yu Gothic" , 16));
@@ -99,6 +97,7 @@ public class Arena extends Thread {
         DefenderWon.setPrefSize(200,50);
         AttackerWon.setOpacity(0);
         DefenderWon.setOpacity(0);
+        Result.setOpacity(0);
         Result.getChildren().addAll(AttackerWon,DefenderWon) ;
     }
     public void Pause_Unpause(ActionEvent actionEvent)
@@ -122,7 +121,7 @@ public class Arena extends Thread {
             LayOutY = 2 * (GUIManager.ScaleUp - 1) * GUIManager.borderHeight;
             double x = (mouseEvent.getX() - ((float) GUIManager.borderWidth / 2.0f));
             double y = (mouseEvent.getY()) - ((float) GUIManager.borderHeight / 2.0f);
-            System.out.println(x + " " + y);
+            //System.out.println(x + " " + y);
             double MapNewWidth = 0 ,MapNewHeight=0 , newLayouytX =0 , newLayoutY=0 ;
             MapNewWidth = Map.getPrefWidth()/GUIManager.borderWidth * BorderWidthScaleUp ;
             MapNewHeight = Map.getPrefHeight()/GUIManager.borderHeight * BorderHeightScaleUp ;
@@ -155,11 +154,6 @@ public class Arena extends Thread {
             circle.setCenterX(unit.GetPosition().Get_X());
             circle.setCenterY(unit.GetPosition().Get_Y());
             circle.setRadius((int)unit.GetSize().GetValue());
-            //circle.setFill(new ImagePattern(new Image("\\Images\\Wa2el_CanonBig.png")));
-//            if (unit.GetPlayerType()== PlayerType.Attacker)
-//                circle.setFill(new Color(1,0,0,0.5));
-//            else
-//                circle.setFill(new Color(0,0,1,0.5));
             circle.setFill(new ImagePattern(new Image("\\Images\\"+ UnitFactory.GetImagePath(unit.GetType()))));
             circle.setId(unit.GetUniqueId());
             circle.setOnMouseClicked(this::ShowUnitInfo);
@@ -190,16 +184,7 @@ public class Arena extends Thread {
                 }
             }
             DoDGameManager.UpdateGame();
-        }
-        Result.setLayoutX(300);
-        Result.setLayoutY(400);
-        if (DoDGameManager.GetState()== GameState.AttackerWon) {
-            AttackerWon.setOpacity(1);
-            Result.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, null)));
-        }
-        else {
-            Result.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, null)));
-            DefenderWon.setOpacity(1);
+            ResultPaneUpdate();
         }
 
     }
@@ -220,8 +205,21 @@ public class Arena extends Thread {
             if (unit.GetUniqueId().equals(LastClickedNode.getId()))
             {
                 UnitInfoAlert unitInfoAlert = new UnitInfoAlert() ;
-                unitInfoAlert.PrintError("");
+                unitInfoAlert.PrintError("Unit = " + unit.GetType()+"\nPlayerType =" +unit.GetPlayerType()+"\nPosition ="+unit.GetPosition()  +"\nHealth = " + unit.GetHealth().GetValue() + "\nDamage = " + unit.GetSize().GetValue() + "\nSpeed = " + unit.GetMovementSpeed().GetValue() + "\nAttackSpeed = " + unit.GetAttackSpeed().GetValue());
             }
+        }
+    }
+    void ResultPaneUpdate()
+    {
+        if (DoDGameManager.GetState()== GameState.AttackerWon) {
+            AttackerWon.setOpacity(1);
+            Result.setBackground(new Background(new BackgroundFill(Color.RED, CornerRadii.EMPTY, null)));
+            Result.setOpacity(1);
+        }
+        else if (DoDGameManager.GetState()==GameState.DefenderWon){
+            Result.setBackground(new Background(new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, null)));
+            DefenderWon.setOpacity(1);
+            Result.setOpacity(1);
         }
     }
 }

@@ -1,6 +1,5 @@
 package GUI;
 
-import GUI.GUIObserver.MoveGUIObserver;
 import Utilitiy.Position;
 import gameManager.DoDGameManager;
 import javafx.event.ActionEvent;
@@ -71,10 +70,6 @@ public class SetUnits {
             y = dim.getValue();
             Circle circle = new Circle(x,y, GUIManager.Radius);
             circle.setId(i+"");
-//            if (GUIManager.Players.get(SetUnits.id).GetType()== PlayerType.Attacker)
-//                circle.setFill(new Color(1,0,0,0.5));
-//            else
-//                circle.setFill(new Color(0,0,1,0.5));
             circle.setFill(new ImagePattern(new Image("\\Images\\"+ UnitFactory.GetImagePath(unit.GetType()))));
             circle.setOnMouseClicked(OnSelectedCircleHandler);
             pane.getChildren().add(circle);
@@ -109,7 +104,7 @@ public class SetUnits {
                         LayOutY = 2 * (GUIManager.ScaleUp - 1) * GUIManager.borderHeight;
                         double x = (mouseEvent.getX() - ((float) GUIManager.borderWidth / 2.0f));
                         double y = (mouseEvent.getY()) - ((float) GUIManager.borderHeight / 2.0f);
-                        System.out.println(x + " " + y);
+                       // System.out.println(x + " " + y);
                         double MapNewWidth = 0 ,MapNewHeight=0 , newLayouytX =0 , newLayoutY=0 ;
                         MapNewWidth = Map.getPrefWidth()/GUIManager.borderWidth * BorderWidthScaleUp ;
                         MapNewHeight = Map.getPrefHeight()/GUIManager.borderHeight * BorderHeightScaleUp ;
@@ -133,7 +128,6 @@ public class SetUnits {
                             RawShape(SetUnits.SelectedCircle) ;
                         SetUnits.SelectedCircle = (Circle) mouseEvent.getSource();
                         SetUnits.SelectedCircle.setOpacity(0.5);
-                        //System.out.println(SetUnits.SelectedCircle.getId());
                     }
 
                 }
@@ -179,15 +173,6 @@ public class SetUnits {
         node.setStyle("");
         node.setOpacity(1);
     }
-//    public void Move() throws InterruptedException {
-//        int x =1 ;
-//        for (int i =0 ; i<200 ; i++)
-//        {
-//            SelectedCircle.setCenterX(SelectedCircle.getCenterX()+x);
-//
-//        }
-//        System.out.println(SelectedCircle.getCenterX() + " " + SelectedCircle.getCenterY());
-//    }
 
     public void Done(ActionEvent actionEvent) throws IOException {
         GUIManager.zoomIn=false ;
@@ -196,7 +181,6 @@ public class SetUnits {
                 if (node instanceof Circle && node.getId() != null) {
                     Circle circle = (Circle) node;
                     Unit unit = playerUnits.get(Integer.parseInt(circle.getId()));
-                    new MoveGUIObserver(unit, circle);
                     unit.SetPosition(new Position((int) circle.getCenterX(), (int) circle.getCenterY()));
                     GUIManager.AllUnits.add(unit);
                 }
@@ -241,10 +225,6 @@ public class SetUnits {
             circle.setCenterX(unit.GetPosition().Get_X());
             circle.setCenterY(unit.GetPosition().Get_Y());
             circle.setRadius((int)unit.GetSize().GetValue());
-//            if (unit.GetPlayerType()==PlayerType.Attacker)
-//                circle.setFill(new Color(1,0,0,0.5));
-//            else
-//                circle.setFill(new Color(0,0,1,0.5));
             circle.setFill(new ImagePattern(new Image("\\Images\\"+ UnitFactory.GetImagePath(unit.GetType()))));
         }
         Map.setScaleX(1);

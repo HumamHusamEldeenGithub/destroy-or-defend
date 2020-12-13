@@ -103,7 +103,7 @@ public class DoDGameManager extends GameManager {
             if (!Attackers.isAlive()) {
                 state = GameState.DefenderWon;
                 System.out.println("Defenders Won");
-            } else if (!Defenders.isAlive()) {
+            } else if (!Defenders.isAlive()||Grid.getBaseHealthValue()<=0) {
                 state = GameState.AttackerWon;
                 System.out.println("Attackers Won");
             }

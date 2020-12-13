@@ -93,6 +93,7 @@ public class Grid {
     public static synchronized Position getBasePosition(){
         return mainBase.GetPosition() ;
     }
+    public  static synchronized double getBaseHealthValue() {return mainBase.GetHealth().GetValue();}
 
     public static synchronized GridCell GetCell(Position pos){
         if(Cells.containsKey(pos))

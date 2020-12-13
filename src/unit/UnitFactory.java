@@ -13,15 +13,16 @@ import java.util.List;
 
 public class  UnitFactory {
     public final static HashMap<UnitType,String[]>UnitsInfo = new HashMap<UnitType,String[]>() ;
-    static UnitFactory unitFactory;
+    static UnitFactory unitFactory=null;
     static String[] UnitPropertiesNames  ;
     public static UnitFactory GetObj(){
-        synchronized (UnitFactory.class)
-        {
-            if (UnitFactory.unitFactory==null)
-                unitFactory = new UnitFactory() ;
-        }
-        return unitFactory;
+        if (UnitFactory.unitFactory==null)
+            synchronized (UnitFactory.class)
+            {
+                if (UnitFactory.unitFactory==null)
+                    UnitFactory.unitFactory = new UnitFactory() ;
+            }
+        return UnitFactory.unitFactory;
     }
     UnitFactory() {
         LoadData();

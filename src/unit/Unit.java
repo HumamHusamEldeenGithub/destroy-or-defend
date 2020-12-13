@@ -2,13 +2,11 @@ package unit;
 
 import Arena.GridCell;
 import Arena.Grid;
-import GUI.GUIObserver.MoveGUIObserver;
 import Strategies.AttackStrategy;
 import Utilitiy.Logger;
 import Utilitiy.Position;
 import Utilitiy.StopWatchPool;
 import Utilitiy.UniqueIDGenerator;
-import player.Player;
 import player.PlayerType;
 import unitProperty.*;
 
